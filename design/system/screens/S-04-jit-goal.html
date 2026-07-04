@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>powerj S-04 — 즉석 목표 수립</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/complete/WantedSansVariable.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../components.css">
+<style>
+  /* S-04 전용 — 즉석 수립은 10초 안에 끝나야 한다: 선택지 크고, 입력은 하나 */
+  .modes { display: flex; gap: var(--sp-sm); margin-top: var(--sp-md); }
+  .mode-card {
+    flex: 1; text-align: left; cursor: pointer;
+    background: var(--surface); border: 1px solid var(--edge);
+    border-radius: var(--radius-md); padding: var(--sp-md) 14px;
+    min-height: 112px; display: flex; flex-direction: column; gap: var(--sp-xs);
+    font-family: var(--font-sans); color: var(--text);
+    transition: border-color var(--dur-short), background var(--dur-short);
+  }
+  .mode-card .m-label {
+    font-family: var(--font-num); font-size: var(--text-micro);
+    letter-spacing: .12em; color: var(--text-muted); text-transform: uppercase;
+  }
+  .mode-card .m-name { font-size: 15px; font-weight: 700; }
+  .mode-card .m-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+  .mode-card[aria-checked="true"] {
+    border-color: var(--ember); background: var(--ember-soft);
+  }
+  .mode-card[aria-checked="true"] .m-label { color: var(--ember); }
+  .mode-card[aria-checked="true"] .m-desc { color: var(--text); }
+
+  /* 목표 입력 — 패널 하나, 필드 하나 */
+  .goal-input {
+    display: flex; align-items: center; gap: var(--sp-sm);
+    margin-top: var(--sp-sm); padding: 14px;
+    background: var(--surface); border: 1px solid var(--edge);
+    border-radius: var(--radius-md); min-height: 52px;
+  }
+  .goal-input .placeholder { font-size: 15px; color: var(--text-faint); }
+  .goal-input .caret {
+    width: 2px; height: 18px; background: var(--ember);
+    animation: blink 1.1s steps(1) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .chips-label {
+    font-family: var(--font-num); font-size: var(--text-micro);
+    letter-spacing: .12em; color: var(--text-muted);
+    margin: var(--sp-md) 0 var(--sp-sm); text-transform: uppercase;
+  }
+  .micro-note { font-size: 11px; color: var(--text-muted); line-height: 1.5; margin-bottom: var(--sp-sm); }
+</style>
+</head>
+<body>
+<div class="screen">
+  <div class="statusbar"><span>14:58</span><span>슬롯 15:00 → 15:45</span></div>
+
+  <div class="screen-head">
+    <div class="overline info">즉석 계획 — 15:00 슬롯</div>
+    <h1 class="title">지금 <span class="num">45</span>분이 비었다</h1>
+    <p class="sub">다음 고정 프로세스: <span class="num">15:45</span> 오후 업무 재개</p>
+  </div>
+
+  <div class="modes" role="radiogroup" aria-label="목표 수립 방식">
+    <button class="mode-card" role="radio" aria-checked="true">
+      <span class="m-label">① Time-box</span>
+      <span class="m-name">시간 기준</span>
+      <span class="m-desc"><span class="num">45</span>분 안에 어디까지?</span>
+    </button>
+    <button class="mode-card" role="radio" aria-checked="false">
+      <span class="m-label">② Target-box</span>
+      <span class="m-name">목표 기준</span>
+      <span class="m-desc"><span class="num">15:45</span>까지 반드시 끝낸다</span>
+    </button>
+  </div>
+
+  <div class="panel" style="padding: 14px;">
+    <div class="panel-label">이 시간의 정량 목표</div>
+    <div class="goal-input" style="margin-top: 0; border: none; padding: 0; min-height: 32px;">
+      <span class="caret"></span>
+      <span class="placeholder">CS 문제 10개</span>
+    </div>
+  </div>
+
+  <div class="chips-label">최근 목표에서 바로 선택</div>
+  <div class="chips">
+    <button class="chip ember">CS 문제 <span class="num">10</span>개</button>
+    <button class="chip ember">이슈 <span class="num">2</span>개 정리</button>
+    <button class="chip ember">영상 <span class="num">1</span>개</button>
+  </div>
+
+  <div class="bottom-act">
+    <p class="micro-note">수립에 <span class="num">10</span>초를 넘기지 마세요 — 계획이 실행을 잡아먹지 않게.</p>
+    <button class="btn btn-primary">타이머 시작 — 방해금지 ON</button>
+  </div>
+</div>
+</body>
+</html>

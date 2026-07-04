@@ -1,0 +1,140 @@
+/* ============================================================
+   powerj 컴포넌트 CSS — 화면(screens/*.html)들이 공유하는 부품
+   규칙 원문: design/DESIGN.md §7(레이아웃)·§9(컴포넌트)
+   · 깊이는 그림자가 아니라 1px --edge 보더 + 배경 단차
+   · 게이지·바 라디우스 0 / 칩·버튼 3px / 패널 6px
+   · 중앙 정렬은 확정·보상 순간에만
+   ============================================================ */
+
+/* ---------- 화면 컨테이너 (모바일 390 기준, 단독 실행 가능) ---------- */
+.screen {
+  max-width: 420px; min-height: 100dvh; margin: 0 auto;
+  background: var(--bg); position: relative;
+  display: flex; flex-direction: column;
+  padding: 0 var(--screen-pad) calc(var(--sp-2xl) + 56px);
+}
+.statusbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 0 0; font-family: var(--font-num); font-size: var(--text-micro);
+  letter-spacing: .06em; color: var(--text-muted);
+}
+.screen-head { padding-top: var(--sp-lg); }
+.overline {
+  font-family: var(--font-num); font-size: var(--text-micro);
+  letter-spacing: .12em; color: var(--ember); text-transform: uppercase;
+}
+.overline.info { color: var(--slate); }
+h1.title { font-size: var(--text-h1); font-weight: 800; letter-spacing: -.01em; margin-top: var(--sp-xs); }
+.sub { font-size: var(--text-caption); color: var(--text-muted); margin-top: var(--sp-xs); }
+
+/* ---------- 패널 ---------- */
+.panel {
+  background: var(--surface); border: 1px solid var(--edge);
+  border-radius: var(--radius-md); padding: var(--sp-md);
+  margin-top: var(--sp-md);
+}
+.panel .panel-label {
+  font-family: var(--font-num); font-size: var(--text-micro);
+  letter-spacing: .12em; color: var(--text-muted); margin-bottom: var(--sp-sm);
+}
+
+/* ---------- 원장 테이블 (ledger) ---------- */
+.ledger { margin-top: var(--sp-md); border-top: 1.5px solid var(--text); }
+.ledger .lrow {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: var(--sp-sm); padding: 10px 0; border-bottom: 1px solid var(--edge);
+  font-size: var(--text-caption);
+}
+.ledger .lrow .val { font-family: var(--font-num); font-weight: 600; }
+.val.hot   { color: var(--ember-hot); }   /* 단축·달성 */
+.val.cool  { color: var(--slate); }       /* 초과·실패·계획 */
+.val.gold  { color: var(--gold); }        /* 100% 전용 */
+.val.muted { color: var(--text-muted); }
+
+/* ---------- 히트 바 / 게이지 ---------- */
+.heat-bar {
+  height: 14px; background: var(--edge); border-radius: var(--radius-none);
+  overflow: hidden; position: relative;
+}
+.heat-bar > i {
+  display: block; height: 100%;
+  background: linear-gradient(90deg, var(--ember-dim), var(--ember) 70%, var(--ember-hot));
+  transform-origin: left; transition: transform var(--dur-med) var(--ease-enter);
+}
+.heat-bar.is-gold > i { background: var(--gold); }
+.heat-bar.is-cold > i { background: var(--edge); }
+
+/* 도트형 진행 (목표 개수형: 영상 2개 등) */
+.ticks { display: inline-flex; gap: 4px; }
+.ticks i { width: 16px; height: 9px; border: 1px solid var(--ember-dim); background: transparent; }
+.ticks i.on { background: var(--ember); border-color: var(--ember); }
+
+/* ---------- 칩 (실패 원인·선택) ---------- */
+.chips { display: flex; flex-wrap: wrap; gap: var(--sp-sm); }
+.chip {
+  font-size: 13px; font-weight: 600; color: var(--slate);
+  border: 1px solid var(--slate); border-radius: var(--radius-sm);
+  padding: 10px 14px; min-height: 44px; display: inline-flex; align-items: center;
+  background: transparent; cursor: pointer;
+  transition: background var(--dur-short), color var(--dur-short);
+}
+.chip.set { background: var(--slate); color: var(--bg); }
+.chip.ember { color: var(--ember); border-color: var(--ember); }
+.chip.ember.set { background: var(--ember); color: var(--bg); }
+
+/* ---------- 버튼 ---------- */
+.btn {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 52px; padding: 0 var(--sp-lg); width: 100%;
+  font-family: var(--font-sans); font-size: 15px; font-weight: 700; letter-spacing: .02em;
+  border-radius: var(--radius-sm); border: 1px solid transparent; cursor: pointer;
+  transition: filter var(--dur-short);
+}
+.btn:active { filter: brightness(1.1); }
+.btn-primary { background: var(--ember); color: #141210; }
+.btn-ghost   { background: transparent; color: var(--text); border-color: var(--edge); }
+.btn-hold    { background: transparent; color: var(--ember); border: 1px solid var(--ember); }
+.btn-danger  { background: transparent; color: var(--danger); border-color: var(--danger); }
+
+/* ---------- 스탯 대형 숫자 ---------- */
+.stat-xl { font-family: var(--font-num); font-weight: 600; font-size: var(--text-stat-xl); line-height: 1; }
+.stat    { font-family: var(--font-num); font-weight: 600; font-size: var(--text-stat); line-height: 1; }
+.stat-xl small, .stat small { font-size: .5em; color: var(--text-muted); font-weight: 500; }
+.stat-xl.is-gold, .stat.is-gold, .stat-xl.is-gold small, .stat.is-gold small { color: var(--gold); }
+
+/* ---------- 타이머 ---------- */
+.timer-num {
+  font-family: var(--font-num); font-weight: 600;
+  font-size: var(--text-timer); line-height: 1; letter-spacing: -.04em; white-space: nowrap;
+}
+.timer-num small { font-size: .34em; color: var(--text-muted); font-weight: 500; }
+
+/* ---------- 프로세스 행 (오늘의 체인) ---------- */
+.proc {
+  display: flex; align-items: center; gap: var(--sp-md);
+  padding: 14px 0; border-bottom: 1px solid var(--edge);
+}
+.proc .t { font-family: var(--font-num); font-size: 12px; color: var(--text-muted); width: 78px; flex-shrink: 0; }
+.proc .name { font-size: 14px; font-weight: 600; flex: 1; }
+.proc .meta { font-family: var(--font-num); font-size: 11px; color: var(--text-muted); }
+.proc.now { background: var(--ember-soft); box-shadow: inset 3px 0 0 var(--ember); padding-left: 10px; margin: 0 -10px 0 -13px; }
+.proc.done .name { color: var(--text-muted); }
+.proc.jit .name::after { content: " · 즉석"; font-size: 11px; color: var(--slate); font-weight: 500; }
+
+/* ---------- 상태 도트 ---------- */
+.dot { width: 8px; height: 8px; border-radius: var(--radius-full); display: inline-block; }
+.dot.ember { background: var(--ember); }
+.dot.slate { background: var(--slate); }
+.dot.gold  { background: var(--gold); }
+
+/* ---------- 하단 고정 액션 ---------- */
+.bottom-act {
+  position: fixed; left: 0; right: 0; bottom: 0;
+  max-width: 420px; margin: 0 auto; padding: var(--sp-md) var(--screen-pad) calc(var(--sp-md) + 8px);
+  background: linear-gradient(transparent, var(--bg) 30%);
+}
+
+/* ---------- 일기 (S-08 전용) ---------- */
+.diary-body {
+  font-family: var(--font-diary); font-size: 15px; line-height: 1.95; color: var(--text);
+}

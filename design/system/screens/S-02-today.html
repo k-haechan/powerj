@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>powerj S-02 — 오늘의 체인</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/complete/WantedSansVariable.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../components.css">
+<style>
+  /* S-02 전용 — 홈: 하루 체인 한눈에. 요약은 heat, 계획은 slate */
+  .sum-top { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--sp-md); margin-bottom: var(--sp-sm); }
+  .stat.heat { color: var(--ember-hot); } /* 82% — 70–99 구간, gold 아님 */
+  .sum-desc { font-size: var(--text-caption); color: var(--text-muted); text-align: right; line-height: 1.5; }
+  .sum-desc b { font-weight: 600; color: var(--text); }
+
+  .chain { list-style: none; margin-top: var(--sp-lg); border-top: 1.5px solid var(--text); }
+  .chain-label {
+    font-family: var(--font-num); font-size: var(--text-micro);
+    letter-spacing: .12em; color: var(--text-muted); text-transform: uppercase;
+    margin-top: var(--sp-lg); margin-bottom: var(--sp-sm);
+  }
+  .proc .meta b { font-weight: 600; }
+  .proc.now .name { font-weight: 700; }
+  .proc.now .meta { color: var(--ember); }
+  .proc.now .dot.ember { animation: pulse 2.4s ease-in-out infinite; margin-right: 6px; }
+  @keyframes pulse { 50% { opacity: .35; } }
+  .proc.jit { border-bottom-style: dashed; }
+  .proc.jit .name { color: var(--text-muted); font-weight: 500; }
+  .proc.jit .meta, .proc.wrap .name, .proc.wrap .meta { color: var(--slate); }
+  .state {
+    font-size: var(--text-micro); font-weight: 600; letter-spacing: .04em;
+    color: var(--text-faint); flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+<div class="screen">
+  <div class="statusbar"><span>08:32</span><span>방해금지 ●</span></div>
+
+  <div class="screen-head">
+    <div class="overline">오늘의 체인</div>
+    <h1 class="title"><span class="num">2026.07.04</span> 금</h1>
+    <p class="sub">프로세스 <span class="num">8</span>개 — 사전 계획 <span class="num">7</span> · 즉석 슬롯 <span class="num">1</span></p>
+  </div>
+
+  <section class="panel" aria-label="오늘 진행 요약">
+    <div class="panel-label">오늘 진행</div>
+    <div class="sum-top">
+      <div class="stat heat">82<small>%</small></div>
+      <div class="sum-desc">프로세스 <b class="num">5/8</b> 진행<br>현재 평균 달성률</div>
+    </div>
+    <div class="heat-bar" role="img" aria-label="현재 평균 달성률 82퍼센트">
+      <i style="transform: scaleX(.82)"></i>
+    </div>
+  </section>
+
+  <h2 class="chain-label">Chain — 06:00 → 23:00</h2>
+  <ol class="chain">
+    <li class="proc done">
+      <span class="t">06:00</span>
+      <span class="name">기상·새벽 커밋</span>
+      <span class="meta"><b class="val gold">100%</b> · <b class="val hot">−30분</b></span>
+      <span class="state">완료</span>
+    </li>
+    <li class="proc now" aria-current="step">
+      <span class="t">08:00</span>
+      <span class="name">이동·출근</span>
+      <span class="meta"><span class="dot ember"></span>진행 중 <b>27:43</b></span>
+    </li>
+    <li class="proc">
+      <span class="t">09:00</span>
+      <span class="name">오전 업무</span>
+      <span class="meta">보고서 초안 1건</span>
+      <span class="state">예정</span>
+    </li>
+    <li class="proc">
+      <span class="t">12:30</span>
+      <span class="name">점심 CS 5문제</span>
+      <span class="meta">목표 5문제</span>
+      <span class="state">예정</span>
+    </li>
+    <li class="proc jit">
+      <span class="t">15:00</span>
+      <span class="name">즉석 계획 슬롯</span>
+      <span class="meta">그때 목표 수립</span>
+    </li>
+    <li class="proc">
+      <span class="t">19:00</span>
+      <span class="name">저녁 자소서</span>
+      <span class="meta">목표 기준 21:00까지</span>
+      <span class="state">예정</span>
+    </li>
+    <li class="proc wrap">
+      <span class="t">23:00</span>
+      <span class="name">하루 마감</span>
+      <span class="meta">일기 + 대시보드</span>
+    </li>
+  </ol>
+
+  <div class="bottom-act">
+    <button class="btn btn-primary">지금 프로세스 열기 — 이동·출근</button>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>powerj — 문제 정의 (Problem Statement)</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/complete/WantedSansVariable.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../design/system/tokens.css">
+<link rel="stylesheet" href="../assets/doc.css">
+</head>
+<body>
+<div class="doc-wrap">
+  <div class="doc-top">
+    <span class="crumb">POWERJ / DOCS / PROBLEM</span>
+    <a href="../index.html">← 종합 페이지</a>
+  </div>
+  <article class="md" id="md"><p class="doc-loading">problem.md 로딩 중…</p></article>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
+<script>
+  fetch('problem.md')
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
+    .then(md => { document.getElementById('md').innerHTML = marked.parse(md); })
+    .catch(() => {
+      document.getElementById('md').innerHTML =
+        '<p class="doc-loading">렌더 실패 — <a href="problem.md">problem.md 원문 보기</a></p>';
+    });
+</script>
+</body>
+</html>

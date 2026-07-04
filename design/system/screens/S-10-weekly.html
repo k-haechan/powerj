@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>powerj S-10 — 주간 리포트</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/complete/WantedSansVariable.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../components.css">
+<style>
+  /* S-10 전용 — 주간 인사이트: 패턴을 데이터로 보여주고, 다음 주 조판으로 넘긴다 */
+
+  /* 상단 스탯 행 — 좌측 정렬 2셀, 세로 헤어라인 분리 */
+  .stat-row { display: flex; gap: var(--sp-lg); margin-top: var(--sp-lg); }
+  .stat-cell { flex: 1; min-width: 0; }
+  .stat-cell + .stat-cell { border-left: 1px solid var(--edge); padding-left: var(--sp-lg); }
+  .stat-cell .s-label {
+    font-family: var(--font-num); font-size: var(--text-micro);
+    letter-spacing: .12em; color: var(--text-muted); margin-bottom: var(--sp-sm);
+  }
+  .stat-cell .stat { color: var(--ember-hot); }
+  .stat-mid {
+    font-family: var(--font-num); font-weight: 600; font-size: 26px;
+    line-height: 1.15; color: var(--ember-hot); /* 시간 단축 = 성취 → ember-hot (초록 금지) */
+  }
+  .stat-mid small { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+  .stat-cell .s-note { font-size: 11px; color: var(--text-muted); margin-top: var(--sp-xs); }
+
+  /* 시간대별 안정성 — 라벨 / 히트 바 / 수치 그리드 행 */
+  .tb-row {
+    display: grid; grid-template-columns: 64px 1fr 52px;
+    align-items: center; gap: var(--sp-sm); padding: 9px 0;
+  }
+  .tb-row + .tb-row { border-top: 1px dashed var(--edge); }
+  .tb-row .tb-name { font-size: 13px; font-weight: 600; }
+  .tb-row .tb-time { display: block; font-family: var(--font-num); font-size: 10px; color: var(--text-faint); }
+  .tb-row .heat-bar { height: 12px; }
+  .heat-bar.is-slate > i { background: var(--slate); } /* 구조적 불안정 = 분석 데이터 → slate */
+  .tb-row .tb-pct { font-family: var(--font-num); font-weight: 600; font-size: 13px; text-align: right; }
+  .tb-pct.hot  { color: var(--ember-hot); }
+  .tb-pct.warm { color: var(--ember); }
+  .tb-pct.cool { color: var(--slate); }
+  .tb-flag { display: block; font-family: var(--font-sans); font-size: 9px; font-weight: 600; color: var(--slate); letter-spacing: .04em; }
+
+  /* 분석 캡션 — 실패는 데이터, slate 로 말한다 */
+  .insight {
+    display: flex; gap: var(--sp-sm); margin-top: var(--sp-md);
+    padding-top: var(--sp-sm); border-top: 1px solid var(--edge);
+    font-size: var(--text-caption); color: var(--text-muted); line-height: 1.55;
+  }
+  .insight::before { content: ""; width: 3px; flex-shrink: 0; background: var(--slate); }
+  .insight b { color: var(--slate); font-weight: 600; }
+
+  /* 실패 원인 Top3 — slate 막대 (빨강 금지) */
+  .cause-row {
+    display: grid; grid-template-columns: 92px 1fr 36px;
+    align-items: center; gap: var(--sp-sm); padding: 9px 0;
+  }
+  .cause-row + .cause-row { border-top: 1px dashed var(--edge); }
+  .cause-row .c-name { font-size: 13px; font-weight: 600; }
+  .cause-bar { height: 12px; background: var(--edge); border-radius: var(--radius-none); overflow: hidden; }
+  .cause-bar > i {
+    display: block; height: 100%; background: var(--slate);
+    transform-origin: left; transition: transform var(--dur-med) var(--ease-enter);
+  }
+  .cause-row .c-count { font-family: var(--font-num); font-weight: 600; font-size: 13px; color: var(--slate); text-align: right; }
+
+  /* 목표 보정 제안 — slate 정보 패널 */
+  .panel.advice { background: var(--slate-soft); border-color: rgba(125, 147, 178, .35); }
+  .panel.advice .panel-label { color: var(--slate); }
+  .advice ul { list-style: none; }
+  .advice li {
+    position: relative; padding: 9px 0 9px 16px;
+    font-size: 13px; line-height: 1.55;
+  }
+  .advice li + li { border-top: 1px dashed rgba(125, 147, 178, .25); }
+  .advice li::before {
+    content: ""; position: absolute; left: 0; top: 16px;
+    width: 8px; height: 8px; border-radius: var(--radius-full); background: var(--slate);
+  }
+  .advice li .why { display: block; font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+</style>
+</head>
+<body>
+<div class="screen">
+  <div class="statusbar"><span>21:24</span><span>2026 W27</span></div>
+
+  <div class="screen-head">
+    <div class="overline info">주간 리포트 — 6월 5주차</div>
+    <h1 class="title">무엇이 나를 막았고, 언제 강했나</h1>
+    <p class="sub"><span class="num">6.29 – 7.5</span> · 프로세스 <b class="num">41</b>개 실행 · 전환 검증 <b class="num">41</b>회</p>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-cell">
+      <div class="s-label">주 평균 달성률</div>
+      <div class="stat" role="status" aria-label="주 평균 달성률 84퍼센트">84<small>%</small></div>
+      <p class="s-note">지난주 대비 <span class="num">+6%p</span></p>
+    </div>
+    <div class="stat-cell">
+      <div class="s-label">시간 효율 합계</div>
+      <div class="stat-mid" role="status" aria-label="계획 대비 1시간 12분 단축">−1<small>시간</small> 12<small>분</small></div>
+      <p class="s-note">계획 대비 단축 — 주 <span class="num">5/7</span>일 흑자</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-label">01 — 시간대별 안정성 (주 평균 달성률)</div>
+    <div class="tb-row">
+      <span class="tb-name">새벽<span class="tb-time">05–08</span></span>
+      <div class="heat-bar" role="img" aria-label="새벽 시간대 평균 달성률 96퍼센트, 안정"><i style="transform:scaleX(.96)"></i></div>
+      <span class="tb-pct hot num">96%</span>
+    </div>
+    <div class="tb-row">
+      <span class="tb-name">이동<span class="tb-time">08–09</span></span>
+      <div class="heat-bar" role="img" aria-label="이동 시간대 평균 달성률 71퍼센트"><i style="transform:scaleX(.71)"></i></div>
+      <span class="tb-pct warm num">71%</span>
+    </div>
+    <div class="tb-row">
+      <span class="tb-name">오후<span class="tb-time">13–18</span></span>
+      <div class="heat-bar" role="img" aria-label="오후 시간대 평균 달성률 88퍼센트"><i style="transform:scaleX(.88)"></i></div>
+      <span class="tb-pct hot num">88%</span>
+    </div>
+    <div class="tb-row">
+      <span class="tb-name">저녁<span class="tb-time">20–23</span></span>
+      <div class="heat-bar is-slate" role="img" aria-label="저녁 시간대 평균 달성률 43퍼센트, 구조적 불안정"><i style="transform:scaleX(.43)"></i></div>
+      <span class="tb-pct cool num">43%<span class="tb-flag">불안정</span></span>
+    </div>
+    <p class="insight"><span><b>저녁 프로세스가 구조적으로 불안정</b> — 핵심 작업을 새벽으로 옮기는 것을 검토</span></p>
+  </div>
+
+  <div class="panel">
+    <div class="panel-label">02 — 실패 원인 Top 3 (전환 검증 기록)</div>
+    <div class="cause-row">
+      <span class="c-name">졸음</span>
+      <div class="cause-bar" role="img" aria-label="졸음 7회"><i style="transform:scaleX(1)"></i></div>
+      <span class="c-count">×7</span>
+    </div>
+    <div class="cause-row">
+      <span class="c-name">야근·본업 침범</span>
+      <div class="cause-bar" role="img" aria-label="야근 및 본업 침범 4회"><i style="transform:scaleX(.57)"></i></div>
+      <span class="c-count">×4</span>
+    </div>
+    <div class="cause-row">
+      <span class="c-name">알림</span>
+      <div class="cause-bar" role="img" aria-label="알림 3회"><i style="transform:scaleX(.43)"></i></div>
+      <span class="c-count">×3</span>
+    </div>
+    <p class="insight"><span>졸음 <b class="num">7</b>회 중 <b class="num">5</b>회가 저녁 자소서에서 발생 — 원인이 아니라 배치의 문제일 수 있다</span></p>
+  </div>
+
+  <div class="panel advice">
+    <div class="panel-label">03 — 목표 보정 제안 (다음 주 조판)</div>
+    <ul>
+      <li>이동 영상 <span class="num">2개 → 1개</span>
+        <span class="why"><span class="num">3</span>주 연속 미달 — 목표 과다</span></li>
+      <li>저녁 자소서는 목표 기준(Target-box)으로 전환 권장
+        <span class="why">시간 기준으로는 주 <span class="num">1/5</span>회만 달성 — 분량이 기준이 되어야 한다</span></li>
+      <li>점심 CS <span class="num">5</span>문제는 유지
+        <span class="why">주 <span class="num">4/5</span>회 달성 — 안정 구간</span></li>
+    </ul>
+  </div>
+
+  <div class="bottom-act">
+    <button type="button" class="btn btn-primary">다음 주 조판에 반영</button>
+  </div>
+</div>
+</body>
+</html>

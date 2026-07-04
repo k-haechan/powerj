@@ -1,0 +1,28 @@
+/* powerj 문서 페이지 공용 스타일 — 엠버 크로노그래프 (tokens.css 위에서 동작) */
+body { background: var(--bg); }
+.doc-wrap { max-width: 780px; margin: 0 auto; padding: 40px clamp(16px, 4vw, 24px) 120px; }
+.doc-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 28px; }
+.doc-top a { color: var(--text-muted); text-decoration: none; font-size: 13px; }
+.doc-top a:hover { color: var(--ember); }
+.doc-top .crumb { font-family: var(--font-num); font-size: 11px; letter-spacing: .1em; color: var(--ember); }
+
+/* 렌더된 마크다운 */
+.md h1 { font-size: 30px; font-weight: 800; letter-spacing: -.02em; line-height: 1.25; margin: 8px 0 20px; }
+.md h2 { font-size: 21px; font-weight: 800; letter-spacing: -.01em; margin: 44px 0 12px; padding-top: 20px; border-top: 1px solid var(--edge); }
+.md h3 { font-size: 16.5px; font-weight: 700; margin: 28px 0 8px; color: var(--ember-hot); }
+.md p { margin: 10px 0; line-height: 1.75; color: var(--text); }
+.md li { margin: 6px 0 6px 4px; line-height: 1.7; }
+.md ul, .md ol { padding-left: 22px; margin: 10px 0; }
+.md strong { color: var(--ember-hot); font-weight: 700; }
+.md em { color: var(--text-muted); }
+.md code { font-family: var(--font-num); font-size: .88em; background: var(--surface-2); border: 1px solid var(--edge); border-radius: 3px; padding: 1px 6px; }
+.md blockquote { border-left: 3px solid var(--ember); background: var(--surface); padding: 12px 16px; margin: 16px 0; border-radius: 0 var(--radius-md) var(--radius-md) 0; color: var(--text); }
+.md blockquote p { margin: 4px 0; }
+.md hr { border: none; border-top: 1px solid var(--edge); margin: 36px 0; }
+.md table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13.5px; display: block; overflow-x: auto; }
+.md th { text-align: left; font-weight: 700; border-bottom: 1.5px solid var(--text); padding: 8px 10px; white-space: nowrap; }
+.md td { border-bottom: 1px solid var(--edge); padding: 8px 10px; vertical-align: top; }
+.md td:first-child, .md th:first-child { padding-left: 0; }
+.md a { color: var(--slate); text-decoration: underline; text-underline-offset: 3px; }
+.md a:hover { color: var(--ember); }
+.doc-loading { color: var(--text-muted); font-family: var(--font-num); font-size: 12px; padding: 40px 0; }

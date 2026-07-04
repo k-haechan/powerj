@@ -1,0 +1,93 @@
+/* ============================================================
+   powerj 디자인시스템 — Design Tokens (단일 진실 원천 코드화)
+   엠버 크로노그래프: 웜 차콜 계기판 위에서 달성률이 불씨처럼 차오른다.
+   스펙 원문: design/DESIGN.md — 이 파일은 그 코드 표현이다.
+
+   핵심 규칙 (DESIGN.md §5):
+   · 달성/성취 = ember heat 스케일. "채워지는 게 아니라 뜨거워진다"
+   · 100% = gold 전용. 그 외 사용 금지 — 희소해야 보상이다
+   · 실패/미달성/계획 = slate. 실패에 빨강 금지 (실패는 데이터다)
+   · --danger 는 파괴적 액션(삭제·초기화) 전용
+   · 숫자는 예외 없이 IBM Plex Mono(tabular). 한글 UI는 Wanted Sans
+   ============================================================ */
+
+:root {
+  /* ---------- 1. 중립 (다크 기본) ---------- */
+  --bg:          #141210;  /* 앱 배경 — 웜 차콜 */
+  --surface:     #1D1A16;  /* 패널·카드 */
+  --surface-2:   #23201B;  /* 패널 위 패널 (모달·선택 상태) */
+  --edge:        #2E2A24;  /* 보더·비활성 트랙 — 그림자 대신 1px 보더 */
+  --text:        #EDE6DA;  /* 본문 (bone) — 대비 ≈13:1 */
+  --text-muted:  #8A8378;
+  --text-faint:  #5C574E;
+
+  /* ---------- 2. 액센트 ---------- */
+  --ember:       #E8853D;  /* 달성 heat — 진행·성취·주요 액션 */
+  --ember-hot:   #F5A94B;  /* heat 상단 · 강조 수치 */
+  --ember-dim:   #7A3E1D;  /* heat 하단 · 낮은 달성률 */
+  --ember-soft:  rgba(232, 133, 61, .14);
+  --gold:        #E5B84B;  /* 100% 전용 */
+  --gold-soft:   rgba(229, 184, 75, .16);
+  --slate:       #7D93B2;  /* 실패 데이터 · 계획(미실행) · 정보 */
+  --slate-soft:  rgba(125, 147, 178, .14);
+  --danger:      #C24B36;  /* 파괴적 액션 전용 */
+
+  /* ---------- 3. 타이포 ---------- */
+  --font-num:  "IBM Plex Mono", ui-monospace, monospace;          /* 모든 숫자 */
+  --font-sans: "Wanted Sans Variable", "Wanted Sans", Pretendard, -apple-system, sans-serif;
+  --font-diary:"MaruBuri", serif;                                  /* 일기 화면 전용 */
+
+  --text-timer:   clamp(56px, 22vw, 84px);
+  --text-stat-xl: 64px;
+  --text-stat:    40px;
+  --text-h1:      24px;
+  --text-h2:      18px;
+  --text-body:    15px;
+  --text-caption: 12px;
+  --text-micro:   10px;
+
+  /* ---------- 4. 간격 (4px 베이스) ---------- */
+  --sp-2xs: 2px;  --sp-xs: 4px;  --sp-sm: 8px;  --sp-md: 16px;
+  --sp-lg: 24px;  --sp-xl: 32px; --sp-2xl: 48px; --sp-3xl: 64px;
+  --screen-pad: 18px;           /* 화면 좌우 베젤 — 고정 */
+
+  /* ---------- 5. 라디우스 ---------- */
+  --radius-none: 0;             /* 게이지·바·트랙 */
+  --radius-sm: 3px;             /* 칩·버튼 */
+  --radius-md: 6px;             /* 패널·카드 */
+  --radius-full: 999px;         /* 상태 도트만 */
+
+  /* ---------- 6. 모션 ---------- */
+  --ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-micro: 100ms; --dur-short: 200ms; --dur-med: 320ms; --dur-reward: 560ms;
+}
+
+/* ---------- 라이트 테마 (2순위 — 톤 반전 파생) ---------- */
+[data-theme="light"] {
+  --bg: #F5F1E8; --surface: #FBF8F1; --surface-2: #FFFFFF; --edge: #E0D9CC;
+  --text: #26221C; --text-muted: #756E60; --text-faint: #A39B8C;
+  --ember: #D4762F; --ember-hot: #C05F1A; --ember-dim: #E8B58C;
+  --ember-soft: rgba(212, 118, 47, .12);
+  --gold: #C29A2E; --gold-soft: rgba(194, 154, 46, .14);
+  --slate: #5C7796; --slate-soft: rgba(92, 119, 150, .12);
+  --danger: #B03E2A;
+}
+
+/* ---------- 전역 베이스 ---------- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { -webkit-font-smoothing: antialiased; }
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: 1.6;
+  background: var(--bg);
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 숫자 전역 규칙 — 클래스만 붙이면 Plex Mono + tabular */
+.num { font-family: var(--font-num); font-variant-numeric: tabular-nums; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}

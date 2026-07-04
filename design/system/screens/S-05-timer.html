@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>powerj S-05 — 실행 타이머</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/complete/WantedSansVariable.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../components.css">
+<style>
+  /* S-05 전용 — 실행 중에는 크롬 최소화, 숫자가 화면의 주인 */
+  .gauge { margin: var(--sp-xl) auto 0; width: 216px; height: 108px; position: relative; }
+  .gauge .track, .gauge .fill {
+    position: absolute; inset: 0;
+    border: 10px solid var(--edge); border-bottom: none;
+    border-radius: 216px 216px 0 0;
+  }
+  .gauge .fill {
+    border-color: var(--ember);
+    clip-path: polygon(0 0, 54% 0, 54% 100%, 0 100%); /* 경과 54% */
+  }
+  .gauge .pct {
+    position: absolute; left: 0; right: 0; bottom: 0; text-align: center;
+    font-family: var(--font-num); font-size: 13px; color: var(--text-muted);
+  }
+  .timer-wrap { text-align: center; margin-top: var(--sp-2xl); } /* 타이머는 계기판의 중심 게이지 — 중앙 허용 예외 */
+  .goal-row { display: flex; justify-content: space-between; align-items: center; gap: var(--sp-sm); padding: 11px 0; font-size: 13px; }
+  .goal-row + .goal-row { border-top: 1px dashed var(--edge); }
+  .goal-row .g-val { font-family: var(--font-num); font-size: 12px; color: var(--text); display: flex; align-items: center; gap: 10px; }
+  .dnd { display: flex; align-items: center; gap: 8px; margin-top: var(--sp-md); font-size: 12px; color: var(--text-muted); }
+  .dnd .dot.ember { animation: pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity: .35; } }
+  .acts { display: flex; gap: var(--sp-sm); }
+</style>
+</head>
+<body>
+<div class="screen">
+  <div class="statusbar"><span>08:32</span><span>방해금지 ●</span></div>
+
+  <div class="screen-head">
+    <div class="overline">Process 02 / 08 — 08:00 → 09:00</div>
+    <h1 class="title">이동·출근</h1>
+    <p class="sub">사전 계획 · 시간 기준(Time-box)</p>
+  </div>
+
+  <div class="timer-wrap">
+    <div class="timer-num">27:43<small> 남음</small></div>
+    <div class="gauge">
+      <div class="track"></div>
+      <div class="fill"></div>
+      <div class="pct">32:17 경과 · 54%</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-label">이 시간의 정량 목표</div>
+    <div class="goal-row">
+      <span>실밸 개발자 영상</span>
+      <span class="g-val"><span class="ticks"><i class="on"></i><i></i></span> 1/2</span>
+    </div>
+    <div class="goal-row">
+      <span>책 200p까지 읽기</span>
+      <span class="g-val"><span class="num">p.147</span> / 200</span>
+    </div>
+  </div>
+
+  <div class="dnd">
+    <span class="dot ember"></span>
+    방해금지 가동 중 — 알림 <b class="num">6</b>건 보류됨
+  </div>
+
+  <div class="bottom-act">
+    <div class="acts">
+      <button class="btn btn-ghost" style="flex:1">일시정지</button>
+      <button class="btn btn-hold" style="flex:2">완료 — 전환 검증으로</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>

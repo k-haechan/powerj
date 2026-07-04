@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>powerj S-01 — 온보딩</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/complete/WantedSansVariable.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../components.css">
+<style>
+  /* S-01 전용 — 첫 실행. 타이포그래피와 히트 바 하나로 제품의 한 가지를 말한다 */
+  .screen { padding-bottom: 196px; } /* CTA 2단 스택 공간 */
+
+  /* 히어로 — 기억될 한 가지 */
+  .hero { margin-top: var(--sp-2xl); }
+  .hero h1 {
+    font-size: 34px; font-weight: 800; letter-spacing: -.01em; line-height: 1.32;
+  }
+  .hero h1 em { font-style: normal; color: var(--ember-hot); }
+  .hero .lede {
+    margin-top: var(--sp-md); font-size: var(--text-body);
+    color: var(--text-muted); line-height: 1.7; max-width: 32ch;
+  }
+
+  /* 히트 바 모티프 — 하루 마감의 한 줄 (화면 유일의 그래픽) */
+  .close-line { margin-top: var(--sp-xl); }
+  .close-line .row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: var(--sp-sm);
+  }
+  .close-line .row .k {
+    font-family: var(--font-num); font-size: var(--text-micro);
+    letter-spacing: .12em; color: var(--text-muted); text-transform: uppercase;
+  }
+  .close-line .row .v {
+    font-family: var(--font-num); font-weight: 600; font-size: 20px; color: var(--ember-hot);
+  }
+  .close-line .row .v small { font-size: .6em; color: var(--text-muted); font-weight: 500; }
+  .close-line .cap {
+    margin-top: var(--sp-sm); font-size: var(--text-micro); color: var(--text-faint);
+    letter-spacing: .02em;
+  }
+
+  /* 3단계 루프 — 원장 문법의 세로 리스트 */
+  .loop { margin-top: var(--sp-xl); }
+  .loop-label {
+    font-family: var(--font-num); font-size: var(--text-micro);
+    letter-spacing: .12em; color: var(--text-muted); text-transform: uppercase;
+    margin-bottom: var(--sp-sm);
+  }
+  .steps { list-style: none; border-top: 1.5px solid var(--text); }
+  .step {
+    display: flex; gap: var(--sp-md); align-items: flex-start;
+    padding: var(--sp-md) 0; border-bottom: 1px solid var(--edge);
+  }
+  .step .s-no {
+    font-size: var(--text-caption); font-weight: 600; color: var(--ember);
+    letter-spacing: .08em; padding-top: 2px; flex-shrink: 0;
+  }
+  .step .s-title { font-size: 15px; font-weight: 700; }
+  .step .s-desc {
+    margin-top: var(--sp-xs); font-size: var(--text-caption);
+    color: var(--text-muted); line-height: 1.7;
+  }
+  .step .s-desc .fail { color: var(--slate); font-weight: 600; } /* 실패는 슬레이트 — 데이터의 색 */
+
+  /* 하단 CTA 2단 */
+  .cta { display: flex; flex-direction: column; gap: var(--sp-sm); }
+</style>
+</head>
+<body>
+<div class="screen">
+  <div class="statusbar"><span>21:12</span><span>첫 실행</span></div>
+
+  <div class="hero">
+    <div class="overline">POWERJ — 극한 계획 · 실행</div>
+    <h1>매일 쌓이는<br><em>성취의 쾌감.</em></h1>
+    <p class="lede">격려도 마스코트도 없다. 계획한 대로 해냈는가 — 그 숫자가 매일 밤 당신을 달아오르게 한다.</p>
+  </div>
+
+  <div class="close-line" aria-label="하루 마감 달성률 샘플">
+    <div class="row">
+      <span class="k">Sample — 어느 하루의 마감</span>
+      <span class="v num">82<small>%</small></span>
+    </div>
+    <div class="heat-bar"><i style="transform: scaleX(.82)"></i></div>
+    <p class="cap">이 한 줄이 매일 밤 대시보드에 쌓인다 · <span class="num">100</span>%의 날에만 골드가 켜진다</p>
+  </div>
+
+  <div class="loop">
+    <div class="loop-label">Powerj Loop — 매일 도는 3단계</div>
+    <ol class="steps">
+      <li class="step">
+        <span class="s-no num">01</span>
+        <div class="s-body">
+          <div class="s-title">하루를 프로세스로 조판</div>
+          <p class="s-desc">기상 → 이동·출근 → 오전 업무 → 점심 CS <span class="num">5</span>문제 → 저녁 자소서. 프로세스마다 정량 목표를 단다 — 영상 <span class="num">2</span>개, 책 <span class="num">200</span>p까지.</p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="s-no num">02</span>
+        <div class="s-body">
+          <div class="s-title">타이머 + 방해금지로 실행·측정</div>
+          <p class="s-desc">남은 시간이 눈앞에서 흐르고 알림은 보류된다. <span class="num">27:43</span> 남음 · 알림 <span class="num">6</span>건 보류 — 딴짓도 숫자로 남는다.</p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="s-no num">03</span>
+        <div class="s-body">
+          <div class="s-title">전환 검증 → 하루 마감</div>
+          <p class="s-desc">다음으로 넘어가려면 달성률과 실패 원인부터 답한다. <span class="fail">졸음 · 과몰입 · 알림 · 목표 과다</span> — 실패는 경고가 아니라 데이터다. 하루는 일기와 대시보드로 닫힌다.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+
+  <div class="bottom-act">
+    <div class="cta">
+      <button class="btn btn-primary">내일의 체인 만들기</button>
+      <button class="btn btn-ghost">샘플 하루 둘러보기</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>powerj S-03 — 전날 밤 계획 편집</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/complete/WantedSansVariable.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../components.css">
+<style>
+  /* S-03 전용 — 계획은 아직 차갑다: 편집 UI는 slate/중립, ember는 액션에만 */
+  .plan-acts { display: flex; gap: var(--sp-sm); margin-top: var(--sp-md); }
+
+  /* 목표 개수 배지 — 계획(미실행) 데이터라 slate */
+  .gbadge {
+    font-family: var(--font-num); font-size: 11px; font-weight: 600;
+    color: var(--slate); border: 1px solid var(--edge); border-radius: var(--radius-sm);
+    padding: 3px 7px; flex-shrink: 0;
+  }
+  .gbadge.jit { color: var(--text-faint); border-style: dashed; }
+  .proc .caret { font-size: 10px; color: var(--text-faint); flex-shrink: 0; width: 12px; text-align: right; }
+
+  /* 편집 중(펼친) 행 — 실행의 ember가 아니라 계획의 slate 마커 */
+  .proc.open {
+    background: var(--slate-soft); box-shadow: inset 3px 0 0 var(--slate);
+    padding-left: 10px; margin: 0 -10px 0 -13px; border-bottom: none;
+  }
+  .proc.open .caret { color: var(--slate); }
+
+  /* 펼친 행의 편집 패널 */
+  .edit-panel { margin-top: 0; border-top: none; border-radius: 0 0 var(--radius-md) var(--radius-md); }
+  .goal-edit {
+    display: flex; align-items: center; gap: var(--sp-sm);
+    padding: 8px 0; font-size: 13px;
+  }
+  .goal-edit + .goal-edit { border-top: 1px dashed var(--edge); }
+  .goal-edit .g-name { flex: 1; font-weight: 600; }
+  .goal-edit .g-unit { font-family: var(--font-num); font-size: 12px; color: var(--text-muted); }
+  .step {
+    width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--font-num); font-size: 15px; color: var(--text);
+    background: transparent; border: 1px solid var(--edge); border-radius: var(--radius-sm);
+    cursor: pointer; flex-shrink: 0;
+  }
+  .g-count { font-family: var(--font-num); font-size: 14px; font-weight: 600; width: 34px; text-align: center; }
+  .add-goal {
+    display: flex; align-items: center; justify-content: flex-start; gap: 6px;
+    width: 100%; min-height: 44px; margin-top: var(--sp-sm); padding: 0 12px;
+    font-family: var(--font-sans); font-size: 13px; font-weight: 600; color: var(--text-muted);
+    background: transparent; border: 1px dashed var(--edge); border-radius: var(--radius-sm); cursor: pointer;
+  }
+  .add-goal b { font-family: var(--font-num); font-weight: 600; }
+  .ptype { margin-top: var(--sp-md); }
+
+  /* 어제 데이터 — 목표 보정 제안 (실패는 데이터: slate) */
+  .panel.advice { background: var(--slate-soft); border-color: var(--slate); }
+  .panel.advice .panel-label { color: var(--slate); }
+  .panel.advice p { font-size: 13px; line-height: 1.65; }
+  .panel.advice p b { color: var(--slate); font-weight: 700; }
+  .advice-act { margin-top: var(--sp-sm); }
+  .advice-act .chip { min-height: 40px; padding: 8px 12px; font-size: 12px; }
+
+  .chain-label {
+    margin-top: var(--sp-lg);
+    font-family: var(--font-num); font-size: var(--text-micro);
+    letter-spacing: .12em; color: var(--text-muted);
+  }
+  .chain { border-top: 1.5px solid var(--text); margin-top: var(--sp-sm); }
+</style>
+</head>
+<body>
+<div class="screen">
+  <div class="statusbar"><span>22:41</span><span>D−1 조판</span></div>
+
+  <div class="screen-head">
+    <div class="overline info">내일의 조판 — 2026.07.05 토</div>
+    <h1 class="title">하루 조판 편집</h1>
+    <p class="sub">프로세스 <span class="num">8</span>개 · 정량 목표 <span class="num">9</span>개 · 즉석 <span class="num">2</span>개 남김</p>
+  </div>
+
+  <div class="plan-acts">
+    <button class="chip ember">어제 복제</button>
+    <button class="chip">빈 하루</button>
+  </div>
+
+  <div class="chain-label">PROCESS CHAIN</div>
+  <div class="chain">
+    <div class="proc">
+      <span class="t">07:00–07:30</span>
+      <span class="name">기상</span>
+      <span class="gbadge">목표 1</span>
+      <span class="caret">▸</span>
+    </div>
+
+    <!-- 펼친 행: 이동·출근 편집 중 -->
+    <div class="proc open">
+      <span class="t">07:30–08:22</span>
+      <span class="name">이동·출근<div class="meta">이동 52분 — 지도 계산</div></span>
+      <span class="gbadge">목표 2</span>
+      <span class="caret">▾</span>
+    </div>
+    <div class="panel edit-panel">
+      <div class="panel-label">정량 목표 편집</div>
+      <div class="goal-edit">
+        <span class="g-name">실밸 개발자 영상</span>
+        <button class="step">−</button>
+        <span class="g-count">2</span>
+        <button class="step">＋</button>
+        <span class="g-unit">개</span>
+      </div>
+      <div class="goal-edit">
+        <span class="g-name">책 읽기</span>
+        <button class="step">−</button>
+        <span class="g-count">200</span>
+        <button class="step">＋</button>
+        <span class="g-unit">p까지</span>
+      </div>
+      <button class="add-goal">목표 추가 <b>＋</b></button>
+
+      <div class="ptype">
+        <div class="panel-label">계획 유형</div>
+        <div class="chips">
+          <button class="chip set">사전 확정</button>
+          <button class="chip">즉석으로 남겨두기</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="proc">
+      <span class="t">09:00–12:00</span>
+      <span class="name">오전 업무</span>
+      <span class="gbadge">목표 2</span>
+      <span class="caret">▸</span>
+    </div>
+    <div class="proc">
+      <span class="t">12:30–13:20</span>
+      <span class="name">점심 CS 5문제</span>
+      <span class="gbadge">목표 1</span>
+      <span class="caret">▸</span>
+    </div>
+    <div class="proc jit">
+      <span class="t">13:30–18:30</span>
+      <span class="name">오후 업무</span>
+      <span class="gbadge jit">즉석</span>
+      <span class="caret">▸</span>
+    </div>
+    <div class="proc">
+      <span class="t">19:30–21:00</span>
+      <span class="name">저녁 자소서</span>
+      <span class="gbadge">목표 1</span>
+      <span class="caret">▸</span>
+    </div>
+    <div class="proc jit">
+      <span class="t">21:30–22:30</span>
+      <span class="name">운동</span>
+      <span class="gbadge jit">즉석</span>
+      <span class="caret">▸</span>
+    </div>
+    <div class="proc">
+      <span class="t">23:00–23:30</span>
+      <span class="name">마감·일기</span>
+      <span class="gbadge">목표 2</span>
+      <span class="caret">▸</span>
+    </div>
+  </div>
+
+  <div class="panel advice">
+    <div class="panel-label">어제 데이터 — 목표 보정 제안</div>
+    <p>이동 프로세스의 <b>영상 2개</b>는 <b class="num">3</b>일 연속 미달. <b>1개</b>를 권장.</p>
+    <div class="advice-act">
+      <button class="chip">1개로 보정</button>
+    </div>
+  </div>
+
+  <div class="bottom-act">
+    <button class="btn btn-primary">내일 조판 확정</button>
+  </div>
+</div>
+</body>
+</html>

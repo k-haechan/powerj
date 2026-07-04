@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>powerj — 프로젝트 종합 (문제 · 여정 · 화면 · 와이어플로우 · 디자인시스템)</title>
+<meta name="description" content="powerj 종합 페이지 — 극한 계획/실행 앱. 문제 정의, 고객 여정, 디자인시스템(엠버 크로노그래프), 화면 S-01~S-11, 와이어플로우까지 한 곳에서.">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/complete/WantedSansVariable.min.css" rel="stylesheet">
+<link rel="stylesheet" href="design/system/tokens.css">
+<style>
+  body { background: #0E0D0B; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 24px); }
+
+  /* ============ HERO — 계기판 점화 ============ */
+  .hero { position: relative; overflow: hidden; padding: clamp(56px, 9vw, 92px) 0 clamp(56px, 9vw, 88px); border-bottom: 1px solid var(--edge);
+    background: radial-gradient(720px 340px at 85% -10%, rgba(232,133,61,.16), transparent 62%), var(--bg); }
+  .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-num); font-size: 11px; letter-spacing: .14em;
+    color: var(--ember); border: 1px solid var(--edge); background: var(--surface); border-radius: var(--radius-sm); padding: 7px 12px; margin-bottom: 20px; }
+  .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ember); }
+  .hero h1 { font-weight: 800; font-size: clamp(30px, 5.6vw, 54px); line-height: 1.14; letter-spacing: -.025em; }
+  .hero h1 .hot { color: var(--ember-hot); }
+  .hero p.lead { font-size: clamp(14px, 2vw, 18px); line-height: 1.65; color: var(--text-muted); max-width: 640px; margin-top: 16px; }
+  .hero p.lead b { color: var(--text); font-weight: 700; }
+  .hero .meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
+  .hero .chip { font-family: var(--font-num); font-size: 12px; padding: 7px 12px; border-radius: var(--radius-sm); border: 1px solid var(--edge); background: var(--surface); color: var(--text-muted); }
+  .hero .chip b { color: var(--ember-hot); font-weight: 600; }
+
+  /* ============ 공통 섹션 ============ */
+  main { padding: clamp(40px, 6vw, 60px) 0 48px; }
+  section { margin-bottom: clamp(44px, 7vw, 64px); }
+  .sec-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 6px; }
+  .sec-head h2 { font-size: 23px; font-weight: 800; letter-spacing: -.01em; }
+  .sec-head .count { font-family: var(--font-num); font-size: 11px; font-weight: 600; color: var(--ember); background: var(--ember-soft); padding: 3px 10px; border-radius: var(--radius-sm); }
+  .sec-desc { font-size: 13.5px; color: var(--text-muted); margin-bottom: 20px; max-width: 720px; line-height: 1.6; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
+  .card { display: block; background: var(--surface); border: 1px solid var(--edge); border-radius: var(--radius-md); padding: 18px; transition: border-color .2s; }
+  .card:hover { border-color: var(--ember); }
+  .card .k { font-family: var(--font-num); font-size: 10px; letter-spacing: .12em; color: var(--ember-hot); }
+  .card .k.info { color: var(--slate); }
+  .card h3 { font-size: 15.5px; font-weight: 700; margin-top: 6px; letter-spacing: -.01em; }
+  .card p { font-size: 12.5px; color: var(--text-muted); line-height: 1.6; margin-top: 6px; }
+
+  /* 개념 카드 번호 */
+  .card .no { font-family: var(--font-num); font-size: 22px; font-weight: 600; color: var(--ember); }
+
+  /* ============ 팔레트 ============ */
+  .swatches { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+  .sw { width: 132px; border: 1px solid var(--edge); border-radius: var(--radius-md); overflow: hidden; background: var(--surface); }
+  .sw i { display: block; height: 52px; }
+  .sw span { display: block; padding: 8px 10px; font-family: var(--font-num); font-size: 10px; color: var(--text-muted); line-height: 1.5; }
+  .sw span b { display: block; color: var(--text); font-weight: 600; }
+
+  /* ============ 피처드 화면 (스케일 iframe) ============ */
+  .shots { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 6px; }
+  .shot { display: block; }
+  .shot .fr { width: 196px; height: 424px; border: 1px solid var(--edge); border-radius: 12px; overflow: hidden; background: var(--bg); position: relative; display: block; }
+  .shot .fr::after { content: ""; position: absolute; inset: 0; }
+  .shot iframe { width: 392px; height: 848px; border: 0; transform: scale(.5); transform-origin: top left; pointer-events: none; background: var(--bg); }
+  .shot:hover .fr { border-color: var(--ember); }
+  .shot .lb { display: block; margin-top: 8px; font-size: 12px; color: var(--text-muted); text-align: center; }
+  .shot .lb b { font-family: var(--font-num); font-size: 10px; letter-spacing: .1em; color: var(--ember-hot); display: block; }
+
+  /* ============ 와이어플로우 배너 ============ */
+  .banner { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;
+    background: linear-gradient(120deg, var(--surface), var(--surface-2)); border: 1px solid var(--edge); border-radius: var(--radius-md); padding: 22px; }
+  .banner h3 { font-size: 18px; font-weight: 800; }
+  .banner p { font-size: 13px; color: var(--text-muted); margin-top: 4px; max-width: 700px; }
+  .banner .go { flex-shrink: 0; font-weight: 700; font-size: 14px; color: #141210; background: var(--ember); border-radius: var(--radius-sm); padding: 13px 22px; }
+
+  footer { border-top: 1px solid var(--edge); padding: 26px 0 60px; }
+  footer .wrap { font-family: var(--font-num); font-size: 11px; color: var(--text-faint); line-height: 1.8; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow"><span class="dot"></span>POWERJ — EXTREME PLANNING &amp; EXECUTION</div>
+    <h1>하루를 조판하고, 측정하고,<br><span class="hot">성취로 마감한다</span></h1>
+    <p class="lead">일정관리 앱은 넘쳐나지만, 하루를 <b>프로세스 체인</b>으로 쪼개고 <b>정량 목표</b>를 걸어
+      <b>타이머·방해금지</b>로 실행을 측정하고, 전환마다 <b>달성률·실패 원인 검증을 강제</b>하며,
+      하루를 <b>일기와 대시보드로 마감</b>해 내일에 되먹이는 앱은 없다. powerj가 그 앱이다.</p>
+    <div class="meta">
+      <span class="chip">플랫폼 <b>모바일 우선</b></span>
+      <span class="chip">디자인시스템 <b>엠버 크로노그래프</b></span>
+      <span class="chip">화면 <b>S-01–S-11</b></span>
+      <span class="chip">와이어플로우 <b>5 레인</b></span>
+      <span class="chip">페르소나 <b>4</b></span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- 핵심 개념 -->
+  <section>
+    <div class="sec-head"><h2>핵심 개념</h2><span class="count">5</span></div>
+    <p class="sec-desc">이 제품이 다루는 세계는 다섯 개념으로 요약된다. 전문은 <a href="docs/problem.html" style="color:var(--slate);text-decoration:underline">문제 정의</a> 참조.</p>
+    <div class="grid">
+      <div class="card"><span class="no">01</span><h3>프로세스 (Process)</h3><p>하루를 구성하는 시간 구간의 순서 있는 체인. 이동·자투리도 예외 없다. 사전 계획 / 즉석 계획 두 시점.</p></div>
+      <div class="card"><span class="no">02</span><h3>정량 목표 (Goal)</h3><p>"책 읽기" ❌ → "책 200p까지" ✅. 시간 기준(Time-box)과 목표 기준(Target-box) 두 방향으로 수립.</p></div>
+      <div class="card"><span class="no">03</span><h3>전환 검증 (Gate)</h3><p>프로세스가 끝나면 달성률(%)·실패 원인을 기록해야 다음으로 넘어간다. 회고가 전환의 조건.</p></div>
+      <div class="card"><span class="no">04</span><h3>실행 타이머 (Focus)</h3><p>시작과 함께 타이머+방해금지. 목표 시간 대비 단축/초과 — 시간 효율이 또 하나의 축.</p></div>
+      <div class="card"><span class="no">05</span><h3>하루 마감 (Close)</h3><p>일기(정성) + 대시보드(정량 자동 집계). 마감이 내일 계획의 입력이 되어 루프가 닫힌다.</p></div>
+    </div>
+  </section>
+
+  <!-- 문서 -->
+  <section>
+    <div class="sec-head"><h2>문서</h2><span class="count">2 + 스펙</span></div>
+    <div class="grid">
+      <a class="card" href="docs/problem.html"><span class="k">DOCS / PROBLEM</span><h3>문제 정의</h3><p>배경 · 기존 앱의 한계 비교 · 핵심 개념 5 · 극한의 의미 · 가치 가설 · 열린 질문.</p></a>
+      <a class="card" href="docs/journey.html"><span class="k">DOCS / JOURNEY</span><h3>고객 여정지도</h3><p>페르소나 4(직장인·수험생·N잡러·프리랜서) × 공통 여정 6단계 · 시나리오 · 교차 인사이트.</p></a>
+      <a class="card" href="design/DESIGN.html"><span class="k">DESIGN / SPEC</span><h3>디자인시스템 — DESIGN.md</h3><p>엠버 크로노그래프 정식 스펙: 원칙 5 · 컬러/타이포/모션 토큰 · 컴포넌트 규칙 · 금지 패턴.</p></a>
+      <a class="card" href="design/sample.html"><span class="k info">DESIGN / ARCHIVE</span><h3>방향 검토 시안 5종</h3><p>활판 텔레메트리 → 엠버 크로노그래프(확정) 등 5개 방향 비교 목업. 결정 과정의 기록.</p></a>
+    </div>
+  </section>
+
+  <!-- 페르소나 -->
+  <section>
+    <div class="sec-head"><h2>페르소나</h2><span class="count">4</span></div>
+    <div class="grid">
+      <a class="card" href="docs/journey.html"><span class="k">P1</span><h3>자기계발형 직장인/취준생</h3><p>이동 1시간에 영상 2개·책 200p. 자투리가 새고 실패가 반복되는 게 페인. 원형 사용자.</p></a>
+      <a class="card" href="docs/journey.html"><span class="k">P2</span><h3>수험생/공시생</h3><p>기출 100문제·인강 4강. 순공 시간은 재도 "얼마나 해냈는지"는 못 재는 게 페인.</p></a>
+      <a class="card" href="docs/journey.html"><span class="k">P3</span><h3>N잡러/사이드 직장인</h3><p>새벽·출퇴근·저녁 파편 시간이 전부. 즉석 계획과 시간대 안정성 데이터가 핵심.</p></a>
+      <a class="card" href="docs/journey.html"><span class="k">P4</span><h3>프리랜서/1인 창업가</h3><p>외부 구조가 없어 스스로 하루를 세워야 함. 전환 게이트가 곧 상사이자 마감.</p></a>
+    </div>
+  </section>
+
+  <!-- 디자인 시스템 -->
+  <section>
+    <div class="sec-head"><h2>디자인시스템 — 엠버 크로노그래프</h2></div>
+    <p class="sec-desc">웜 차콜 계기판 위에서 달성률이 불씨처럼 차오른다. <b style="color:var(--text)">측정이 곧 보상 · 실패는 데이터(빨강 금지) · 100%는 gold 전용.</b>
+    이 페이지 자체가 <code style="font-family:var(--font-num);font-size:.9em;color:var(--ember-hot)">design/system/tokens.css</code> 위에서 렌더되고 있다.</p>
+    <div class="swatches">
+      <div class="sw"><i style="background:#141210"></i><span><b>--bg</b>#141210 · 웜 차콜</span></div>
+      <div class="sw"><i style="background:#1D1A16"></i><span><b>--surface</b>#1D1A16 · 패널</span></div>
+      <div class="sw"><i style="background:#EDE6DA"></i><span><b>--text</b>#EDE6DA · 본</span></div>
+      <div class="sw"><i style="background:linear-gradient(90deg,#7A3E1D,#E8853D,#F5A94B)"></i><span><b>--ember heat</b>달성 0→99%</span></div>
+      <div class="sw"><i style="background:#E5B84B"></i><span><b>--gold</b>#E5B84B · 100% 전용</span></div>
+      <div class="sw"><i style="background:#7D93B2"></i><span><b>--slate</b>#7D93B2 · 실패=데이터</span></div>
+      <div class="sw"><i style="background:#C24B36"></i><span><b>--danger</b>#C24B36 · 파괴 액션 전용</span></div>
+    </div>
+  </section>
+
+  <!-- 화면 -->
+  <section>
+    <div class="sec-head"><h2>화면</h2><span class="count">S-01 – S-11</span></div>
+    <p class="sec-desc">실제 토큰·컴포넌트로 렌더되는 단독 실행 화면. 대표 3장 — 실행 타이머 → 전환 검증 → 하루 마감(보상).</p>
+    <div class="shots">
+      <a class="shot" href="design/system/screens/S-05-timer.html"><span class="fr"><iframe src="design/system/screens/S-05-timer.html" loading="lazy" title="S-05"></iframe></span><span class="lb"><b>S-05</b>실행 타이머</span></a>
+      <a class="shot" href="design/system/screens/S-06-gate.html"><span class="fr"><iframe src="design/system/screens/S-06-gate.html" loading="lazy" title="S-06"></iframe></span><span class="lb"><b>S-06</b>전환 검증 게이트</span></a>
+      <a class="shot" href="design/system/screens/S-07-close-dashboard.html"><span class="fr"><iframe src="design/system/screens/S-07-close-dashboard.html" loading="lazy" title="S-07"></iframe></span><span class="lb"><b>S-07</b>하루 마감 대시보드</span></a>
+    </div>
+    <div class="grid" style="margin-top:18px">
+      <a class="card" href="design/system/screens/S-01-onboarding.html"><span class="k">S-01</span><h3>온보딩</h3><p>제품의 한 가지와 3단 루프를 30초 안에.</p></a>
+      <a class="card" href="design/system/screens/S-02-today.html"><span class="k">S-02</span><h3>오늘의 체인 (홈)</h3><p>프로세스 체인 + 지금 프로세스 점화.</p></a>
+      <a class="card" href="design/system/screens/S-03-plan.html"><span class="k">S-03</span><h3>전날 밤 계획 편집</h3><p>내일의 조판 — 목표·이동시간·즉석 슬롯.</p></a>
+      <a class="card" href="design/system/screens/S-04-jit-goal.html"><span class="k">S-04</span><h3>즉석 목표 수립</h3><p>Time-box/Target-box, 10초 안에 시작.</p></a>
+      <a class="card" href="design/system/screens/S-08-diary.html"><span class="k">S-08</span><h3>하루 마감 — 일기</h3><p>사람의 목소리(MaruBuri) · 자동 초안/백지.</p></a>
+      <a class="card" href="design/system/screens/S-09-archive.html"><span class="k">S-09</span><h3>기록 (아카이브)</h3><p>쌓인 하루들 — 누적이 곧 스트릭.</p></a>
+      <a class="card" href="design/system/screens/S-10-weekly.html"><span class="k">S-10</span><h3>주간 리포트</h3><p>시간대 안정성 · 실패 Top3 · 목표 보정.</p></a>
+      <a class="card" href="design/system/screens/S-11-settings.html"><span class="k">S-11</span><h3>설정</h3><p>방해금지 강도 · 확정 방식 · 테마.</p></a>
+    </div>
+  </section>
+
+  <!-- 와이어플로우 -->
+  <section>
+    <a class="banner" href="docs/wireframe.html">
+      <div>
+        <h3>와이어플로우 보드 →</h3>
+        <p>여정 6단계를 5개 시나리오 레인(F0–F4)으로 — 실제 화면이 축소 삽입된 하이파이 플로우. 미시 사이클(실행 루프)과 거시 사이클(하루 마감)이 어떻게 닫히는지 본다.</p>
+      </div>
+      <span class="go">보드 열기</span>
+    </a>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    POWERJ — EXTREME PLANNING &amp; EXECUTION · DESIGN SYSTEM: EMBER CHRONOGRAPH<br>
+    DOCS: problem.md · journey.md · design/DESIGN.md — SCREENS: design/system/screens/S-01–S-11 · WIREFLOW: docs/wireframe.html
+  </div>
+</footer>
+
+</body>
+</html>
