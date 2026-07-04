@@ -19,7 +19,7 @@ design/
   system/
     tokens.css                  디자인 토큰 SoT
     components.css              공유 컴포넌트
-    screens/S-01 ~ S-11         단독 실행 화면 11종
+    screens/S-01 ~ S-13         단독 실행 화면 13종 (로그인·회원가입 포함)
 ```
 
 ## 디자인시스템 핵심 규칙

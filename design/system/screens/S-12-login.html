@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>powerj S-12 — 로그인</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/complete/WantedSansVariable.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../components.css">
+<style>
+  /* S-12 전용 — 복귀 사용자를 데이터로 맞이한다 */
+  .streak-line { display: flex; align-items: center; gap: 10px; margin-top: var(--sp-md);
+    font-size: 12px; color: var(--text-muted); }
+  .streak-line .bar { flex: 1; max-width: 120px; }
+  .streak-line .heat-bar { height: 8px; }
+  .links { display: flex; justify-content: space-between; align-items: center; margin-top: var(--sp-md); font-size: 12px; }
+  .links a { color: var(--text-muted); text-decoration: none; }
+  .links a.join { color: var(--ember); font-weight: 700; }
+  .social { display: flex; flex-direction: column; gap: var(--sp-sm); margin-top: var(--sp-sm); }
+  .social .btn { min-height: 48px; font-size: 14px; }
+  .social .btn b { font-family: var(--font-num); font-weight: 600; margin-right: 8px; color: var(--text-muted); }
+</style>
+</head>
+<body>
+<div class="screen">
+  <div class="statusbar"><span>21:14</span><span>POWERJ</span></div>
+
+  <div class="screen-head">
+    <div class="overline">Sign in</div>
+    <h1 class="title">다시 계기판 앞으로</h1>
+    <p class="sub">어제까지의 데이터가 오늘의 조판을 기다리고 있습니다.</p>
+    <div class="streak-line">
+      <span class="bar"><span class="heat-bar"><i style="transform:scaleX(.84)"></i></span></span>
+      <span>마지막 기록 — <b class="num">34</b>일째, 주 평균 <b class="num">84%</b></span>
+    </div>
+  </div>
+
+  <form onsubmit="return false">
+    <div class="field">
+      <label for="email">이메일</label>
+      <input id="email" type="email" placeholder="you@example.com" value="haechan@powerj.app">
+    </div>
+    <div class="field err">
+      <label for="pw">비밀번호</label>
+      <input id="pw" type="password" value="••••••••">
+      <p class="err-msg">◦ 비밀번호가 일치하지 않습니다 — 4회 남음</p>
+    </div>
+
+    <div style="margin-top: var(--sp-lg)">
+      <button class="btn btn-primary" type="submit">로그인</button>
+    </div>
+    <div class="links">
+      <a href="#">비밀번호 재설정</a>
+      <a href="S-13-signup.html" class="join">처음인가요? 회원가입 →</a>
+    </div>
+  </form>
+
+  <div class="divider">또는</div>
+  <div class="social">
+    <button class="btn btn-ghost"><b>G</b> Google로 계속하기</button>
+    <button class="btn btn-ghost"><b></b> Apple로 계속하기</button>
+    <button class="btn btn-ghost"><b>K</b> 카카오로 계속하기</button>
+  </div>
+
+  <p class="sub" style="margin-top: var(--sp-lg); text-align: center; color: var(--text-faint)">
+    로그인하면 모든 기록이 기기 간 동기화됩니다
+  </p>
+</div>
+</body>
+</html>
