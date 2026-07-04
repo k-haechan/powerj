@@ -9,50 +9,35 @@
 <link rel="stylesheet" href="../tokens.css">
 <link rel="stylesheet" href="../components.css">
 <style>
-  /* S-11 전용 — 설정은 정보(slate)의 화면. ember는 방해금지 강도(가동 상태의 색)에만 */
-  .cap {
-    font-size: var(--text-caption); color: var(--text-muted);
-    line-height: 1.55; margin-top: var(--sp-sm);
-  }
-  .set-row {
-    display: flex; justify-content: space-between; align-items: center;
-    gap: var(--sp-md); padding: 12px 0; min-height: 44px;
-  }
-  .set-row + .set-row { border-top: 1px dashed var(--edge); }
-  .set-row .s-name { font-size: 14px; font-weight: 600; }
-  .set-row .s-desc { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
-  .set-row .s-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-  .set-row .st { font-size: 12px; font-weight: 600; color: var(--text-muted); min-width: 20px; text-align: right; }
-  .set-row .st.on { color: var(--ember); }
+  /* S-11 전용 — 설정은 정보(slate)의 화면. ember는 "가동 강도"에만 허용 */
+  .cap { font-size: 11.5px; color: var(--text-muted); line-height: 1.6; margin-top: 10px; }
+  .cap b { font-weight: 700; }
 
-  /* 스위치 — 라디우스 3px(버튼 규칙), 켬=ember / 끔=edge. 색+위치+라벨 삼중 표기 */
-  .switch {
-    width: 46px; height: 26px; flex-shrink: 0; position: relative;
-    background: transparent; border: 1px solid var(--edge); border-radius: var(--radius-sm);
-    cursor: pointer; padding: 0; transition: background var(--dur-short), border-color var(--dur-short);
-  }
-  .switch i {
-    position: absolute; top: 3px; left: 3px; width: 18px; height: 18px;
-    background: var(--text-faint); border-radius: var(--radius-sm);
-    transition: transform var(--dur-short) var(--ease-enter), background var(--dur-short);
-  }
-  .switch.on { border-color: var(--ember); background: var(--ember-soft); }
-  .switch.on i { transform: translateX(20px); background: var(--ember); }
+  /* 작은 on/off 칩 (행 우측) */
+  .chip.sm { padding: 5px 12px; min-height: 28px; font-size: 11.5px; border-radius: var(--radius-full); }
+  .chip.sm.set { background: var(--ember); color: #fff; }
+  .chip.sm.off { background: var(--surface-2); color: var(--text-faint); }
+
+  .lrow .l-name { font-size: 14px; font-weight: 700; letter-spacing: -.01em; }
+  .lrow .l-desc { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+  /* 준비 중 옵션 — 실패도 빨강 금지이듯, 미가용도 그저 흐릴 뿐 */
+  .chip.muted { color: var(--text-faint); background: var(--surface-2); cursor: default; }
+  .chip.muted small { font-size: 10px; font-weight: 600; margin-left: 5px; }
+
+  /* 위험 영역 — 앱 전체에서 빨강이 허용되는 유일한 곳(파괴적 액션) */
+  .panel.zone-danger .panel-label { color: var(--danger); }
 
   .footer-micro {
-    margin-top: var(--sp-xl); padding-top: var(--sp-md); border-top: 1px solid var(--edge);
+    margin-top: var(--sp-xl); padding-top: var(--sp-md); text-align: center;
     font-family: var(--font-num); font-size: var(--text-micro);
     letter-spacing: .12em; color: var(--text-faint); text-transform: uppercase;
   }
-
-  /* 위험 영역 — 앱 전체에서 빨강이 허용되는 유일한 곳(파괴적 액션) */
-  .panel.zone-danger { border-color: rgba(194, 75, 54, .45); }
-  .panel.zone-danger .panel-label { color: var(--danger); }
 </style>
 </head>
 <body>
 <div class="screen">
-  <div class="statusbar"><span>21:47</span><span>설정</span></div>
+  <div class="statusbar"><span>21:47</span><span>⚙️ 설정</span></div>
 
   <div class="screen-head">
     <div class="overline info">Settings</div>
@@ -68,91 +53,78 @@
       <button class="chip" role="radio" aria-checked="false">앱 내 차단</button>
       <button class="chip ember set" role="radio" aria-checked="true">OS 차단</button>
     </div>
-    <p class="cap">앱 내 차단만으로는 빠져나갈 틈이 남습니다 — 이메일에 40분을 뺏긴 날처럼.
-      외부 마감이 없는 하루일수록 OS 차원 차단이 필요합니다. 지정한 앱 <b class="num">12</b>개가 프로세스 중 열리지 않습니다.</p>
+    <p class="cap">앱 내 차단만으로는 틈이 남습니다 — 이메일에 40분을 뺏긴 날처럼.
+      OS 차단은 지정 앱 <b class="num">12</b>개를 프로세스 중 열 수 없게 합니다.</p>
   </section>
 
   <!-- ② 확정 방식 -->
   <section class="panel">
     <div class="panel-label">전환 검증 확정 방식</div>
     <div class="chips" role="radiogroup" aria-label="확정 방식">
-      <button class="chip set" role="radio" aria-checked="true">롱프레스 <span class="num">450ms</span></button>
+      <button class="chip set" role="radio" aria-checked="true">롱프레스 <span class="num">0.45</span>초</button>
       <button class="chip" role="radio" aria-checked="false">원탭</button>
     </div>
-    <p class="cap">롱프레스는 달성률·실패 원인을 "의도한 확정"으로 만듭니다. 원탭은 빠르지만 습관적 통과가 되기 쉽습니다.</p>
+    <p class="cap">롱프레스는 달성률과 실패 원인을 "의도한 확정"으로 만듭니다. 원탭은 빠르지만 습관적 통과가 되기 쉽습니다.</p>
   </section>
 
   <!-- ③ 사운드 · 햅틱 -->
   <section class="panel">
     <div class="panel-label">사운드 · 햅틱</div>
-    <div class="set-row">
+    <div class="lrow">
       <div>
-        <div class="s-name">종료 사운드</div>
-        <div class="s-desc">프로세스 종료 시각에 1회 재생</div>
+        <div class="l-name">종료 사운드</div>
+        <div class="l-desc">프로세스 종료 시각에 1회 재생</div>
       </div>
-      <div class="s-right">
-        <span class="st">끔</span>
-        <button class="switch" role="switch" aria-checked="false" aria-label="종료 사운드"><i></i></button>
-      </div>
+      <button class="chip sm off" role="switch" aria-checked="false">끔</button>
     </div>
-    <div class="set-row">
+    <div class="lrow">
       <div>
-        <div class="s-name">진행 햅틱</div>
-        <div class="s-desc">확정·카운트업 완료 피드백</div>
+        <div class="l-name">진행 햅틱</div>
+        <div class="l-desc">확정·100% 골드 순간의 진동 피드백</div>
       </div>
-      <div class="s-right">
-        <span class="st on">켬</span>
-        <button class="switch on" role="switch" aria-checked="true" aria-label="진행 햅틱"><i></i></button>
-      </div>
+      <button class="chip sm set" role="switch" aria-checked="true">켬</button>
     </div>
-    <div class="set-row">
-      <div>
-        <div class="s-name">100% 골드 햅틱</div>
-        <div class="s-desc">100% 달성 순간의 강한 진동</div>
-      </div>
-      <div class="s-right">
-        <span class="st on">켬</span>
-        <button class="switch on" role="switch" aria-checked="true" aria-label="100% 골드 햅틱"><i></i></button>
-      </div>
-    </div>
-    <p class="cap">시스템의 동작 줄이기(reduced-motion)를 켜도 햅틱은 유지됩니다 — 접근성 경로.</p>
   </section>
 
   <!-- ④ 테마 -->
   <section class="panel">
     <div class="panel-label">테마</div>
     <div class="chips" role="radiogroup" aria-label="테마">
-      <button class="chip set" role="radio" aria-checked="true">다크 (기본)</button>
-      <button class="chip" role="radio" aria-checked="false">라이트</button>
-      <button class="chip" role="radio" aria-checked="false">자동 (일몰)</button>
+      <button class="chip set" role="radio" aria-checked="true">라이트</button>
+      <button class="chip muted" role="radio" aria-checked="false" aria-disabled="true">다크<small>준비 중</small></button>
+      <button class="chip" role="radio" aria-checked="false">자동</button>
     </div>
-    <p class="cap">타이머·저녁 마감·방해금지 몰입에는 다크가 기본입니다. 자동은 일몰 시각에 전환됩니다.</p>
+    <p class="cap">자동은 일몰 시각에 전환됩니다. 다크는 다음 업데이트에서 돌아옵니다.</p>
   </section>
 
-  <!-- ⑤ 타이머 보정 -->
+  <!-- ⑤ 타이머 -->
   <section class="panel">
-    <div class="panel-label">타이머 보정</div>
-    <div class="set-row">
+    <div class="panel-label">타이머</div>
+    <div class="lrow">
       <div>
-        <div class="s-name">종료 잊음 자동 감지</div>
-        <div class="s-desc">전환을 잊으면 마지막 활동 시점으로 실행 시간을 보정</div>
+        <div class="l-name">종료 잊음 자동 감지</div>
+        <div class="l-desc">전환을 잊으면 마지막 활동 시점으로 실행 시간을 보정</div>
       </div>
-      <div class="s-right">
-        <span class="st on">켬</span>
-        <button class="switch on" role="switch" aria-checked="true" aria-label="종료 잊음 자동 감지"><i></i></button>
-      </div>
+      <button class="chip sm set" role="switch" aria-checked="true">켬</button>
     </div>
-    <p class="cap">점심 CS <b class="num">5</b>문제를 끝내고 타이머를 끄는 걸 잊어도, 기록이 실제보다 부풀지 않습니다.</p>
+    <p class="cap">점심 CS <b class="num">5</b>문제를 끝내고 타이머를 잊어도, 기록이 실제보다 부풀지 않습니다.</p>
   </section>
 
   <!-- ⑥ 위험 영역 -->
   <section class="panel zone-danger">
     <div class="panel-label">위험 영역</div>
-    <p class="cap" style="margin-top:0">모든 프로세스·달성률·실패 원인·일기가 삭제됩니다. 되돌릴 수 없습니다.</p>
-    <button class="btn btn-danger" style="margin-top:var(--sp-md)">모든 기록 초기화</button>
+    <button class="btn btn-danger">모든 기록 초기화</button>
+    <p class="cap">되돌릴 수 없어요 — 모든 프로세스·달성률·실패 원인·일기가 삭제됩니다.</p>
   </section>
 
-  <div class="footer-micro">powerj v0.1 — design system: Ember Chronograph</div>
+  <div class="footer-micro">powerj v0.2 — Market-Standard Light</div>
+
+  <nav class="tabbar" aria-label="주 탐색">
+    <a href="S-02-today.html"><span class="ti">📋</span>오늘</a>
+    <a href="S-09-archive.html"><span class="ti">📚</span>기록</a>
+    <a href="S-10-weekly.html"><span class="ti">📈</span>리포트</a>
+    <a href="S-11-settings.html" class="on" aria-current="page"><span class="ti">⚙️</span>설정</a>
+  </nav>
 </div>
 </body>
 </html>

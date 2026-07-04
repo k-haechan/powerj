@@ -9,61 +9,56 @@
 <link rel="stylesheet" href="../tokens.css">
 <link rel="stylesheet" href="../components.css">
 <style>
-  /* S-01 전용 — 첫 실행. 타이포그래피와 히트 바 하나로 제품의 한 가지를 말한다 */
-  .screen { padding-bottom: 196px; } /* CTA 2단 스택 공간 */
+  /* S-01 전용 — 첫 실행. 친근한 히어로 + 3장의 스텝 카드 + 링 티저 */
+  .screen { padding-bottom: 190px; } /* CTA 2단 스택 공간 (탭바 없음) */
 
-  /* 히어로 — 기억될 한 가지 */
+  /* 히어로 */
   .hero { margin-top: var(--sp-2xl); }
   .hero h1 {
-    font-size: 34px; font-weight: 800; letter-spacing: -.01em; line-height: 1.32;
+    font-size: 34px; font-weight: 800; letter-spacing: -.02em; line-height: 1.3;
+    margin-top: var(--sp-sm);
   }
-  .hero h1 em { font-style: normal; color: var(--ember-hot); }
+  .hero h1 em { font-style: normal; color: var(--ember); }
   .hero .lede {
     margin-top: var(--sp-md); font-size: var(--text-body);
-    color: var(--text-muted); line-height: 1.7; max-width: 32ch;
+    color: var(--text-muted); line-height: 1.7; max-width: 30ch;
   }
 
-  /* 히트 바 모티프 — 하루 마감의 한 줄 (화면 유일의 그래픽) */
-  .close-line { margin-top: var(--sp-xl); }
-  .close-line .row {
-    display: flex; justify-content: space-between; align-items: baseline;
-    margin-bottom: var(--sp-sm);
+  /* 링 티저 — 어느 하루의 마감 */
+  .teaser { display: flex; align-items: center; gap: var(--sp-md); margin-top: var(--sp-xl); }
+  .teaser-ring { width: 84px; height: 84px; flex-shrink: 0; }
+  .teaser-ring .pv { font-family: var(--font-num); font-weight: 600; font-size: 21px; letter-spacing: -.03em; color: var(--ember); }
+  .teaser-ring .pv small { font-size: .55em; color: var(--text-muted); font-weight: 500; }
+  .teaser-body { min-width: 0; }
+  .teaser-body .tk {
+    font-family: var(--font-num); font-size: var(--text-micro); font-weight: 600;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted);
   }
-  .close-line .row .k {
-    font-family: var(--font-num); font-size: var(--text-micro);
-    letter-spacing: .12em; color: var(--text-muted); text-transform: uppercase;
+  .teaser-body .tt { font-size: 14.5px; font-weight: 700; letter-spacing: -.01em; margin-top: 3px; }
+  .teaser-body .tc {
+    display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+    font-size: 11.5px; color: var(--text-muted); margin-top: 6px; line-height: 1.5;
   }
-  .close-line .row .v {
-    font-family: var(--font-num); font-weight: 600; font-size: 20px; color: var(--ember-hot);
-  }
-  .close-line .row .v small { font-size: .6em; color: var(--text-muted); font-weight: 500; }
-  .close-line .cap {
-    margin-top: var(--sp-sm); font-size: var(--text-micro); color: var(--text-faint);
-    letter-spacing: .02em;
-  }
+  .teaser-body .tc .cool { color: var(--slate); font-weight: 700; }
 
-  /* 3단계 루프 — 원장 문법의 세로 리스트 */
-  .loop { margin-top: var(--sp-xl); }
-  .loop-label {
-    font-family: var(--font-num); font-size: var(--text-micro);
-    letter-spacing: .12em; color: var(--text-muted); text-transform: uppercase;
-    margin-bottom: var(--sp-sm);
+  /* 3단계 스텝 카드 */
+  .sec-label {
+    font-family: var(--font-num); font-size: var(--text-micro); font-weight: 600;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted);
+    margin-top: var(--sp-xl);
   }
-  .steps { list-style: none; border-top: 1.5px solid var(--text); }
-  .step {
-    display: flex; gap: var(--sp-md); align-items: flex-start;
-    padding: var(--sp-md) 0; border-bottom: 1px solid var(--edge);
+  .step-card { display: flex; align-items: flex-start; gap: 13px; }
+  .step-card .ico {
+    width: 44px; height: 44px; border-radius: 14px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 21px;
   }
-  .step .s-no {
-    font-size: var(--text-caption); font-weight: 600; color: var(--ember);
-    letter-spacing: .08em; padding-top: 2px; flex-shrink: 0;
-  }
-  .step .s-title { font-size: 15px; font-weight: 700; }
-  .step .s-desc {
-    margin-top: var(--sp-xs); font-size: var(--text-caption);
-    color: var(--text-muted); line-height: 1.7;
-  }
-  .step .s-desc .fail { color: var(--slate); font-weight: 600; } /* 실패는 슬레이트 — 데이터의 색 */
+  .step-card .s-body { flex: 1; min-width: 0; }
+  .step-card .s-top { display: flex; align-items: baseline; justify-content: space-between; gap: var(--sp-sm); }
+  .step-card .s-title { font-size: 15px; font-weight: 700; letter-spacing: -.01em; }
+  .step-card .s-no { font-family: var(--font-num); font-size: 11px; font-weight: 600; color: var(--text-faint); letter-spacing: .08em; flex-shrink: 0; }
+  .step-card .s-desc { margin-top: 4px; font-size: var(--text-caption); color: var(--text-muted); line-height: 1.65; }
+  .step-card .s-desc .num { font-size: 11.5px; font-weight: 600; color: var(--text); }
+  .step-card .s-desc .fail { color: var(--slate); font-weight: 600; } /* 실패는 슬레이트 — 데이터의 색 */
 
   /* 하단 CTA 2단 */
   .cta { display: flex; flex-direction: column; gap: var(--sp-sm); }
@@ -76,48 +71,49 @@
   <div class="hero">
     <div class="overline">POWERJ — 극한 계획 · 실행</div>
     <h1>매일 쌓이는<br><em>성취의 쾌감.</em></h1>
-    <p class="lede">격려도 마스코트도 없다. 계획한 대로 해냈는가 — 그 숫자가 매일 밤 당신을 달아오르게 한다.</p>
+    <p class="lede">계획한 대로 해냈는가 — 매일 밤, 그 숫자가 하루를 달아오르게 합니다.</p>
   </div>
 
-  <div class="close-line" aria-label="하루 마감 달성률 샘플">
-    <div class="row">
-      <span class="k">Sample — 어느 하루의 마감</span>
-      <span class="v num">82<small>%</small></span>
+  <div class="panel big tint-ember teaser" aria-label="하루 마감 달성률 샘플">
+    <div class="ring teaser-ring" style="--p:87; --ring-w:9px;">
+      <div class="inner"><span class="pv">87<small>%</small></span></div>
     </div>
-    <div class="heat-bar"><i style="transform: scaleX(.82)"></i></div>
-    <p class="cap">이 한 줄이 매일 밤 대시보드에 쌓인다 · <span class="num">100</span>%의 날에만 골드가 켜진다</p>
+    <div class="teaser-body">
+      <div class="tk">Sample — 어느 하루의 마감</div>
+      <div class="tt">이 링이 매일 밤 하나씩 쌓입니다</div>
+      <div class="tc"><span class="dot gold"></span><span><span class="num">100</span>%의 날에만 골드 · 미달성은 <b class="cool">데이터</b>로 남습니다</span></div>
+    </div>
   </div>
 
-  <div class="loop">
-    <div class="loop-label">Powerj Loop — 매일 도는 3단계</div>
-    <ol class="steps">
-      <li class="step">
-        <span class="s-no num">01</span>
-        <div class="s-body">
-          <div class="s-title">하루를 프로세스로 조판</div>
-          <p class="s-desc">기상 → 이동·출근 → 오전 업무 → 점심 CS <span class="num">5</span>문제 → 저녁 자소서. 프로세스마다 정량 목표를 단다 — 영상 <span class="num">2</span>개, 책 <span class="num">200</span>p까지.</p>
-        </div>
-      </li>
-      <li class="step">
-        <span class="s-no num">02</span>
-        <div class="s-body">
-          <div class="s-title">타이머 + 방해금지로 실행·측정</div>
-          <p class="s-desc">남은 시간이 눈앞에서 흐르고 알림은 보류된다. <span class="num">27:43</span> 남음 · 알림 <span class="num">6</span>건 보류 — 딴짓도 숫자로 남는다.</p>
-        </div>
-      </li>
-      <li class="step">
-        <span class="s-no num">03</span>
-        <div class="s-body">
-          <div class="s-title">전환 검증 → 하루 마감</div>
-          <p class="s-desc">다음으로 넘어가려면 달성률과 실패 원인부터 답한다. <span class="fail">졸음 · 과몰입 · 알림 · 목표 과다</span> — 실패는 경고가 아니라 데이터다. 하루는 일기와 대시보드로 닫힌다.</p>
-        </div>
-      </li>
-    </ol>
+  <div class="sec-label">Powerj Loop — 매일 도는 3단계</div>
+
+  <div class="panel step-card">
+    <span class="ico sky">🗓️</span>
+    <div class="s-body">
+      <div class="s-top"><span class="s-title">하루를 프로세스로 계획</span><span class="s-no">01</span></div>
+      <p class="s-desc">🌅 기상 → 🚇 이동·출근 → 💼 오전 업무 → 🍱 점심 CS <span class="num">5</span>문제 → ✍️ 저녁 자소서. 목표는 정량으로 — 영상 <span class="num">2</span>개, 책 <span class="num">200</span>p.</p>
+    </div>
   </div>
 
-  <div class="bottom-act">
+  <div class="panel step-card">
+    <span class="ico ember">⏱️</span>
+    <div class="s-body">
+      <div class="s-top"><span class="s-title">타이머 + 방해금지로 실행</span><span class="s-no">02</span></div>
+      <p class="s-desc">남은 <span class="num">27:43</span>이 눈앞에서 흐르고 알림 <span class="num">6</span>건은 보류됩니다. 딴짓도 숫자로 남습니다.</p>
+    </div>
+  </div>
+
+  <div class="panel step-card">
+    <span class="ico mint">📊</span>
+    <div class="s-body">
+      <div class="s-top"><span class="s-title">검증하고 대시보드로 마감</span><span class="s-no">03</span></div>
+      <p class="s-desc">달성률과 실패 원인 — <span class="fail">졸음 · 과몰입 · 알림 · 목표 과다</span> — 을 답해야 다음으로 넘어갑니다. 하루는 📔 일기와 대시보드로 닫힙니다.</p>
+    </div>
+  </div>
+
+  <div class="bottom-act no-tab">
     <div class="cta">
-      <button class="btn btn-primary">내일의 체인 만들기</button>
+      <button class="btn btn-primary">시작하기 — 내일 계획 만들기</button>
       <button class="btn btn-ghost">샘플 하루 둘러보기</button>
     </div>
   </div>

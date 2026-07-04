@@ -1,171 +1,115 @@
-# Design System — powerj · 엠버 크로노그래프 (Ember Chronograph)
+# Design System — powerj v2 · 마켓 스탠다드 라이트 (Market-Standard Light)
 
 > **이 문서가 시각 결정의 단일 진실 원천이다.** UI를 만들거나 수정하기 전에 반드시 읽는다.
 > 여기 정의된 폰트·색·간격·모션을 벗어나려면 사용자 승인이 필요하다.
 >
-> ⚠️ **스코프 주의**: `design/sample.html`의 B안 화면들은 방향 검증용 목업일 뿐이다.
-> 실제 페이지 레이아웃은 이 시스템 위에서 **새로 설계한다**. 이 문서는 시스템(토큰·규칙)을 정의하고,
-> 화면 설계는 이후 와이어프레임/목업 단계의 몫이다.
+> **v2 개정 (2026-07-05)**: v1 "엠버 크로노그래프"(다크 계기판)는 사용자 검토에서 기각.
+> 시장 순위권 앱(Structured·TickTick·Routinery) 실물 리서치를 근거로 **마켓 스탠다드 라이트**로 전면 개정.
+> v1 스펙·화면은 git 히스토리 참조. 토큰 코드는 `design/system/tokens.css`가 이 문서와 1:1.
 
 ---
 
 ## 1. Product Context
 
-- **무엇**: 극한 계획/실행 앱. 하루를 프로세스 체인으로 설계, 프로세스마다 정량 목표, 실행은 타이머+방해금지로 측정, 전환 시 달성률·실패 원인 검증 강제, 하루는 일기+대시보드로 마감. (`docs/problem.md`)
-- **누구**: 자기계발형 직장인/취준생, 수험생, N잡러, 프리랜서/1인 창업가. (`docs/journey.md`)
-- **카테고리**: 플래너·집중 앱 (Structured, Sunsama, Rize, Forest, Opal 인접)
-- **프로젝트 타입**: 모바일 우선 앱. 대시보드/리포트는 세로 스크롤 1열 기준.
+- **무엇**: 극한 계획/실행 앱. 프로세스 체인 + 정량 목표 + 타이머/방해금지 + 전환 검증 + 일기/대시보드 마감. (`docs/problem.md`)
+- **누구**: 자기계발형 직장인/취준생, 수험생, N잡러, 프리랜서. (`docs/journey.md`)
+- **플랫폼**: 모바일 우선. 기억될 한 가지: **매일 쌓이는 성취의 쾌감**.
 
-## 2. 기억될 한 가지 & 디자인 원칙
+## 2. 디자인 원칙 (v1에서 계승 — 제품 DNA)
 
-**"매일 쌓이는 성취의 쾌감"** — 하루 마감 대시보드가 보상의 순간이다. 모든 시각 결정은 이 한 가지를 향한다.
+1. **측정이 곧 보상** — 숫자가 주인공. 모든 숫자는 IBM Plex Mono(tabular).
+2. **달성은 ember** — 진행·성취·주요 액션의 색. **100%는 gold 전용** (희소해야 보상이다).
+3. **실패는 데이터** — 실패·미달성·미기록에 빨강 금지. slate로 렌더. `--danger`는 파괴적 액션 전용.
+4. **친근하되 정확하게** (v2 신규) — 순위권 앱의 부드러움(카드·라운딩·링)을 입되, 수치 표기는 계기처럼 엄격하게(부호 포함 델타, tabular).
 
-1. **측정이 곧 보상** — 숫자가 주인공. 장식은 숫자를 빛나게 할 때만 존재한다.
-2. **달성은 열(heat)이다** — 진행·성취는 엠버(불씨)빛으로 "달아오른다". 채워지는 것이 아니라 뜨거워진다.
-3. **실패는 데이터다** — 실패·미달성에 빨강을 절대 쓰지 않는다. 실패 원인은 차가운 슬레이트(분석의 색)로 렌더링한다.
-4. **100%는 귀하다** — 골드는 100% 달성에만 허락된다. 흔해지는 순간 보상이 죽는다.
-5. **계기판의 절제** — 콘페티·파티클·마스코트·XP 없음. 보상은 열, 카운트업, 햅틱으로 충분하다.
+## 3. Aesthetic Direction — v2
 
-## 3. Aesthetic Direction
-
-- **방향**: 엠버 크로노그래프 — 웜 차콜 계기판 위에서 달성률이 불씨처럼 차오르는 정밀 계기.
-- **장식 수준**: intentional — 배경은 미묘한 웜 그레인 허용, 그 외 장식 없음. 형태·색·타이포가 일을 다 한다.
-- **무드**: 밤의 조종석. 진지하지만 차갑지 않다 — 차콜에 웜 언더톤, 액센트는 불의 온도.
-- **경쟁 차별점**: Rize(보라+감시 다크)·Opal(흑색 럭셔리)과 달리 **따뜻한 열의 다크**. 귀여운 격려(Forest/Structured)와 달리 성인용 계기.
-- **레퍼런스**: rize.io(데이터 밀도의 반면교사 — 우리는 더 절제), opal.so(대형 수치 타이포), 스포츠 크로노그래프 시계의 다이얼 문법.
+- **방향**: 마켓 스탠다드 라이트 — 생산성 순위권 앱의 검증된 문법 위에 powerj 시맨틱을 얹는다.
+- **리서치 근거** (App Store KR 실물 캡처, 2026-07-05):
+  - **Structured** (데일리 플래너, 에디터스 초이스 4.8★): 라이트 배경 + 세로 타임라인의 둥근 컬러 카드, 태스크마다 원형 컬러 아이콘 뱃지.
+  - **TickTick** (생산성 #105, 4.8★): 화이트 + 원형 포모도로 링, 컬러 태그, 부드러운 그림자.
+  - Routinery·마이루틴·열품타 동일 계열: 라이트 + 카드 + 링 + 하단 탭바.
+- **무드**: 아침의 주방 같은 웜 라이트. 앱스토어 스크린샷에 올려도 어색하지 않은 완성도.
+- **장식 수준**: intentional — 카드 그림자·틴트 배경·이모지 아이콘까지. 일러스트/마스코트는 없음.
 
 ## 4. Typography
 
 | 역할 | 폰트 | 규칙 |
 |---|---|---|
-| **숫자 전역** (타이머·%·통계·시간) | **IBM Plex Mono** | 모든 숫자는 예외 없이 Plex Mono. tabular라 타이머 틱에서 폭 흔들림 없음. weight 500–600 |
-| **UI/본문 한글** | **Wanted Sans Variable** | 라벨·본문·버튼. weight 400–700 |
-| **디스플레이 한글** (화면 제목, 마감 헤드라인) | **Wanted Sans** 800, letter-spacing −1% | 별도 디스플레이 폰트를 두지 않는다 — 숫자가 주인공이므로 한글은 조연 |
-| **일기 본문** (선택적 예외) | **MaruBuri** | 일기 화면만 세리프 — "기계의 숫자 vs 사람의 목소리" 대비. 이 외 화면에서 사용 금지 |
+| 숫자 전역 | **IBM Plex Mono** 500–600 | 타이머·%·통계·시간. tabular. class `num` |
+| UI/본문 한글 | **Wanted Sans Variable** | 400–700, 제목 800 |
+| 일기 본문 | **MaruBuri** | S-08 일기 화면 전용 |
 
-- **로딩**:
-  - IBM Plex Mono: `https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap`
-  - Wanted Sans Variable: `https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/complete/WantedSansVariable.min.css`
-  - MaruBuri: `https://hangeul.pstatic.net/hangeul_static/css/maru-buri.css` (일기 화면 진입 시 지연 로드)
-  - 셀프호스팅 전환 가능. `font-display: swap`, 핵심 웨이트만 preload (Plex Mono 600, Wanted Sans Variable).
-- **타입 스케일** (모바일 기준, 1rem=16px):
+- 로딩 CDN은 v1과 동일 (tokens.css 상단 주석 참조). `font-display: swap`.
+- 스케일: timer clamp(52~72px) / stat-xl 56 / stat 36 / h1 24·800 / h2 18 / body 15 / caption 12.5 / micro 11.
 
-| 토큰 | 크기 | 용도 |
-|---|---|---|
-| `--text-timer` | clamp(56px, 22vw, 84px) / line-height 1.0 | 실행 타이머 카운트다운 |
-| `--text-stat-xl` | 64px | 마감 대시보드 총 달성률 |
-| `--text-stat` | 40px | 전환 게이트 %, 주요 통계 |
-| `--text-h1` | 24px / 800 | 화면 제목 |
-| `--text-h2` | 18px / 700 | 섹션 제목 |
-| `--text-body` | 15px / 1.6 | 본문 |
-| `--text-caption` | 12px | 캡션, 원장 행 |
-| `--text-micro` | 10px / letter-spacing .12em | 오버라인 라벨 (PROCESS 02 등) |
-
-- **숫자 규칙**: `font-variant-numeric: tabular-nums` 전역. 시간 델타는 항상 부호 포함(`−30분`, `+40분`).
-
-## 5. Color
-
-**접근**: restrained+semantic — 중립 4단 + 액센트 3색(ember/gold/slate). 색은 드물고, 나올 때는 의미가 있다.
-
-### 다크 (기본 테마)
+## 5. Color — 라이트 기본
 
 | 토큰 | 값 | 용도 |
 |---|---|---|
-| `--bg` | `#141210` | 앱 배경 — 웜 차콜 |
-| `--surface` | `#1D1A16` | 패널·카드 |
-| `--edge` | `#2E2A24` | 보더·비활성 트랙 (그림자 대신 1px 보더) |
-| `--text` | `#EDE6DA` | 본문 텍스트 (본·bone) — 대비 ≈13:1 |
-| `--text-muted` | `#8A8378` | 보조 텍스트 |
-| `--ember` | `#E8853D` | **달성 heat** — 진행, 성취, 주요 액션. 대비 ≈6.2:1 |
-| `--ember-hot` | `#F5A94B` | heat 상단, 강조 수치 |
-| `--ember-dim` | `#7A3E1D` | heat 하단 (낮은 달성률) |
-| `--gold` | `#E5B84B` | **100% 전용.** 그 외 사용 금지 |
-| `--slate` | `#7D93B2` | 실패 데이터, 계획(미실행), 정보 |
-| `--danger` | `#C24B36` | **파괴적 액션 전용** (삭제·초기화). 실패 표시에 사용 금지 |
+| `--bg` | `#F6F4EF` | 앱 배경 — 웜 오프화이트 |
+| `--surface` | `#FFFFFF` | 카드·패널 (그림자와 세트) |
+| `--surface-2` | `#FBFAF7` | 서브 영역·인풋 |
+| `--edge` | `#ECE8DF` | 헤어라인·링/바 트랙 |
+| `--text` | `#211B12` | 잉크 |
+| `--text-muted` / `--text-faint` | `#8A8171` / `#B8B0A0` | 보조 |
+| `--ember` | `#F07A2B` | 달성 heat · 주요 액션 (+hot `#FF9D4D`, soft `#FEF1E6`) |
+| `--gold` | `#E9B93B` | **100% 전용** (+soft `#FBF3DC`) |
+| `--slate` | `#7189A8` | 실패 데이터 · 계획 · 정보 (+soft `#EEF2F7`) |
+| `--danger` | `#D8542F` | 파괴적 액션 전용 |
 
-### 달성률 heat 스케일 (게이지·바·수치 공통)
+**카테고리 컬러** (프로세스 아이콘 뱃지 전용 — 진행/성취 의미 금지):
+sky `#5B9BD5` · mint `#3FB58F` · coral `#EF7C66` · violet `#9B7EDE` · rose `#E77FB3` (+각 soft 틴트).
 
-- 0–39%: `--edge` (아직 차갑다)
-- 40–69%: `--ember-dim` → `--ember` 그라데이션
-- 70–99%: `--ember` → `--ember-hot`
-- 100%: `--gold` (+ 카운트업 완료 시 1회 글로우)
+**다크 테마**: v2에서는 보류(설정에 "준비 중"으로 노출). 도입 시 v1 팔레트를 계승해 파생한다.
 
-### 라이트 (2순위 테마)
+## 6. 형태 — 라운딩·그림자·레이아웃
 
-다크 우선이 원칙(타이머·저녁 마감·방해금지 몰입, OLED). 라이트는 톤 반전으로 파생:
-`--bg #F5F1E8` / `--surface #FBF8F1` / `--edge #E0D9CC` / `--text #26221C` / `--text-muted #756E60`,
-액센트는 채도 −10%: `--ember #D4762F`, `--gold #C29A2E`, `--slate #5C7796`, `--danger #B03E2A`.
-두 테마 모두 heat 스케일·시맨틱 규칙 동일.
+- **라운딩**: sm 10(칩·소버튼) / md 16(카드·인풋) / lg 22(큰 카드·시트) / full(필 버튼·링).
+- **그림자**: `--shadow-card`(카드 기본) / `--shadow-float`(모달·CTA). v1의 "보더로 깊이" 규칙 폐기.
+- **간격**: 4px 베이스, 화면 좌우 20px.
+- **좌측 정렬 기본**, 중앙 정렬은 링·타이머·보상 순간.
+- **시그니처 패턴**:
+  - **타임라인 컬러 카드** (Structured 문법): 세로 레일 + 시각 + 상태 뱃지 + 흰 카드(이모지 틴트 아이콘 + 이름 + 메타 + 달성률).
+  - **원형 진행 링** (TickTick 문법): conic-gradient, `--p`(%)·`--ring-w`로 제어. 타이머·요약·게이트의 중심.
+  - **하단 탭바 4탭**: 오늘 📋 / 기록 📚 / 리포트 📈 / 설정 ⚙️. 메인 4화면(S-02·09·10·11)에만. 플로우 화면(타이머·게이트·마감·인증)은 탭바 없음.
 
-### 시맨틱 규칙 (강제)
+## 7. Motion
 
-- 성공/달성 = ember 계열, 100% = gold. **초록을 성공에 쓰지 않는다** (시간 단축 수치도 ember-hot).
-- 실패/미달성/미시작 = slate + 형태(라벨·아이콘) 병행. **색만으로 의미 전달 금지** (색각 대응).
-- 빨강(`--danger`)은 되돌릴 수 없는 행동의 경고에만.
+- heat fill(scaleX)·count-up·450ms 롱프레스 확정·100% gold 글로우 — v1 문법 유지.
+- v2 추가: 버튼 `:active scale(.985)`, 카드 진입 subtle fade+rise(120ms), 링은 conic 각도 트랜지션.
+- transform/opacity만 애니메이트. reduced-motion 대응 유지.
 
-## 6. Spacing
+## 8. 컴포넌트 (components.css와 1:1)
 
-- **베이스 유닛**: 4px
-- **밀도**: comfortable (계기판이지만 모바일 엄지 기준)
-- **스케일**: `2xs(2) xs(4) sm(8) md(16) lg(24) xl(32) 2xl(48) 3xl(64)`
-- **화면 좌우 패딩**: 18px 고정 (계기판의 일관된 베젤)
-- **섹션 간격**: 24px, 패널 내부 패딩: 14–16px
+| 컴포넌트 | 클래스 | 규칙 |
+|---|---|---|
+| 타임라인 | `.tl` `.tl-item(.now/.dim/.jit)` `.tl-card` `.ico.{cat}` | now=ember 아웃라인+글로우 도트, jit=slate 대시, 완료 뱃지 done/gold |
+| 진행 링 | `.ring` (`--p`,`--ring-w`) | ember 기본, `.gold`=100%, `.slate`=정보 |
+| 히트 바 | `.heat-bar(.is-gold/.is-cool)` | scaleX 채움, 필 라디우스 |
+| 칩 | `.chip(.set/.ember)` | 필 형태. 실패 원인=slate, 선택·제안=ember |
+| 버튼 | `.btn-primary/ghost/hold/danger` | 필 형태, primary는 ember 그림자 |
+| 스탯 | `.stat-xl/.stat/.stat-card` | Plex Mono, %는 60% 크기 muted |
+| 리스트 행 | `.lrow` + `.val(.hot/.cool/.gold/.muted)` | 좌 라벨–우 수치 |
+| 폼 | `.field(.err)` `.check-row` `.divider` | 오류=slate(빨강 금지), 포커스=ember 보더 |
+| 탭바 | `.tabbar` | 블러 화이트, 활성=ember |
 
-## 7. Layout
+## 9. Accessibility
 
-- **접근**: grid-disciplined — 모바일 1열 세로 흐름, 좌측 정렬 기본. 중앙 정렬은 "확정/보상 순간"에만.
-- **그리드**: 모바일 4컬럼(간격 16px) / 태블릿+ 8컬럼 / 콘텐츠 최대 폭 480px (모바일 우선 앱, 데스크톱은 센터 칼럼)
-- **라디우스**: `none(게이지·바·트랙) / sm 3px(칩·버튼) / md 6px(패널·카드) / full(상태 도트만)`. 버블 라디우스 금지.
-- **깊이**: 그림자 대신 `1px --edge` 보더 + 배경 단차(`--bg` vs `--surface`). 그림자는 모달 1겹만 허용.
-- **시그니처 요소**: 게이지 아크(타이머), 히트 바, 원장(ledger) 테이블 — 상단 1.5px `--text` 굵은 괘선 + 행 `--edge` 헤어라인.
+- 본문 대비 `--text`/`--bg` ≥ 12:1. muted ≥ 4.5:1. ember는 대형·아이콘·CTA 위주(소형 본문 텍스트로 단독 사용 금지).
+- 의미는 색+형태+라벨 삼중화. 터치 타겟 ≥ 44px. reduced-motion 존중.
 
-## 8. Motion
+## 10. 금지 패턴
 
-- **접근**: intentional — 이해를 돕는 전환 + 보상 순간의 절제된 연출. 그 외 정적.
-- **핵심 문법**:
-  - **heat fill**: 게이지·바는 슬라이드가 아니라 색온도가 오르며 채워진다 (fill + color 동시 트랜지션)
-  - **count-up**: 큰 수치는 페이드인 금지 — 0→값 카운트업 (400–700ms, ease-out)
-  - **long-press 확정**: 전환 검증 확정은 450ms 홀드 + 진행 링 + 완료 햅틱
-  - **100% 순간**: gold 전환 + 1회 글로우 펄스(300ms) + 강한 햅틱. 파티클 없음.
-- **이징**: enter `cubic-bezier(0.16,1,0.3,1)` / exit ease-in / move ease-in-out
-- **듀레이션**: micro 80–120ms / short 150–250ms / medium 250–400ms / reward 400–700ms
-- **성능**: transform·opacity·clip-path만 애니메이트. 히트 바 채움은 `transform: scaleX` + `transform-origin: left`로 구현 (width 애니메이션 금지).
-- **reduced-motion**: 카운트업→즉시 표시, heat fill→크로스페이드, 햅틱은 유지(접근성 경로).
+- 실패에 빨강 / 성공에 초록 (ember·gold·slate 시맨틱 고정)
+- gold의 100% 외 사용, 콘페티·파티클·마스코트
+- 보라 그라데이션, 그라데이션 CTA
+- system-ui/Inter/Roboto를 디스플레이로
 
-## 9. 컴포넌트 규칙 (요약)
-
-| 컴포넌트 | 규칙 |
-|---|---|
-| 타이머 게이지 아크 | 트랙 `--edge` 10px, 진행 heat 스케일. 숫자는 아크와 분리(겹침 금지) |
-| 히트 바 | 높이 12–16px, 라디우스 0, scaleX 애니메이션 |
-| 원장 테이블 | 상단 1.5px 굵은 괘선, 좌 라벨(Wanted Sans)–우 수치(Plex Mono), 단축=ember-hot, 초과·실패=slate |
-| 실패 원인 칩 | slate 1px 보더, 선택 시 slate 채움+bg 텍스트. 3px 라디우스, 최소 터치 44px |
-| 스탯 대형 숫자 | Plex Mono, % 기호는 60% 크기·muted (100%일 때만 gold) |
-| 스파크라인/차트 | 막대=heat 스케일, 100%=gold, 미시작=edge. 데이터 잉크 외 장식 금지 |
-| 일기 패널 | `--surface` 패널, MaruBuri, line-height 1.9. 통계와 시각적으로 분리(한 톤 조용하게) |
-| 방해금지 상태 | ember 도트 + "알림 N건 보류" — 차단을 성과로 보여준다 |
-
-## 10. Accessibility
-
-- 텍스트 대비: `--text`/`--bg` ≈13:1, `--text-muted` ≥4.5:1, `--ember` 본문 크기 사용 시 ≥4.5:1 충족 (대형 수치는 3:1 허용 범위)
-- 의미는 색+형태+라벨 삼중화 (성공/실패를 색으로만 구분 금지)
-- 터치 타겟 최소 44×44px, 타이머 화면 핵심 액션은 엄지 존(하단 1/3)
-- 전환 게이트는 스크린리더에서 폼으로 완주 가능해야 함 (달성률 슬라이더 `aria-valuetext="70퍼센트"`)
-- reduced-motion·다크/라이트 모두 시스템 설정 존중, 앱 내 오버라이드 제공
-
-## 11. 금지 패턴 (Anti-slop)
-
-- 보라 그라데이션, 그라데이션 CTA 버튼
-- 실패에 빨강 / 성공에 초록 (이 시스템은 ember/gold/slate)
-- 콘페티·파티클·마스코트·XP·스트릭 플레임
-- 균일 버블 라디우스, 카드 그림자 남발
-- 중앙 정렬 남발 (보상 순간 외 금지)
-- system-ui/Inter/Roboto/Pretendard를 디스플레이로 사용
-
-## 12. Decisions Log
+## 11. Decisions Log
 
 | 날짜 | 결정 | 근거 |
 |---|---|---|
-| 2026-07-04 | 디자인 시스템 초판 — B안 엠버 크로노그래프 채택 | /design-consultation: 경쟁 5사 리서치(browse 캡처) + 독립 디자인 보이스 비교, 5개 시안(sample.html) 검토 후 사용자 선택 |
-| 2026-07-04 | 시스템만 차용, 페이지 레이아웃은 재설계 예정 | 사용자 지시 — sample.html은 방향 검증용 목업 |
-| 2026-07-04 | 실패=slate(빨강 금지), 100%=gold 전용, 달성=heat 스케일 | "실패는 데이터" 원칙(journey.md 교차 인사이트) + "성취의 쾌감" 기억점 |
+| 2026-07-04 | v1 엠버 크로노그래프(다크 계기판) 채택 | 5개 시안 비교 후 사용자 선택 |
+| 2026-07-05 | **v2 마켓 스탠다드 라이트로 전면 개정** | 사용자가 v1 화면 기각 — "순위권 앱 디자인 참고해 전부 재제작" 지시. Structured·TickTick App Store 실물 리서치 근거. ember/gold/slate 시맨틱과 Plex Mono 숫자는 DNA로 계승 |
+| 2026-07-05 | 다크 테마 보류 | 라이트 우선 출시, 설정에 "준비 중" 노출 |

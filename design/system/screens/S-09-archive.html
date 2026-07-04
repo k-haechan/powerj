@@ -9,53 +9,40 @@
 <link rel="stylesheet" href="../tokens.css">
 <link rel="stylesheet" href="../components.css">
 <style>
-  /* S-09 전용 — 아카이브는 원장이다. 스트릭 연출 없음, 쌓인 숫자가 곧 스트릭. */
+  /* S-09 전용 — 아카이브는 원장. 연출 없이, 쌓인 숫자와 링이 곧 스트릭이다. */
 
-  /* 상단 요약: 좌측 누적 수치 + 우측 최근 7일 미니 히트 스트립 */
-  .sum-row { display: flex; justify-content: space-between; align-items: flex-end; gap: var(--sp-md); }
-  .sum-cap { font-size: var(--text-caption); color: var(--text-muted); margin-top: var(--sp-sm); }
-  .sum-cap b { font-weight: 600; color: var(--ember-hot); }
-  .week-strip { display: flex; gap: 5px; align-items: flex-end; }
-  .wcol { width: 22px; display: flex; flex-direction: column; align-items: center; gap: 4px; }
-  .wcol .track { width: 12px; height: 36px; background: var(--edge); position: relative; border-radius: var(--radius-none); }
-  .wcol .track i {
-    position: absolute; left: 0; right: 0; bottom: 0; display: block;
-    background: linear-gradient(0deg, var(--ember-dim), var(--ember) 70%, var(--ember-hot));
-  }
-  .wcol.warm .track i { background: linear-gradient(0deg, var(--ember-dim), var(--ember)); }
-  .wcol.gold .track i { background: var(--gold); }
-  .wcol .wd { font-size: var(--text-micro); color: var(--text-faint); line-height: 1; }
-  .wcol.today .wd { color: var(--text); font-weight: 700; }
+  /* 요약 카드: 좌측 연속 기록 스탯 + 우측 주 평균, 하단 7일 미니 링 */
+  .sum-top { display: flex; justify-content: space-between; align-items: flex-end; gap: var(--sp-md); }
+  .sum-top .k { font-size: 12px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; }
+  .sum-avg { text-align: right; font-size: 12.5px; color: var(--text-muted); font-weight: 600; }
+  .sum-avg b { font-family: var(--font-num); font-size: 20px; font-weight: 600; color: var(--ember); display: block; letter-spacing: -.02em; }
+  .week-dots { display: flex; justify-content: space-between; margin-top: var(--sp-md); padding-top: var(--sp-md); border-top: 1px solid var(--edge); }
+  .wday { display: flex; flex-direction: column; align-items: center; gap: 7px; }
+  .wday .ring { width: 30px; height: 30px; --ring-w: 4px; }
+  .wday .ring .inner { font-size: 10px; line-height: 1; }
+  .wday .ring.gold .inner { color: var(--gold); font-weight: 700; }
+  .wday .wd { font-size: var(--text-micro); font-weight: 600; color: var(--text-faint); line-height: 1; }
+  .wday.today .wd { color: var(--ember); font-weight: 700; }
+  .wday.none .ring::before { background: var(--edge); } /* 미기록 = 트랙만, slate·red 아님 */
 
-  /* 일별 원장 — 패널 없는 행: 날짜 · 소형 히트 바(폭=달성률) · 달성률 */
-  .list-head {
-    display: flex; justify-content: space-between; align-items: baseline;
-    margin-top: var(--sp-lg);
-  }
-  .list-head .lab { font-family: var(--font-num); font-size: var(--text-micro); letter-spacing: .12em; color: var(--text-muted); text-transform: uppercase; }
-  .list-head .cnt { font-family: var(--font-num); font-size: 11px; color: var(--text-faint); }
-  .drow {
-    display: flex; align-items: center; gap: var(--sp-md);
-    padding: 13px 0; border-bottom: 1px solid var(--edge);
-  }
-  .drow .d { font-family: var(--font-num); font-size: 12px; color: var(--text-muted); width: 66px; flex-shrink: 0; }
-  .drow .d em { font-style: normal; font-family: var(--font-sans); color: var(--text-faint); margin-left: 2px; }
-  .drow .heat-bar { flex: 1; height: 6px; }
-  .drow.none .heat-bar { background: transparent; border: 1px solid var(--edge); } /* 미기록 = 엣지 윤곽만 */
-  .heat-bar.is-warm > i { background: linear-gradient(90deg, var(--ember-dim), var(--ember)); } /* 40–69% 구간 */
-  .drow .pct { font-family: var(--font-num); font-size: 13px; font-weight: 600; width: 46px; text-align: right; flex-shrink: 0; }
-  .drow .pct small { font-size: 10px; color: var(--text-muted); font-weight: 500; }
-  .drow.gold .pct, .drow.gold .pct small { color: var(--gold); }
-  .drow.none .pct { font-family: var(--font-sans); font-size: 11px; font-weight: 500; color: var(--text-faint); width: auto; }
+  /* 일별 원장 — .lrow 안에 날짜·미니 히트바·달성률 */
+  .day-list .lrow { gap: var(--sp-md); }
+  .day-list .d { font-size: 12.5px; color: var(--text-muted); width: 66px; flex-shrink: 0; font-weight: 600; }
+  .day-list .d .num { font-size: 12px; font-weight: 500; color: var(--text); margin-right: 2px; }
+  .day-list .lrow.none .d .num { color: var(--text-faint); }
+  .day-list .heat-bar { flex: 1; height: 8px; }
+  .day-list .lrow.none .heat-bar { background: var(--surface-2); border: 1px dashed var(--edge); }
+  .day-list .val { width: 48px; text-align: right; flex-shrink: 0; }
+  .day-list .val small { font-size: 10px; font-weight: 500; }
+  .day-list .val.muted { font-family: var(--font-sans); font-size: 11.5px; font-weight: 500; }
 
-  /* 주간 리포트 진입 행 — 리포트는 분석(정보) 영역이므로 슬레이트 오버라인 */
-  .ledger-wrap .panel { margin: var(--sp-md) 0; }
-  .report-row {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-top: var(--sp-sm); text-decoration: none; color: var(--text);
-    font-size: 14px; font-weight: 600; min-height: 28px;
-  }
-  .report-row .arrow { font-family: var(--font-num); color: var(--slate); }
+  /* 주간 리포트 진입 카드 */
+  a.report-card { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text); }
+  .report-card .ico { width: 38px; height: 38px; border-radius: 12px; flex-shrink: 0; background: var(--surface); display: flex; align-items: center; justify-content: center; font-size: 18px; box-shadow: var(--shadow-card); }
+  .report-card .body { flex: 1; min-width: 0; }
+  .report-card .name { font-size: 14px; font-weight: 700; letter-spacing: -.01em; }
+  .report-card .meta { font-size: 11.5px; color: var(--text-muted); margin-top: 1px; }
+  .report-card .arrow { font-family: var(--font-num); font-size: 16px; color: var(--ember); flex-shrink: 0; }
 </style>
 </head>
 <body>
@@ -68,103 +55,74 @@
     <p class="sub">마감한 하루가 그대로 원장이 된다 — 세는 것은 앱, 쌓는 것은 나</p>
   </div>
 
-  <section class="panel">
-    <div class="panel-label">누적 기록</div>
-    <div class="sum-row">
+  <section class="panel big">
+    <div class="sum-top">
       <div>
-        <div class="stat-xl">34<small>일</small></div>
-        <p class="sum-cap">이번 주 평균 <b class="num">84%</b></p>
+        <div class="k">연속 기록</div>
+        <div class="stat">34<small>일</small></div>
       </div>
-      <div class="week-strip" role="img" aria-label="최근 7일 달성률: 토 68%, 일 미기록, 월 82%, 화 76%, 수 100%, 목 91%, 금 87%">
-        <div class="wcol warm"><span class="track"><i style="height:68%"></i></span><span class="wd">토</span></div>
-        <div class="wcol"><span class="track"></span><span class="wd">일</span></div>
-        <div class="wcol"><span class="track"><i style="height:82%"></i></span><span class="wd">월</span></div>
-        <div class="wcol"><span class="track"><i style="height:76%"></i></span><span class="wd">화</span></div>
-        <div class="wcol gold"><span class="track"><i style="height:100%"></i></span><span class="wd">수</span></div>
-        <div class="wcol"><span class="track"><i style="height:91%"></i></span><span class="wd">목</span></div>
-        <div class="wcol today"><span class="track"><i style="height:87%"></i></span><span class="wd">금</span></div>
-      </div>
+      <div class="sum-avg">이번 주 평균<b>84%</b></div>
+    </div>
+    <div class="week-dots" role="img" aria-label="최근 7일 달성률: 토 68%, 일 미기록, 월 82%, 화 76%, 수 100%, 목 91%, 금 87%">
+      <div class="wday"><span class="ring" style="--p:68"><span class="inner"></span></span><span class="wd">토</span></div>
+      <div class="wday none"><span class="ring" style="--p:0"><span class="inner"></span></span><span class="wd">일</span></div>
+      <div class="wday"><span class="ring" style="--p:82"><span class="inner"></span></span><span class="wd">월</span></div>
+      <div class="wday"><span class="ring" style="--p:76"><span class="inner"></span></span><span class="wd">화</span></div>
+      <div class="wday"><span class="ring gold" style="--p:100"><span class="inner">✓</span></span><span class="wd">수</span></div>
+      <div class="wday"><span class="ring" style="--p:91"><span class="inner"></span></span><span class="wd">목</span></div>
+      <div class="wday today"><span class="ring" style="--p:87"><span class="inner"></span></span><span class="wd">금</span></div>
     </div>
   </section>
 
-  <div class="list-head">
-    <span class="lab">일별 달성률</span>
-    <span class="cnt">최근 12일</span>
-  </div>
-
-  <div class="ledger ledger-wrap">
-    <div class="drow">
-      <span class="d">07.04 <em>금</em></span>
+  <section class="panel day-list">
+    <div class="panel-label">일별 달성률</div>
+    <div class="lrow">
+      <span class="d"><span class="num">07.04</span> 금</span>
       <span class="heat-bar"><i style="transform:scaleX(.87)"></i></span>
-      <span class="pct">87<small>%</small></span>
+      <span class="val hot">87<small>%</small></span>
     </div>
-    <div class="drow">
-      <span class="d">07.03 <em>목</em></span>
+    <div class="lrow">
+      <span class="d"><span class="num">07.03</span> 목</span>
       <span class="heat-bar"><i style="transform:scaleX(.91)"></i></span>
-      <span class="pct">91<small>%</small></span>
+      <span class="val hot">91<small>%</small></span>
     </div>
-    <div class="drow gold">
-      <span class="d">07.02 <em>수</em></span>
+    <div class="lrow">
+      <span class="d"><span class="num">07.02</span> 수</span>
       <span class="heat-bar is-gold"><i style="transform:scaleX(1)"></i></span>
-      <span class="pct">100<small>%</small></span>
+      <span class="val gold">100<small>%</small></span>
     </div>
-    <div class="drow">
-      <span class="d">07.01 <em>화</em></span>
+    <div class="lrow">
+      <span class="d"><span class="num">07.01</span> 화</span>
       <span class="heat-bar"><i style="transform:scaleX(.76)"></i></span>
-      <span class="pct">76<small>%</small></span>
+      <span class="val hot">76<small>%</small></span>
     </div>
-    <div class="drow">
-      <span class="d">06.30 <em>월</em></span>
+    <div class="lrow">
+      <span class="d"><span class="num">06.30</span> 월</span>
       <span class="heat-bar"><i style="transform:scaleX(.82)"></i></span>
-      <span class="pct">82<small>%</small></span>
+      <span class="val hot">82<small>%</small></span>
     </div>
-    <div class="drow none">
-      <span class="d">06.29 <em>일</em></span>
+    <div class="lrow none">
+      <span class="d"><span class="num">06.29</span> 일</span>
       <span class="heat-bar"></span>
-      <span class="pct">미기록</span>
+      <span class="val muted">미기록</span>
     </div>
+  </section>
 
-    <section class="panel">
-      <div class="overline info">Weekly Report</div>
-      <a class="report-row" href="#">
-        <span>주간 리포트 — 6월 5주차</span>
-        <span class="arrow">→</span>
-      </a>
-    </section>
+  <a class="panel tint-ember report-card" href="S-10-weekly.html">
+    <span class="ico">📈</span>
+    <span class="body">
+      <span class="name">6월 5주차 리포트가 준비됐어요</span>
+      <span class="meta" style="display:block">주 평균 <span class="num">84%</span> · 실패 원인 1위 졸음</span>
+    </span>
+    <span class="arrow">→</span>
+  </a>
 
-    <div class="drow">
-      <span class="d">06.28 <em>토</em></span>
-      <span class="heat-bar is-warm"><i style="transform:scaleX(.68)"></i></span>
-      <span class="pct">68<small>%</small></span>
-    </div>
-    <div class="drow">
-      <span class="d">06.27 <em>금</em></span>
-      <span class="heat-bar"><i style="transform:scaleX(.79)"></i></span>
-      <span class="pct">79<small>%</small></span>
-    </div>
-    <div class="drow">
-      <span class="d">06.26 <em>목</em></span>
-      <span class="heat-bar is-warm"><i style="transform:scaleX(.63)"></i></span>
-      <span class="pct">63<small>%</small></span>
-    </div>
-    <div class="drow">
-      <span class="d">06.25 <em>수</em></span>
-      <span class="heat-bar"><i style="transform:scaleX(.88)"></i></span>
-      <span class="pct">88<small>%</small></span>
-    </div>
-    <div class="drow">
-      <span class="d">06.24 <em>화</em></span>
-      <span class="heat-bar is-warm"><i style="transform:scaleX(.54)"></i></span>
-      <span class="pct">54<small>%</small></span>
-    </div>
-    <div class="drow">
-      <span class="d">06.23 <em>월</em></span>
-      <span class="heat-bar"><i style="transform:scaleX(.71)"></i></span>
-      <span class="pct">71<small>%</small></span>
-    </div>
-  </div>
-
-  <button class="btn btn-ghost" style="margin-top: var(--sp-lg)">주간 리포트 보기</button>
+  <nav class="tabbar">
+    <a href="S-02-today.html"><span class="ti">📋</span>오늘</a>
+    <a class="on" href="S-09-archive.html" aria-current="page"><span class="ti">📚</span>기록</a>
+    <a href="S-10-weekly.html"><span class="ti">📈</span>리포트</a>
+    <a href="S-11-settings.html"><span class="ti">⚙️</span>설정</a>
+  </nav>
 </div>
 </body>
 </html>

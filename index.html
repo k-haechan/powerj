@@ -9,13 +9,13 @@
 <link href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/complete/WantedSansVariable.min.css" rel="stylesheet">
 <link rel="stylesheet" href="design/system/tokens.css">
 <style>
-  body { background: #0E0D0B; }
+  body { background: var(--bg); }
   a { color: inherit; text-decoration: none; }
   .wrap { max-width: 1080px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 24px); }
 
   /* ============ HERO — 계기판 점화 ============ */
   .hero { position: relative; overflow: hidden; padding: clamp(56px, 9vw, 92px) 0 clamp(56px, 9vw, 88px); border-bottom: 1px solid var(--edge);
-    background: radial-gradient(720px 340px at 85% -10%, rgba(232,133,61,.16), transparent 62%), var(--bg); }
+    background: radial-gradient(720px 340px at 85% -10%, rgba(240,122,43,.12), transparent 62%), var(--bg); }
   .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-num); font-size: 11px; letter-spacing: .14em;
     color: var(--ember); border: 1px solid var(--edge); background: var(--surface); border-radius: var(--radius-sm); padding: 7px 12px; margin-bottom: 20px; }
   .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ember); }
@@ -85,7 +85,7 @@
       하루를 <b>일기와 대시보드로 마감</b>해 내일에 되먹이는 앱은 없다. powerj가 그 앱이다.</p>
     <div class="meta">
       <span class="chip">플랫폼 <b>모바일 우선</b></span>
-      <span class="chip">디자인시스템 <b>엠버 크로노그래프</b></span>
+      <span class="chip">디자인시스템 <b>마켓 스탠다드 라이트 v2</b></span>
       <span class="chip">화면 <b>S-01–S-13</b></span>
       <span class="chip">와이어플로우 <b>5 레인</b></span>
       <span class="chip">페르소나 <b>4</b></span>
@@ -114,8 +114,8 @@
     <div class="grid">
       <a class="card" href="docs/problem.html"><span class="k">DOCS / PROBLEM</span><h3>문제 정의</h3><p>배경 · 기존 앱의 한계 비교 · 핵심 개념 5 · 극한의 의미 · 가치 가설 · 열린 질문.</p></a>
       <a class="card" href="docs/journey.html"><span class="k">DOCS / JOURNEY</span><h3>고객 여정지도</h3><p>페르소나 4(직장인·수험생·N잡러·프리랜서) × 공통 여정 6단계 · 시나리오 · 교차 인사이트.</p></a>
-      <a class="card" href="design/DESIGN.html"><span class="k">DESIGN / SPEC</span><h3>디자인시스템 — DESIGN.md</h3><p>엠버 크로노그래프 정식 스펙: 원칙 5 · 컬러/타이포/모션 토큰 · 컴포넌트 규칙 · 금지 패턴.</p></a>
-      <a class="card" href="design/sample.html"><span class="k info">DESIGN / ARCHIVE</span><h3>방향 검토 시안 5종</h3><p>활판 텔레메트리 → 엠버 크로노그래프(확정) 등 5개 방향 비교 목업. 결정 과정의 기록.</p></a>
+      <a class="card" href="design/DESIGN.html"><span class="k">DESIGN / SPEC</span><h3>디자인시스템 — DESIGN.md v2</h3><p>마켓 스탠다드 라이트 정식 스펙: 원칙 · 라이트 팔레트 · 타임라인 카드/링/탭바 · 금지 패턴.</p></a>
+      <a class="card" href="design/sample.html"><span class="k info">DESIGN / ARCHIVE</span><h3>방향 검토 아카이브</h3><p>v1 시안 5종 비교 목업 — v2 개정 이전의 결정 과정 기록.</p></a>
     </div>
   </section>
 
@@ -132,17 +132,18 @@
 
   <!-- 디자인 시스템 -->
   <section>
-    <div class="sec-head"><h2>디자인시스템 — 엠버 크로노그래프</h2></div>
-    <p class="sec-desc">웜 차콜 계기판 위에서 달성률이 불씨처럼 차오른다. <b style="color:var(--text)">측정이 곧 보상 · 실패는 데이터(빨강 금지) · 100%는 gold 전용.</b>
-    이 페이지 자체가 <code style="font-family:var(--font-num);font-size:.9em;color:var(--ember-hot)">design/system/tokens.css</code> 위에서 렌더되고 있다.</p>
+    <div class="sec-head"><h2>디자인시스템 — 마켓 스탠다드 라이트 v2</h2></div>
+    <p class="sec-desc">Structured·TickTick 등 순위권 앱 실물 리서치 기반 — 웜 라이트, 둥근 컬러 카드, 원형 링, 하단 탭바.
+    powerj DNA는 유지: <b style="color:var(--text)">측정이 곧 보상 · 실패는 데이터(빨강 금지) · 100%는 gold 전용.</b>
+    이 페이지 자체가 <code style="font-family:var(--font-num);font-size:.9em;color:var(--ember)">design/system/tokens.css</code> 위에서 렌더되고 있다.</p>
     <div class="swatches">
-      <div class="sw"><i style="background:#141210"></i><span><b>--bg</b>#141210 · 웜 차콜</span></div>
-      <div class="sw"><i style="background:#1D1A16"></i><span><b>--surface</b>#1D1A16 · 패널</span></div>
-      <div class="sw"><i style="background:#EDE6DA"></i><span><b>--text</b>#EDE6DA · 본</span></div>
-      <div class="sw"><i style="background:linear-gradient(90deg,#7A3E1D,#E8853D,#F5A94B)"></i><span><b>--ember heat</b>달성 0→99%</span></div>
-      <div class="sw"><i style="background:#E5B84B"></i><span><b>--gold</b>#E5B84B · 100% 전용</span></div>
-      <div class="sw"><i style="background:#7D93B2"></i><span><b>--slate</b>#7D93B2 · 실패=데이터</span></div>
-      <div class="sw"><i style="background:#C24B36"></i><span><b>--danger</b>#C24B36 · 파괴 액션 전용</span></div>
+      <div class="sw"><i style="background:#F6F4EF"></i><span><b>--bg</b>#F6F4EF · 웜 오프화이트</span></div>
+      <div class="sw"><i style="background:#FFFFFF;border-bottom:1px solid var(--edge)"></i><span><b>--surface</b>#FFFFFF · 카드</span></div>
+      <div class="sw"><i style="background:#211B12"></i><span><b>--text</b>#211B12 · 잉크</span></div>
+      <div class="sw"><i style="background:linear-gradient(90deg,#FF9D4D,#F07A2B)"></i><span><b>--ember</b>달성 heat · 액션</span></div>
+      <div class="sw"><i style="background:#E9B93B"></i><span><b>--gold</b>#E9B93B · 100% 전용</span></div>
+      <div class="sw"><i style="background:#7189A8"></i><span><b>--slate</b>#7189A8 · 실패=데이터</span></div>
+      <div class="sw"><i style="background:linear-gradient(90deg,#5B9BD5,#3FB58F,#EF7C66,#9B7EDE,#E77FB3)"></i><span><b>--cat-*</b>카테고리 아이콘</span></div>
     </div>
   </section>
 
@@ -184,7 +185,7 @@
 
 <footer>
   <div class="wrap">
-    POWERJ — EXTREME PLANNING &amp; EXECUTION · DESIGN SYSTEM: EMBER CHRONOGRAPH<br>
+    POWERJ — EXTREME PLANNING &amp; EXECUTION · DESIGN SYSTEM: MARKET-STANDARD LIGHT v2<br>
     DOCS: problem.md · journey.md · design/DESIGN.md — SCREENS: design/system/screens/S-01–S-13 · WIREFLOW: docs/wireframe.html
   </div>
 </footer>

@@ -9,30 +9,46 @@
 <link rel="stylesheet" href="../tokens.css">
 <link rel="stylesheet" href="../components.css">
 <style>
-  /* S-12 전용 — 복귀 사용자를 데이터로 맞이한다 */
-  .streak-line { display: flex; align-items: center; gap: 10px; margin-top: var(--sp-md);
-    font-size: 12px; color: var(--text-muted); }
-  .streak-line .bar { flex: 1; max-width: 120px; }
-  .streak-line .heat-bar { height: 8px; }
-  .links { display: flex; justify-content: space-between; align-items: center; margin-top: var(--sp-md); font-size: 12px; }
-  .links a { color: var(--text-muted); text-decoration: none; }
+  /* S-12 전용 — 복귀 사용자를 따뜻하게, 데이터로 맞이한다 */
+  .screen.auth { padding-bottom: 32px; } /* 탭바 없음 — 인라인 플로우 */
+  .greet { display: flex; align-items: center; gap: 14px; }
+  .greet .ring { width: 62px; height: 62px; --ring-w: 7px; flex-shrink: 0; }
+  .greet .ring .inner .pv { font-family: var(--font-num); font-size: 14px; font-weight: 600; color: var(--ember); letter-spacing: -.02em; }
+  .greet .g-body b { font-size: 14.5px; font-weight: 800; letter-spacing: -.01em; }
+  .greet .g-body p { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .greet .g-body .num { font-size: 12px; color: var(--ember); font-weight: 600; }
+  .links { display: flex; justify-content: space-between; align-items: center; margin-top: var(--sp-md); font-size: 12.5px; }
+  .links a { color: var(--text-muted); text-decoration: none; font-weight: 600; }
   .links a.join { color: var(--ember); font-weight: 700; }
   .social { display: flex; flex-direction: column; gap: var(--sp-sm); margin-top: var(--sp-sm); }
-  .social .btn { min-height: 48px; font-size: 14px; }
-  .social .btn b { font-family: var(--font-num); font-weight: 600; margin-right: 8px; color: var(--text-muted); }
+  .social .btn { min-height: 50px; font-size: 14.5px; }
+  .social .mark {
+    width: 26px; height: 26px; border-radius: var(--radius-full); flex-shrink: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 800; font-family: var(--font-num);
+  }
+  .mark.g { background: var(--slate-soft); color: var(--slate); }
+  .mark.a { background: var(--text); color: #fff; }
+  .mark.k { background: var(--gold-soft); color: #99751A; }
+  .foot { margin-top: var(--sp-xl); text-align: center; font-size: 11.5px; color: var(--text-faint); }
 </style>
 </head>
 <body>
-<div class="screen">
+<div class="screen auth">
   <div class="statusbar"><span>21:14</span><span>POWERJ</span></div>
 
   <div class="screen-head">
-    <div class="overline">Sign in</div>
-    <h1 class="title">다시 계기판 앞으로</h1>
-    <p class="sub">어제까지의 데이터가 오늘의 조판을 기다리고 있습니다.</p>
-    <div class="streak-line">
-      <span class="bar"><span class="heat-bar"><i style="transform:scaleX(.84)"></i></span></span>
-      <span>마지막 기록 — <b class="num">34</b>일째, 주 평균 <b class="num">84%</b></span>
+    <div class="overline">돌아온 걸 환영해요</div>
+    <h1 class="title">다시 이어서 쌓아볼까요?</h1>
+  </div>
+
+  <div class="panel tint-ember big greet">
+    <div class="ring" style="--p: 84">
+      <div class="inner"><span class="pv">84%</span></div>
+    </div>
+    <div class="g-body">
+      <b>기록이 기다리고 있어요</b>
+      <p><b class="num">34</b>일째 기록 중 · 주 평균 <b class="num">84%</b></p>
     </div>
   </div>
 
@@ -44,7 +60,7 @@
     <div class="field err">
       <label for="pw">비밀번호</label>
       <input id="pw" type="password" value="••••••••">
-      <p class="err-msg">◦ 비밀번호가 일치하지 않습니다 — 4회 남음</p>
+      <p class="err-msg">비밀번호가 일치하지 않아요 — <b class="num">4</b>회 남음</p>
     </div>
 
     <div style="margin-top: var(--sp-lg)">
@@ -58,14 +74,12 @@
 
   <div class="divider">또는</div>
   <div class="social">
-    <button class="btn btn-ghost"><b>G</b> Google로 계속하기</button>
-    <button class="btn btn-ghost"><b></b> Apple로 계속하기</button>
-    <button class="btn btn-ghost"><b>K</b> 카카오로 계속하기</button>
+    <button class="btn btn-ghost"><span class="mark g">G</span> Google로 계속하기</button>
+    <button class="btn btn-ghost"><span class="mark a"></span> Apple로 계속하기</button>
+    <button class="btn btn-ghost"><span class="mark k">K</span> 카카오로 계속하기</button>
   </div>
 
-  <p class="sub" style="margin-top: var(--sp-lg); text-align: center; color: var(--text-faint)">
-    로그인하면 모든 기록이 기기 간 동기화됩니다
-  </p>
+  <p class="foot">로그인하면 기기 간 동기화됩니다</p>
 </div>
 </body>
 </html>

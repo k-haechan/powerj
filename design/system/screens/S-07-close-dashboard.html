@@ -9,42 +9,40 @@
 <link rel="stylesheet" href="../tokens.css">
 <link rel="stylesheet" href="../components.css">
 <style>
-  /* S-07 전용 — 보상의 순간: 포스터 스탯만 중앙(확정/보상 예외), 나머지는 좌측 정렬 */
-  .poster { text-align: center; margin-top: var(--sp-xl); }
-  .poster .stat-xl { color: var(--ember-hot); }           /* 87% → 70–99 heat 밴드 */
-  .poster .cap { font-size: var(--text-caption); color: var(--text-muted); margin-top: var(--sp-sm); }
-  .poster .heat-bar { height: 8px; margin-top: var(--sp-md); }
+  /* S-07 전용 — 보상의 순간: 링 히어로만 중앙 정렬 예외, 나머지는 좌측 정렬 */
+  .hero { display: flex; flex-direction: column; align-items: center; padding: 26px 20px 22px; }
+  .hero .ring { width: 150px; height: 150px; --p: 87; --ring-w: 12px; }
+  .hero .stat-xl { font-size: 46px; color: var(--ember); }        /* 87% → 70–99 heat 밴드 */
+  .hero .cap { font-size: var(--text-caption); color: var(--text-muted); margin-top: var(--sp-md); }
 
-  /* 시간 효율 — 단축 vs 초과 2열 */
-  .te-grid { display: grid; grid-template-columns: 1fr 1fr; }
-  .te-grid .cell + .cell { border-left: 1px solid var(--edge); padding-left: var(--sp-md); }
-  .te-grid .k { font-family: var(--font-num); font-size: var(--text-micro); letter-spacing: .12em; color: var(--text-muted); }
-  .te-grid .v { font-family: var(--font-num); font-weight: 600; font-size: 28px; line-height: 1.2; margin-top: var(--sp-xs); }
-  .te-grid .v small { font-size: 13px; color: var(--text-muted); font-weight: 500; }
-  .te-net { display: flex; justify-content: space-between; align-items: center; margin-top: var(--sp-md); padding-top: 10px; border-top: 1px dashed var(--edge); font-size: var(--text-caption); color: var(--text-muted); }
-  .te-net .val { font-size: 14px; }
+  /* 프로세스 결과 — 아이콘 뱃지 + 좌측 정렬 lrow */
+  .plist .lrow { justify-content: flex-start; }
+  .plist .ico {
+    width: 30px; height: 30px; border-radius: 10px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 15px;
+  }
+  .plist .lbody { flex: 1; min-width: 0; }
+  .plist .pname { display: block; font-size: 13.5px; font-weight: 700; letter-spacing: -.01em; }
+  .plist .ptime { display: block; font-size: 10.5px; color: var(--text-faint); margin-top: 1px; }
+  .plist .val { margin-left: auto; flex-shrink: 0; }
 
-  /* 섹션 라벨 (패널 밖 원장·차트용) */
-  .sec-label { font-family: var(--font-num); font-size: var(--text-micro); letter-spacing: .12em; color: var(--text-muted); text-transform: uppercase; margin-top: var(--sp-lg); }
-  .lrow .name { font-size: 13px; font-weight: 600; color: var(--text); }
-  .lrow .name em { font-style: normal; font-family: var(--font-num); font-size: 11px; color: var(--text-muted); font-weight: 500; margin-right: 8px; }
-  .lrow .vals { display: flex; align-items: center; gap: 10px; }
-
-  /* 실패 원인 분포 — 실패는 데이터: slate 미니 바 (빨강 금지) */
-  .fail-row { display: grid; grid-template-columns: 52px 1fr 34px; align-items: center; gap: var(--sp-sm); }
-  .fail-row + .fail-row { margin-top: var(--sp-sm); }
-  .fail-row .f-name { font-size: 12px; color: var(--text); }
-  .fail-row .heat-bar { height: 10px; }
-  .fail-row .heat-bar.is-cold > i { background: var(--slate); }   /* is-cold 변형을 slate로 */
+  /* 실패 원인 — 실패는 데이터: slate 미니 바 (빨강 금지) */
+  .fail-row { display: grid; grid-template-columns: 56px 1fr 34px; align-items: center; gap: var(--sp-sm); }
+  .fail-row + .fail-row { margin-top: 10px; }
+  .fail-row .f-name { font-size: 12.5px; font-weight: 600; }
+  .fail-row .heat-bar { height: 8px; }
   .fail-row .f-cnt { font-family: var(--font-num); font-size: 12px; color: var(--slate); text-align: right; }
 
-  /* 시간대별 스파크 — 프로세스 8개, 높이 = 달성률, 100%만 gold */
-  .spark { display: flex; align-items: flex-end; gap: 6px; height: 72px; margin-top: var(--sp-sm); }
-  .spark i { flex: 1; border-radius: var(--radius-none); background: linear-gradient(180deg, var(--ember-hot), var(--ember)); }
-  .spark i.mid { background: linear-gradient(180deg, var(--ember), var(--ember-dim)); } /* 40–69% 밴드 */
-  .spark i.is-gold { background: var(--gold); }
-  .spark-x { display: flex; gap: 6px; margin-top: var(--sp-xs); }
-  .spark-x span { flex: 1; font-family: var(--font-num); font-size: 9px; color: var(--text-faint); text-align: center; }
+  /* 시간대별 — 둥근 세로 막대: ember, 100%만 gold, 저달성은 edge */
+  .bars { display: flex; align-items: flex-end; gap: 8px; height: 78px; margin-top: var(--sp-sm); }
+  .bars i {
+    flex: 1; min-height: 10px; border-radius: var(--radius-full);
+    background: linear-gradient(180deg, var(--ember-hot), var(--ember));
+  }
+  .bars i.is-gold { background: var(--gold); }
+  .bars i.low { background: var(--edge); }
+  .bars-x { display: flex; gap: 8px; margin-top: 6px; }
+  .bars-x span { flex: 1; font-family: var(--font-num); font-size: 9px; color: var(--text-faint); text-align: center; }
 </style>
 </head>
 <body>
@@ -52,101 +50,105 @@
   <div class="statusbar"><span>22:41</span><span>DAILY CLOSE</span></div>
 
   <div class="screen-head">
-    <div class="overline">하루 마감 — Daily Close</div>
-    <h1 class="title">2026.07.04 금 — 오늘의 계기판</h1>
+    <div class="overline">하루 마감</div>
+    <h1 class="title">오늘의 기록 — 7월 4일</h1>
   </div>
 
-  <!-- 포스터 스탯: 보상의 순간 — 중앙 정렬 허용 예외 -->
-  <div class="poster">
-    <div class="stat-xl">87<small>%</small></div>
-    <p class="cap">하루 총 달성률 · 프로세스 <b class="num">8</b> · 목표 <b class="num">13</b></p>
-    <div class="heat-bar" aria-hidden="true"><i style="transform: scaleX(.87)"></i></div>
-  </div>
-
-  <!-- 시간 효율 요약 -->
-  <div class="panel">
-    <div class="panel-label">시간 효율</div>
-    <div class="te-grid">
-      <div class="cell">
-        <div class="k">단축 합계</div>
-        <div class="v val hot">−38<small>분</small></div>
-      </div>
-      <div class="cell">
-        <div class="k">초과 합계</div>
-        <div class="v val cool">+42<small>분</small></div>
+  <!-- 히어로 — 하루 총 달성 링 -->
+  <div class="panel big hero">
+    <div class="ring" role="img" aria-label="하루 총 달성률 87퍼센트">
+      <div class="inner">
+        <div class="stat-xl">87<small>%</small></div>
       </div>
     </div>
-    <div class="te-net"><span>순 시간 효율</span><span class="val hot">−4분</span></div>
+    <p class="cap">프로세스 <b class="num">8</b> · 목표 <b class="num">13</b></p>
   </div>
 
-  <!-- 프로세스 원장 -->
-  <div class="sec-label">프로세스 원장 — 달성률 · 시간 델타</div>
-  <div class="ledger">
-    <div class="lrow">
-      <span class="name"><em>05:30</em>새벽 커밋 1개</span>
-      <span class="vals"><span class="val gold">100%</span><span class="val hot">−30분</span></span>
+  <!-- 시간 효율 3스탯 -->
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="k">단축 합계</div>
+      <div class="v hot">−38분</div>
     </div>
-    <div class="lrow">
-      <span class="name"><em>08:00</em>이동 영상/독서</span>
-      <span class="vals"><span class="val cool">70% · 졸음</span></span>
+    <div class="stat-card">
+      <div class="k">초과 합계</div>
+      <div class="v cool">+42분</div>
     </div>
-    <div class="lrow">
-      <span class="name"><em>12:30</em>점심 CS 5문제</span>
-      <span class="vals"><span class="val gold">100%</span><span class="val hot">−8분</span></span>
-    </div>
-    <div class="lrow">
-      <span class="name"><em>14:00</em>오후 업무</span>
-      <span class="vals"><span class="val hot">90%</span></span>
-    </div>
-    <div class="lrow">
-      <span class="name"><em>19:30</em>저녁 자소서</span>
-      <span class="vals"><span class="val cool">60% · +40분</span></span>
-    </div>
-    <div class="lrow">
-      <span class="name" style="color: var(--text-muted)">그 외 3개 프로세스</span>
-      <span class="vals"><span class="val muted">평균 92%</span></span>
+    <div class="stat-card">
+      <div class="k">순 효율</div>
+      <div class="v">−4분</div>
     </div>
   </div>
 
-  <!-- 실패 원인 분포 — slate: 실패는 데이터다 -->
+  <!-- 프로세스 결과 -->
+  <div class="panel plist">
+    <div class="panel-label">프로세스 결과</div>
+    <div class="lrow">
+      <span class="ico ember">🌅</span>
+      <span class="lbody"><span class="pname">새벽 커밋 1개</span><span class="ptime num">05:30–06:30</span></span>
+      <span class="val gold">100% · −30분</span>
+    </div>
+    <div class="lrow">
+      <span class="ico sky">🚇</span>
+      <span class="lbody"><span class="pname">이동 영상/독서</span><span class="ptime num">08:00–09:00</span></span>
+      <span class="val cool">70% · 졸음</span>
+    </div>
+    <div class="lrow">
+      <span class="ico coral">🍱</span>
+      <span class="lbody"><span class="pname">점심 CS 5문제</span><span class="ptime num">12:30–13:20</span></span>
+      <span class="val gold">100% · −8분</span>
+    </div>
+    <div class="lrow">
+      <span class="ico mint">💼</span>
+      <span class="lbody"><span class="pname">오후 업무</span><span class="ptime num">14:00–18:00</span></span>
+      <span class="val hot">90%</span>
+    </div>
+    <div class="lrow">
+      <span class="ico violet">✍️</span>
+      <span class="lbody"><span class="pname">저녁 자소서</span><span class="ptime num">19:30–21:00</span></span>
+      <span class="val cool">60% · +40분</span>
+    </div>
+  </div>
+
+  <!-- 실패 원인 — slate: 실패는 데이터다 -->
   <div class="panel">
-    <div class="panel-label">실패 원인 분포 — 오늘 6회</div>
+    <div class="panel-label">실패 원인 — 오늘 6회</div>
     <div class="fail-row">
       <span class="f-name">졸음</span>
-      <div class="heat-bar is-cold" aria-hidden="true"><i style="transform: scaleX(1)"></i></div>
+      <span class="heat-bar is-cool" aria-hidden="true"><i style="transform: scaleX(1)"></i></span>
       <span class="f-cnt">×3</span>
     </div>
     <div class="fail-row">
       <span class="f-name">알림</span>
-      <div class="heat-bar is-cold" aria-hidden="true"><i style="transform: scaleX(.67)"></i></div>
+      <span class="heat-bar is-cool" aria-hidden="true"><i style="transform: scaleX(.67)"></i></span>
       <span class="f-cnt">×2</span>
     </div>
     <div class="fail-row">
       <span class="f-name">과몰입</span>
-      <div class="heat-bar is-cold" aria-hidden="true"><i style="transform: scaleX(.34)"></i></div>
+      <span class="heat-bar is-cool" aria-hidden="true"><i style="transform: scaleX(.34)"></i></span>
       <span class="f-cnt">×1</span>
     </div>
   </div>
 
-  <!-- 시간대별 스파크 — 막대 높이 = 달성률, 100%만 gold -->
+  <!-- 시간대별 달성률 — 막대 높이 = 달성률, 100%만 gold -->
   <div class="panel">
     <div class="panel-label">시간대별 달성률</div>
-    <div class="spark" role="img" aria-label="시간대별 달성률: 5시 100%, 7시 90%, 8시 70%, 9시 95%, 12시 100%, 14시 90%, 19시 60%, 21시 91%">
+    <div class="bars" role="img" aria-label="시간대별 달성률: 5시 100%, 7시 90%, 8시 70%, 9시 95%, 12시 96%, 14시 90%, 19시 60%, 21시 91%">
       <i class="is-gold" style="height: 100%"></i>
       <i style="height: 90%"></i>
-      <i style="height: 70%"></i>
+      <i class="low" style="height: 70%"></i>
       <i style="height: 95%"></i>
-      <i class="is-gold" style="height: 100%"></i>
+      <i style="height: 96%"></i>
       <i style="height: 90%"></i>
-      <i class="mid" style="height: 60%"></i>
+      <i class="low" style="height: 60%"></i>
       <i style="height: 91%"></i>
     </div>
-    <div class="spark-x" aria-hidden="true">
+    <div class="bars-x" aria-hidden="true">
       <span>05</span><span>07</span><span>08</span><span>09</span><span>12</span><span>14</span><span>19</span><span>21</span>
     </div>
   </div>
 
-  <div class="bottom-act">
+  <div class="bottom-act no-tab">
     <button class="btn btn-primary">오늘의 일기 쓰기 →</button>
   </div>
 </div>

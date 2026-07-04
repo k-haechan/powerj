@@ -9,13 +9,14 @@
 <link rel="stylesheet" href="../tokens.css">
 <link rel="stylesheet" href="../components.css">
 <style>
-  /* S-13 전용 — 가입은 첫 조판의 준비 동작 */
-  .step-line { font-family: var(--font-num); font-size: var(--text-micro); letter-spacing: .12em;
-    color: var(--text-muted); margin-top: var(--sp-md); }
-  .step-line b { color: var(--ember); font-weight: 600; }
-  .agree { margin-top: var(--sp-md); }
+  /* S-13 전용 — 가입은 내일 계획으로 가는 첫 스텝 */
+  .steps { margin-top: var(--sp-md); align-items: center; flex-wrap: nowrap; }
+  .steps .chip { padding: 8px 14px; min-height: 38px; font-size: 12.5px; white-space: nowrap; }
+  .steps .chip .num { font-size: 11px; margin-right: 5px; }
+  .steps .arr { color: var(--text-faint); font-size: 12px; flex-shrink: 0; }
+  .agree { margin-top: var(--sp-lg); }
   .agree .panel-label { margin-bottom: 0; }
-  .login-line { margin-top: var(--sp-md); text-align: center; font-size: 12px; color: var(--text-muted); }
+  .login-line { margin-top: 12px; text-align: center; font-size: 12px; color: var(--text-muted); }
   .login-line a { color: var(--ember); font-weight: 700; text-decoration: none; }
 </style>
 </head>
@@ -24,16 +25,23 @@
   <div class="statusbar"><span>21:15</span><span>POWERJ</span></div>
 
   <div class="screen-head">
-    <div class="overline">Join</div>
-    <h1 class="title">첫 조판을 시작하죠</h1>
-    <p class="sub">가입은 30초 — 끝나면 곧장 내일의 체인을 만듭니다. 성취는 내일 아침부터 쌓입니다.</p>
-    <p class="step-line"><b>1</b> 계정 만들기 → 2 내일의 조판 → 3 첫 프로세스 실행</p>
+    <div class="overline">시작하기</div>
+    <h1 class="title"><span class="num">30</span>초면 충분해요</h1>
+    <p class="sub">가입하면 곧장 내일 계획을 만들어요</p>
+  </div>
+
+  <div class="chips steps">
+    <span class="chip ember set"><span class="num">1</span>계정</span>
+    <span class="arr">→</span>
+    <span class="chip"><span class="num">2</span>내일 계획</span>
+    <span class="arr">→</span>
+    <span class="chip"><span class="num">3</span>첫 실행</span>
   </div>
 
   <form onsubmit="return false">
     <div class="field">
       <label for="nick">닉네임</label>
-      <input id="nick" type="text" placeholder="계기판에 표시될 이름" value="해찬">
+      <input id="nick" type="text" placeholder="앱에서 부를 이름" value="해찬">
     </div>
     <div class="field">
       <label for="email">이메일</label>
@@ -41,27 +49,27 @@
     </div>
     <div class="field">
       <label for="pw">비밀번호</label>
-      <input id="pw" type="password" placeholder="8자 이상, 숫자 포함">
-      <p class="hint">8자 이상 · 숫자 1개 이상 포함</p>
+      <input id="pw" type="password" placeholder="비밀번호">
+      <p class="hint"><span class="num">8</span>자 이상 · 숫자 <span class="num">1</span>개 이상 포함</p>
     </div>
     <div class="field err">
       <label for="pw2">비밀번호 확인</label>
       <input id="pw2" type="password" value="••••••">
-      <p class="err-msg">◦ 비밀번호가 일치하지 않습니다</p>
+      <p class="err-msg">◦ 비밀번호가 일치하지 않아요</p>
     </div>
 
     <div class="panel agree">
       <div class="panel-label">약관 동의</div>
       <div class="check-row"><span class="check on">✓</span><span style="flex:1">이용약관 동의</span><span class="req">필수</span></div>
       <div class="check-row"><span class="check on">✓</span><span style="flex:1">개인정보 수집·이용 동의</span><span class="req">필수</span></div>
-      <div class="check-row"><span class="check"></span><span style="flex:1">주간 리포트 요약 메일 받기</span><span class="opt">선택</span></div>
+      <div class="check-row"><span class="check"></span><span style="flex:1">주간 리포트 메일 받기</span><span class="opt">선택</span></div>
     </div>
-
-    <div style="margin-top: var(--sp-lg)">
-      <button class="btn btn-primary" type="submit">가입하고 내일의 조판 만들기</button>
-    </div>
-    <p class="login-line">이미 계정이 있나요? <a href="S-12-login.html">로그인 →</a></p>
   </form>
+
+  <div class="bottom-act no-tab">
+    <button class="btn btn-primary" type="submit">가입하고 내일 계획 만들기</button>
+    <p class="login-line">이미 계정이 있나요? <a href="S-12-login.html">로그인 →</a></p>
+  </div>
 </div>
 </body>
 </html>

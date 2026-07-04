@@ -9,99 +9,138 @@
 <link rel="stylesheet" href="../tokens.css">
 <link rel="stylesheet" href="../components.css">
 <style>
-  /* S-02 전용 — 홈: 하루 체인 한눈에. 요약은 heat, 계획은 slate */
-  .sum-top { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--sp-md); margin-bottom: var(--sp-sm); }
-  .stat.heat { color: var(--ember-hot); } /* 82% — 70–99 구간, gold 아님 */
-  .sum-desc { font-size: var(--text-caption); color: var(--text-muted); text-align: right; line-height: 1.5; }
-  .sum-desc b { font-weight: 600; color: var(--text); }
-
-  .chain { list-style: none; margin-top: var(--sp-lg); border-top: 1.5px solid var(--text); }
-  .chain-label {
-    font-family: var(--font-num); font-size: var(--text-micro);
-    letter-spacing: .12em; color: var(--text-muted); text-transform: uppercase;
-    margin-top: var(--sp-lg); margin-bottom: var(--sp-sm);
+  /* S-02 전용 — 홈: 링 요약 + Structured식 타임라인 카드 */
+  .sum { display: flex; align-items: center; gap: 18px; }
+  .sum .ring { width: 72px; height: 72px; flex-shrink: 0; --p: 82; --ring-w: 8px; }
+  .sum .ring .pv { font-family: var(--font-num); font-weight: 600; font-size: 17px; letter-spacing: -.02em; color: var(--ember); }
+  .sum .body { flex: 1; min-width: 0; }
+  .sum .line { font-size: 13.5px; color: var(--text-muted); line-height: 1.55; }
+  .sum .line b { color: var(--text); font-weight: 700; }
+  .sum .heat-bar { height: 8px; margin-top: 10px; }
+  .tl-label {
+    font-family: var(--font-num); font-size: var(--text-micro); font-weight: 600;
+    letter-spacing: .1em; color: var(--text-muted); text-transform: uppercase;
+    margin-top: var(--sp-lg);
   }
-  .proc .meta b { font-weight: 600; }
-  .proc.now .name { font-weight: 700; }
-  .proc.now .meta { color: var(--ember); }
-  .proc.now .dot.ember { animation: pulse 2.4s ease-in-out infinite; margin-right: 6px; }
+  .tl-item.now .dot.ember { animation: pulse 2.4s ease-in-out infinite; }
   @keyframes pulse { 50% { opacity: .35; } }
-  .proc.jit { border-bottom-style: dashed; }
-  .proc.jit .name { color: var(--text-muted); font-weight: 500; }
-  .proc.jit .meta, .proc.wrap .name, .proc.wrap .meta { color: var(--slate); }
-  .state {
-    font-size: var(--text-micro); font-weight: 600; letter-spacing: .04em;
-    color: var(--text-faint); flex-shrink: 0;
-  }
 </style>
 </head>
 <body>
 <div class="screen">
   <div class="statusbar"><span>08:32</span><span>방해금지 ●</span></div>
 
-  <div class="screen-head">
+  <header class="screen-head">
     <div class="overline">오늘의 체인</div>
-    <h1 class="title"><span class="num">2026.07.04</span> 금</h1>
+    <h1 class="title"><span class="num">7</span>월 <span class="num">4</span>일 금요일</h1>
     <p class="sub">프로세스 <span class="num">8</span>개 — 사전 계획 <span class="num">7</span> · 즉석 슬롯 <span class="num">1</span></p>
-  </div>
+  </header>
 
-  <section class="panel" aria-label="오늘 진행 요약">
-    <div class="panel-label">오늘 진행</div>
-    <div class="sum-top">
-      <div class="stat heat">82<small>%</small></div>
-      <div class="sum-desc">프로세스 <b class="num">5/8</b> 진행<br>현재 평균 달성률</div>
-    </div>
-    <div class="heat-bar" role="img" aria-label="현재 평균 달성률 82퍼센트">
-      <i style="transform: scaleX(.82)"></i>
+  <section class="panel big" aria-label="오늘 진행 요약">
+    <div class="sum">
+      <div class="ring" role="img" aria-label="현재 평균 달성률 82퍼센트">
+        <div class="inner"><span class="pv">82%</span></div>
+      </div>
+      <div class="body">
+        <p class="line">프로세스 <b class="num">5/8</b> 진행 · 현재 평균 달성률</p>
+        <span class="heat-bar"><i style="transform: scaleX(.82)"></i></span>
+      </div>
     </div>
   </section>
 
-  <h2 class="chain-label">Chain — 06:00 → 23:00</h2>
-  <ol class="chain">
-    <li class="proc done">
-      <span class="t">06:00</span>
-      <span class="name">기상·새벽 커밋</span>
-      <span class="meta"><b class="val gold">100%</b> · <b class="val hot">−30분</b></span>
-      <span class="state">완료</span>
+  <h2 class="tl-label">Chain — 06:00 → 23:00</h2>
+  <ol class="tl" style="list-style:none">
+    <li class="tl-item">
+      <span class="tt">06:00</span>
+      <span class="badge gold">✓</span>
+      <div class="tl-card">
+        <span class="ico mint">🌅</span>
+        <div class="body">
+          <div class="name">기상·새벽 커밋</div>
+          <div class="meta"><span class="num">−30분</span> 일찍 마감</div>
+        </div>
+        <div class="end"><span class="pct gold">100%</span></div>
+      </div>
     </li>
-    <li class="proc now" aria-current="step">
-      <span class="t">08:00</span>
-      <span class="name">이동·출근</span>
-      <span class="meta"><span class="dot ember"></span>진행 중 <b>27:43</b></span>
+    <li class="tl-item now" aria-current="step">
+      <span class="tt">08:00</span>
+      <span class="badge now"><span class="dot ember"></span></span>
+      <div class="tl-card">
+        <span class="ico sky">🚇</span>
+        <div class="body">
+          <div class="name">이동·출근</div>
+          <div class="meta">진행 중 · <span class="num">27:43</span> 남음</div>
+        </div>
+        <div class="end"><span class="pct hot">54%</span></div>
+      </div>
     </li>
-    <li class="proc">
-      <span class="t">09:00</span>
-      <span class="name">오전 업무</span>
-      <span class="meta">보고서 초안 1건</span>
-      <span class="state">예정</span>
+    <li class="tl-item dim">
+      <span class="tt">09:00</span>
+      <span class="badge"></span>
+      <div class="tl-card">
+        <span class="ico violet">💼</span>
+        <div class="body">
+          <div class="name">오전 업무</div>
+          <div class="meta">보고서 초안 <span class="num">1</span>건</div>
+        </div>
+      </div>
     </li>
-    <li class="proc">
-      <span class="t">12:30</span>
-      <span class="name">점심 CS 5문제</span>
-      <span class="meta">목표 5문제</span>
-      <span class="state">예정</span>
+    <li class="tl-item dim">
+      <span class="tt">12:30</span>
+      <span class="badge"></span>
+      <div class="tl-card">
+        <span class="ico coral">🍱</span>
+        <div class="body">
+          <div class="name">점심 CS 5문제</div>
+          <div class="meta">목표 <span class="num">5</span>문제</div>
+        </div>
+      </div>
     </li>
-    <li class="proc jit">
-      <span class="t">15:00</span>
-      <span class="name">즉석 계획 슬롯</span>
-      <span class="meta">그때 목표 수립</span>
+    <li class="tl-item jit">
+      <span class="tt">15:00</span>
+      <span class="badge"></span>
+      <div class="tl-card">
+        <span class="ico ember">⚡</span>
+        <div class="body">
+          <div class="name">즉석 계획 슬롯</div>
+          <div class="meta">그때 목표 수립</div>
+        </div>
+      </div>
     </li>
-    <li class="proc">
-      <span class="t">19:00</span>
-      <span class="name">저녁 자소서</span>
-      <span class="meta">목표 기준 21:00까지</span>
-      <span class="state">예정</span>
+    <li class="tl-item dim">
+      <span class="tt">19:00</span>
+      <span class="badge"></span>
+      <div class="tl-card">
+        <span class="ico rose">✍️</span>
+        <div class="body">
+          <div class="name">저녁 자소서</div>
+          <div class="meta">목표 기준 <span class="num">21:00</span>까지</div>
+        </div>
+      </div>
     </li>
-    <li class="proc wrap">
-      <span class="t">23:00</span>
-      <span class="name">하루 마감</span>
-      <span class="meta">일기 + 대시보드</span>
+    <li class="tl-item dim">
+      <span class="tt">23:00</span>
+      <span class="badge"></span>
+      <div class="tl-card">
+        <span class="ico ember">📔</span>
+        <div class="body">
+          <div class="name">하루 마감</div>
+          <div class="meta">일기 + 대시보드</div>
+        </div>
+      </div>
     </li>
   </ol>
 
   <div class="bottom-act">
     <button class="btn btn-primary">지금 프로세스 열기 — 이동·출근</button>
   </div>
+
+  <nav class="tabbar" aria-label="주 탐색">
+    <a href="S-02-today.html" class="on" aria-current="page"><span class="ti">📋</span>오늘</a>
+    <a href="S-09-archive.html"><span class="ti">📚</span>기록</a>
+    <a href="S-10-weekly.html"><span class="ti">📈</span>리포트</a>
+    <a href="S-11-settings.html"><span class="ti">⚙️</span>설정</a>
+  </nav>
 </div>
 </body>
 </html>

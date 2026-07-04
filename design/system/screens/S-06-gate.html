@@ -9,88 +9,87 @@
 <link rel="stylesheet" href="../tokens.css">
 <link rel="stylesheet" href="../components.css">
 <style>
-  /* S-06 전용 — 전환 검증 게이트: 다음 프로세스로 넘어가려면 반드시 통과한다 */
+  /* S-06 전용 — 전환 검증 게이트: 시트처럼, 통과해야 다음 프로세스로 */
+  .gate-head { display: flex; align-items: center; gap: 12px; padding-top: var(--sp-lg); }
+  .gate-head .ico { width: 44px; height: 44px; border-radius: 14px; font-size: 20px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .gate-head .htext { min-width: 0; }
 
-  /* 목표별 검증 행 — 좌 목표명 / 우 실측치+자동계산 % */
-  .review-row {
-    display: flex; justify-content: space-between; align-items: center;
-    gap: var(--sp-sm); padding: 12px 0; font-size: 13px;
+  /* 중앙 링 + 10% 다이얼 */
+  .rate-center { display: flex; align-items: center; justify-content: center; gap: var(--sp-lg); margin-top: var(--sp-xl); }
+  .gate-ring { width: 140px; height: 140px; --p: 70; --ring-w: 12px; }
+  .gate-ring .stat { color: var(--ember); }
+  .gate-ring .rlbl { font-size: 11px; color: var(--text-muted); font-weight: 600; margin-top: 4px; }
+  .dial-btn {
+    width: 48px; height: 48px; border-radius: var(--radius-full); border: none; cursor: pointer;
+    background: var(--surface); box-shadow: var(--shadow-card); color: var(--text);
+    font-family: var(--font-num); font-size: 13px; font-weight: 600;
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: transform var(--dur-micro);
   }
-  .review-row + .review-row { border-top: 1px dashed var(--edge); }
-  .review-row .r-val {
-    display: flex; align-items: center; gap: 10px;
-    font-family: var(--font-num); font-size: 12px; color: var(--text);
-  }
-  .review-row .r-pct { font-family: var(--font-num); font-weight: 600; font-size: 12px; color: var(--ember); }
+  .dial-btn:active { transform: scale(.94); }
+  .rate-note { text-align: center; font-size: var(--text-caption); color: var(--text-muted); margin-top: var(--sp-sm); }
 
-  /* 달성률 블록 — 좌측 정렬 유지, 확정 전이므로 보상 연출 없음 */
-  .rate-wrap { margin-top: var(--sp-lg); }
-  .rate-head { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--sp-sm); }
-  .rate-wrap .stat { color: var(--ember); }
-  .rate-wrap .heat-bar { margin-top: var(--sp-sm); }
+  /* 목표 리뷰 행 — 미니 히트 바 + 자동 계산 % */
+  .goal-row { display: flex; align-items: center; gap: 12px; padding: 12px 0; }
+  .goal-row + .goal-row { border-top: 1px solid var(--edge); }
+  .goal-row .gname { flex: 1; font-size: 14px; font-weight: 600; min-width: 0; }
+  .goal-row .mini { display: block; width: 56px; flex-shrink: 0; }
+  .goal-row .mini .heat-bar { height: 7px; }
+  .goal-row .gval { font-family: var(--font-num); font-size: 12px; color: var(--text-muted); }
+  .goal-row .gpct { font-family: var(--font-num); font-size: 13px; font-weight: 600; color: var(--ember); width: 38px; text-align: right; }
+  .auto-note { display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--text-muted); margin-top: var(--sp-sm); }
 
-  /* 10% 단위 다이얼 */
-  .dial { display: flex; align-items: center; gap: var(--sp-sm); }
-  .dial button {
-    width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center;
-    font-family: var(--font-num); font-size: 14px; font-weight: 600;
-    background: transparent; color: var(--text); border: 1px solid var(--edge);
-    border-radius: var(--radius-sm); cursor: pointer; transition: filter var(--dur-short);
-  }
-  .dial button:active { filter: brightness(1.2); }
-  .dial-hint { margin-top: var(--sp-sm); font-size: var(--text-caption); color: var(--text-muted); }
-  .dial-hint .num { color: var(--text-muted); }
-
-  /* 시간 효율 프리뷰 — 초과는 slate(데이터), 빨강 금지 */
-  .eff-line {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-top: var(--sp-md); padding: 12px 0; border-top: 1px solid var(--edge);
-    font-size: var(--text-caption); color: var(--text-muted);
-  }
+  /* 시간 노트 — 초과도 데이터, slate */
+  .time-note { display: flex; justify-content: space-between; align-items: center; gap: var(--sp-sm); }
+  .time-note .tlabel { font-size: 12.5px; font-weight: 600; color: var(--slate); }
+  .time-note .tval { font-family: var(--font-num); font-size: 12.5px; font-weight: 600; color: var(--slate); }
 </style>
 </head>
 <body>
 <div class="screen">
-  <div class="statusbar"><span>09:02</span><span>방해금지 ●</span></div>
+  <div class="statusbar"><span>09:02</span><span>Process 02/08</span></div>
 
-  <div class="screen-head">
-    <div class="overline">전환 검증 — Process 02 / 08</div>
-    <h1 class="title">이동·출근 — 얼마나 해냈나요?</h1>
-    <p class="sub">08:00–09:02 · <span class="num">62분</span> 소요 <span class="num val cool">(+2분 초과)</span></p>
-  </div>
-
-  <div class="panel">
-    <div class="panel-label">목표별 실측 — 자동 계산</div>
-    <div class="review-row">
-      <span>실밸 개발자 영상</span>
-      <span class="r-val">
-        <span class="ticks"><i class="on"></i><i></i></span> 1/2
-        <span class="r-pct">50%</span>
-      </span>
-    </div>
-    <div class="review-row">
-      <span>책 200p까지 읽기</span>
-      <span class="r-val">
-        p.171 / 200
-        <span class="r-pct">86%</span>
-      </span>
+  <div class="gate-head">
+    <span class="ico sky">🚇</span>
+    <div class="htext screen-head" style="padding-top:0">
+      <div class="overline">전환 검증</div>
+      <h1 class="title">이동·출근, 얼마나 해냈나요?</h1>
+      <p class="sub"><span class="num">08:00–09:02</span> · <span class="num">62분</span> <span class="num">(+2분)</span></p>
     </div>
   </div>
 
-  <div class="rate-wrap">
-    <div class="rate-head">
-      <div class="stat" role="status" aria-label="이 프로세스 달성률 70퍼센트">70<small>%</small></div>
-      <div class="dial" aria-label="달성률 다이얼, 10퍼센트 단위">
-        <button type="button" aria-label="10퍼센트 내리기">−10</button>
-        <button type="button" aria-label="10퍼센트 올리기">+10</button>
+  <div class="rate-center">
+    <button type="button" class="dial-btn" aria-label="달성률 10퍼센트 내리기">−10</button>
+    <div class="ring gate-ring" role="status" aria-label="이 프로세스 달성률 70퍼센트">
+      <div class="inner">
+        <div class="stat">70<small>%</small></div>
+        <div class="rlbl">달성률</div>
       </div>
     </div>
-    <div class="heat-bar" role="img" aria-label="달성률 70퍼센트 히트 바"><i style="transform:scaleX(.7)"></i></div>
-    <p class="dial-hint"><span class="num">10%</span> 단위 다이얼 — 정량 목표는 자동 계산 <span class="num">(68% → 70%)</span></p>
+    <button type="button" class="dial-btn" aria-label="달성률 10퍼센트 올리기">+10</button>
+  </div>
+  <p class="rate-note"><span class="num">10%</span> 단위로 조정할 수 있어요 <span class="num">(68% → 70%)</span></p>
+
+  <div class="panel">
+    <div class="panel-label">목표 리뷰</div>
+    <div class="goal-row">
+      <span class="gname">실밸 개발자 영상</span>
+      <span class="mini"><span class="heat-bar"><i style="transform:scaleX(.5)"></i></span></span>
+      <span class="gval">1 / 2</span>
+      <span class="gpct">50%</span>
+    </div>
+    <div class="goal-row">
+      <span class="gname">책 200p까지 읽기</span>
+      <span class="mini"><span class="heat-bar"><i style="transform:scaleX(.86)"></i></span></span>
+      <span class="gval">p.171 / 200</span>
+      <span class="gpct">86%</span>
+    </div>
+    <div class="auto-note">✨ 정량 목표는 자동 계산돼요</div>
   </div>
 
   <div class="panel">
-    <div class="panel-label">무엇이 막았나 — 데이터로 남긴다</div>
+    <div class="panel-label">무엇이 막았나요? — 기록은 데이터가 됩니다</div>
     <div class="chips" role="group" aria-label="실패 원인 선택">
       <button type="button" class="chip set" aria-pressed="true">졸음</button>
       <button type="button" class="chip" aria-pressed="false">과몰입</button>
@@ -100,13 +99,13 @@
     </div>
   </div>
 
-  <div class="eff-line">
-    <span>이 프로세스 시간 효율</span>
-    <span class="num val cool">+2분 초과</span>
+  <div class="panel tint-slate time-note">
+    <span class="tlabel">시간 효율</span>
+    <span class="tval">+2분 초과</span>
   </div>
 
-  <div class="bottom-act">
-    <button type="button" class="btn btn-hold">길게 눌러 확정 — <span class="num">450ms</span></button>
+  <div class="bottom-act no-tab">
+    <button type="button" class="btn btn-primary">길게 눌러 확정 (<span class="num">0.45초</span>)</button>
   </div>
 </div>
 </body>

@@ -9,27 +9,33 @@
 <link rel="stylesheet" href="../tokens.css">
 <link rel="stylesheet" href="../components.css">
 <style>
-  /* S-05 전용 — 실행 중에는 크롬 최소화, 숫자가 화면의 주인 */
-  .gauge { margin: var(--sp-xl) auto 0; width: 216px; height: 108px; position: relative; }
-  .gauge .track, .gauge .fill {
-    position: absolute; inset: 0;
-    border: 10px solid var(--edge); border-bottom: none;
-    border-radius: 216px 216px 0 0;
+  /* S-05 전용 — 링이 화면의 중심. 실행 중에는 크롬 최소화 */
+  .proc-pill {
+    display: inline-flex; align-items: center; gap: 8px; margin-top: var(--sp-lg);
+    background: var(--surface); border-radius: var(--radius-full);
+    box-shadow: var(--shadow-card); padding: 9px 16px 9px 10px;
   }
-  .gauge .fill {
-    border-color: var(--ember);
-    clip-path: polygon(0 0, 54% 0, 54% 100%, 0 100%); /* 경과 54% */
+  .proc-pill .ico { width: 28px; height: 28px; border-radius: 9px; font-size: 14px; display: flex; align-items: center; justify-content: center; }
+  .proc-pill b { font-size: 13.5px; letter-spacing: -.01em; }
+  .proc-pill span { font-family: var(--font-num); font-size: 11px; color: var(--text-muted); }
+  .center { display: flex; flex-direction: column; align-items: center; }
+  .big-ring { width: 264px; height: 264px; margin-top: var(--sp-xl); --ring-w: 14px; --p: 54; }
+  .big-ring .timer-num { font-family: var(--font-num); font-weight: 600; font-size: 54px; letter-spacing: -.04em; line-height: 1; }
+  .big-ring .lbl { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+  .big-ring .lbl b { color: var(--ember); font-weight: 700; }
+  .goals { width: 100%; }
+  .goal-row { display: flex; align-items: center; gap: 12px; padding: 12px 0; }
+  .goal-row + .goal-row { border-top: 1px solid var(--edge); }
+  .goal-row .gname { flex: 1; font-size: 14px; font-weight: 600; }
+  .goal-row .gval { font-family: var(--font-num); font-size: 12.5px; color: var(--text-muted); }
+  .goal-row .mini { display: block; width: 64px; }
+  .goal-row .mini .heat-bar { height: 7px; }
+  .dnd-pill {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    margin-top: var(--sp-md); font-size: 12.5px; font-weight: 600; color: var(--ember);
+    background: var(--ember-soft); border-radius: var(--radius-full); padding: 10px 16px;
   }
-  .gauge .pct {
-    position: absolute; left: 0; right: 0; bottom: 0; text-align: center;
-    font-family: var(--font-num); font-size: 13px; color: var(--text-muted);
-  }
-  .timer-wrap { text-align: center; margin-top: var(--sp-2xl); } /* 타이머는 계기판의 중심 게이지 — 중앙 허용 예외 */
-  .goal-row { display: flex; justify-content: space-between; align-items: center; gap: var(--sp-sm); padding: 11px 0; font-size: 13px; }
-  .goal-row + .goal-row { border-top: 1px dashed var(--edge); }
-  .goal-row .g-val { font-family: var(--font-num); font-size: 12px; color: var(--text); display: flex; align-items: center; gap: 10px; }
-  .dnd { display: flex; align-items: center; gap: 8px; margin-top: var(--sp-md); font-size: 12px; color: var(--text-muted); }
-  .dnd .dot.ember { animation: pulse 2.4s ease-in-out infinite; }
+  .dnd-pill .dot { animation: pulse 2.4s ease-in-out infinite; }
   @keyframes pulse { 50% { opacity: .35; } }
   .acts { display: flex; gap: var(--sp-sm); }
 </style>
@@ -38,42 +44,41 @@
 <div class="screen">
   <div class="statusbar"><span>08:32</span><span>방해금지 ●</span></div>
 
-  <div class="screen-head">
-    <div class="overline">Process 02 / 08 — 08:00 → 09:00</div>
-    <h1 class="title">이동·출근</h1>
-    <p class="sub">사전 계획 · 시간 기준(Time-box)</p>
-  </div>
-
-  <div class="timer-wrap">
-    <div class="timer-num">27:43<small> 남음</small></div>
-    <div class="gauge">
-      <div class="track"></div>
-      <div class="fill"></div>
-      <div class="pct">32:17 경과 · 54%</div>
+  <div class="center">
+    <div class="proc-pill">
+      <span class="ico sky">🚇</span>
+      <b>이동·출근</b>
+      <span>08:00–09:00 · 2/8</span>
     </div>
+
+    <div class="ring big-ring">
+      <div class="inner">
+        <div class="timer-num">27:43</div>
+        <div class="lbl">남음 · 경과 <b class="num">54%</b></div>
+      </div>
+    </div>
+
+    <div class="dnd-pill"><span class="dot ember"></span>방해금지 가동 중 — 알림 6건 보류</div>
   </div>
 
-  <div class="panel">
+  <div class="panel goals">
     <div class="panel-label">이 시간의 정량 목표</div>
     <div class="goal-row">
-      <span>실밸 개발자 영상</span>
-      <span class="g-val"><span class="ticks"><i class="on"></i><i></i></span> 1/2</span>
+      <span class="gname">실밸 개발자 영상</span>
+      <span class="mini"><span class="heat-bar"><i style="transform:scaleX(.5)"></i></span></span>
+      <span class="gval">1 / 2</span>
     </div>
     <div class="goal-row">
-      <span>책 200p까지 읽기</span>
-      <span class="g-val"><span class="num">p.147</span> / 200</span>
+      <span class="gname">책 200p까지 읽기</span>
+      <span class="mini"><span class="heat-bar"><i style="transform:scaleX(.74)"></i></span></span>
+      <span class="gval">p.147 / 200</span>
     </div>
   </div>
 
-  <div class="dnd">
-    <span class="dot ember"></span>
-    방해금지 가동 중 — 알림 <b class="num">6</b>건 보류됨
-  </div>
-
-  <div class="bottom-act">
+  <div class="bottom-act no-tab">
     <div class="acts">
       <button class="btn btn-ghost" style="flex:1">일시정지</button>
-      <button class="btn btn-hold" style="flex:2">완료 — 전환 검증으로</button>
+      <button class="btn btn-primary" style="flex:2">완료 — 전환 검증</button>
     </div>
   </div>
 </div>
