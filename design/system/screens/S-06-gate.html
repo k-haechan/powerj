@@ -38,7 +38,9 @@
   .goal-row .mini { display: block; width: 56px; flex-shrink: 0; }
   .goal-row .mini .heat-bar { height: 7px; }
   .goal-row .gval { font-family: var(--font-num); font-size: 12px; color: var(--text-muted); }
-  .goal-row .gpct { font-family: var(--font-num); font-size: 13px; font-weight: 600; color: var(--ember); width: 38px; text-align: right; }
+  .goal-row .gpct { font-family: var(--font-num); font-size: 13px; font-weight: 600; width: 38px; text-align: right; }
+  .goal-row .gpct.hot { color: var(--ember); }
+  .goal-row .gpct.cool { color: var(--slate); }
   .auto-note { display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--text-muted); margin-top: var(--sp-sm); }
 
   /* 시간 노트 — 초과도 데이터, slate */
@@ -78,13 +80,13 @@
       <span class="gname">실밸 개발자 영상</span>
       <span class="mini"><span class="heat-bar"><i style="transform:scaleX(.5)"></i></span></span>
       <span class="gval">1 / 2</span>
-      <span class="gpct">50%</span>
+      <span class="gpct cool">50%</span>
     </div>
     <div class="goal-row">
       <span class="gname">책 200p까지 읽기</span>
       <span class="mini"><span class="heat-bar"><i style="transform:scaleX(.86)"></i></span></span>
       <span class="gval">p.171 / 200</span>
-      <span class="gpct">86%</span>
+      <span class="gpct hot">86%</span>
     </div>
     <div class="auto-note">정량 목표는 자동 계산돼요</div>
   </div>
