@@ -27,6 +27,7 @@
   --ember-hot:   #FF9D4D;
   --ember-dim:   #FBD9BE;  /* 라이트에서의 heat 하단(연한 살구) */
   --ember-soft:  #FEF1E6;  /* 틴트 배경 */
+  --ember-ink:   #B9530E;  /* 13px 엠버 텍스트 전용 — 흰 카드 위 대비 4.9:1 */
   --gold:        #E9B93B;  /* 100% 전용 */
   --gold-soft:   #FBF3DC;
   --gold-ink: #8A6A14;      /* 13px 골드 텍스트 전용 — 흰 카드 위 대비 5.1:1 */
