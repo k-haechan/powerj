@@ -16,7 +16,7 @@
 
   /* ============ HERO — 계기판 점화 ============ */
   .hero { position: relative; overflow: hidden; padding: clamp(56px, 9vw, 92px) 0 clamp(56px, 9vw, 88px); border-bottom: 1px solid var(--edge);
-    background: radial-gradient(720px 340px at 85% -10%, rgba(240,122,43,.12), transparent 62%), var(--bg); }
+    background: radial-gradient(720px 340px at 85% -10%, color-mix(in srgb, var(--ember) 12%, transparent), transparent 62%), var(--bg); }
   .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-num); font-size: 11px; letter-spacing: .14em;
     color: var(--ember); border: 1px solid var(--edge); background: var(--surface); border-radius: var(--radius-sm); padding: 7px 12px; margin-bottom: 20px; }
   .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ember); }
@@ -69,7 +69,7 @@
     background: linear-gradient(120deg, var(--surface), var(--surface-2)); border: 1px solid var(--edge); border-radius: var(--radius-md); padding: 22px; }
   .banner h3 { font-size: 18px; font-weight: 800; }
   .banner p { font-size: 13px; color: var(--text-muted); margin-top: 4px; max-width: 700px; }
-  .banner .go { flex-shrink: 0; font-weight: 700; font-size: 14px; color: #141210; background: var(--ember); border-radius: var(--radius-sm); padding: 13px 22px; }
+  .banner .go { flex-shrink: 0; font-weight: 700; font-size: 14px; color: var(--text); background: var(--ember); border-radius: var(--radius-sm); padding: 13px 22px; }
 
   footer { border-top: 1px solid var(--edge); padding: 26px 0 60px; }
   footer .wrap { font-family: var(--font-num); font-size: 11px; color: var(--text-faint); line-height: 1.8; }
