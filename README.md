@@ -2,7 +2,12 @@
 
 하루를 **프로세스 체인**으로 설계하고, 각 프로세스에 **정량 목표**를 걸고, 실행은 **타이머·방해금지**로 측정하며, 전환마다 **달성률·실패 원인 검증을 강제**하고, 하루를 **일기+대시보드로 마감**해 내일에 되먹이는 앱.
 
-**종합 페이지 (GitHub Pages)**: `index.html` — 문제 · 여정 · 디자인시스템 · 화면 · 와이어플로우
+**라이브 (GitHub Pages)**: https://k-haechan.github.io/powerj/ — 문제 · 여정 · 디자인시스템 · 화면 · 와이어플로우
+
+주요 링크:
+- 종합 허브 — https://k-haechan.github.io/powerj/
+- 와이어플로우 보드 — https://k-haechan.github.io/powerj/docs/wireframe.html
+- 화면 갤러리는 허브(`index.html`)에서 S-01 ~ S-15로 진입
 
 ## 구조
 
