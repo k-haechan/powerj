@@ -15,7 +15,8 @@
   .cap b { font-weight: 700; }
 
   /* 작은 on/off 칩 (행 우측) */
-  .chip.sm { padding: 5px 12px; min-height: 28px; font-size: 11.5px; border-radius: var(--radius-full); }
+  .chip.sm { padding: 5px 12px; min-height: 28px; font-size: 11.5px; border-radius: var(--radius-full); position: relative; }
+  .chip.sm::after { content: ''; position: absolute; inset: -8px; } /* 히트 영역 44px 확보 */
   .chip.sm.set { background: var(--ember); color: #fff; }
   .chip.sm.off { background: var(--surface-2); color: var(--text-faint); }
 

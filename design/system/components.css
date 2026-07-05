@@ -114,7 +114,7 @@ h1.title { font-size: var(--text-h1); font-weight: 800; letter-spacing: -.02em; 
 .chip {
   font-size: 13px; font-weight: 600; color: var(--slate);
   background: var(--slate-soft); border: none; border-radius: var(--radius-full);
-  padding: 10px 16px; min-height: 42px; display: inline-flex; align-items: center;
+  padding: 10px 16px; min-height: 44px; display: inline-flex; align-items: center;
   cursor: pointer; transition: all var(--dur-short);
 }
 .chip.set { background: var(--slate); color: #fff; }
