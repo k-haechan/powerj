@@ -29,6 +29,7 @@
   --ember-soft:  #FEF1E6;  /* 틴트 배경 */
   --gold:        #E9B93B;  /* 100% 전용 */
   --gold-soft:   #FBF3DC;
+  --gold-ink: #8A6A14;      /* 13px 골드 텍스트 전용 — 흰 카드 위 대비 5.1:1 */
   --slate:       #7189A8;  /* 실패 데이터 · 계획 · 정보 */
   --slate-soft:  #EEF2F7;
   --danger:      #D8542F;  /* 파괴적 액션 전용 */

@@ -80,7 +80,7 @@ h1.title { font-size: var(--text-h1); font-weight: 800; letter-spacing: -.02em; 
 .tl-card .end { text-align: right; flex-shrink: 0; }
 .tl-card .end .pct { font-family: var(--font-num); font-size: 13px; font-weight: 600; }
 .pct.hot  { color: var(--ember); }
-.pct.gold { color: var(--gold); }
+.pct.gold { color: var(--gold-ink); }
 .pct.cool { color: var(--slate); }
 .tl-item.now .tl-card { box-shadow: 0 0 0 2px var(--ember), var(--shadow-card); }
 .tl-item.dim .tl-card { background: var(--surface-2); box-shadow: none; }
@@ -154,7 +154,7 @@ h1.title { font-size: var(--text-h1); font-weight: 800; letter-spacing: -.02em; 
 .lrow:last-child { border-bottom: none; }
 .lrow .val { font-family: var(--font-num); font-weight: 600; font-size: 13px; }
 .val.hot { color: var(--ember); } .val.cool { color: var(--slate); }
-.val.gold { color: var(--gold); } .val.muted { color: var(--text-muted); }
+.val.gold { color: var(--gold-ink); } .val.muted { color: var(--text-muted); }
 
 /* ---------- 폼 ---------- */
 .field { margin-top: var(--sp-md); }
