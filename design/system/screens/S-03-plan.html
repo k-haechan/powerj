@@ -123,9 +123,9 @@
         <button class="add-goal">＋ 목표 추가</button>
         <div class="ptype">
           <div class="panel-label">계획 유형</div>
-          <div class="chips">
-            <button class="chip set">사전 확정</button>
-            <button class="chip">즉석으로 남기기</button>
+          <div class="chips" role="radiogroup" aria-label="계획 유형">
+            <button class="chip set" role="radio" aria-checked="true">사전 확정</button>
+            <button class="chip" role="radio" aria-checked="false">즉석으로 남기기</button>
           </div>
         </div>
       </div>
