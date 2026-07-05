@@ -14,7 +14,6 @@ docs/
   wireframe.html                와이어플로우 보드 (F0–F4, 실제 화면 축소 삽입)
 design/
   DESIGN.md / DESIGN.html       디자인시스템 스펙 — 마켓 스탠다드 라이트 v2 (단일 진실 원천)
-  mascot-simji-prompt.md        심지 마스코트 이미지 생성 프롬프트
   PROPOSAL.md                   방향 결정 과정 아카이브 (v1 → v2 개정 경위)
   sample.html                   방향 검토 시안 5종 (목업 — 레이아웃 복사 금지)
   system/
