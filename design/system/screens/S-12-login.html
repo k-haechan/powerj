@@ -28,7 +28,7 @@
     display: inline-flex; align-items: center; justify-content: center;
     font-size: 13px; font-weight: 800; font-family: var(--font-num);
   }
-  .mark.g { background: var(--slate-soft); color: var(--slate); }
+  .mark.g { background: #fff; border: 1px solid var(--edge); } /* Google 브랜드 마크 */
   .mark.a { background: var(--text); color: #fff; }
   .mark.k { background: #FEE500; color: #191919; } /* 카카오 브랜드 컬러 — gold(100% 전용) 시맨틱과 무관 */
   .foot { margin-top: var(--sp-xl); text-align: center; font-size: 11.5px; color: var(--text-faint); }
@@ -75,9 +75,9 @@
 
   <div class="divider">또는</div>
   <div class="social">
-    <button class="btn btn-ghost"><span class="mark g">G</span> Google로 계속하기</button>
+    <button class="btn btn-ghost"><span class="mark g"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path fill="#4285F4" d="M23.5 12.3c0-.9-.1-1.5-.3-2.2H12v4.1h6.5c-.1 1.1-.8 2.7-2.4 3.8l3.7 2.9c2.2-2 3.7-5 3.7-8.6z"/><path fill="#34A853" d="M12 24c3.2 0 5.9-1.1 7.9-2.9l-3.7-2.9c-1 .7-2.4 1.2-4.2 1.2-3.2 0-5.9-2.1-6.8-5l-3.9 3C3.3 21.3 7.3 24 12 24z"/><path fill="#FBBC05" d="M5.2 14.4c-.2-.7-.4-1.5-.4-2.4s.1-1.7.4-2.4l-3.9-3C.5 8.2 0 10 0 12s.5 3.8 1.3 5.4l3.9-3z"/><path fill="#EA4335" d="M12 4.7c1.8 0 3 .8 3.7 1.4l3.3-3.2C17.9 1 15.2 0 12 0 7.3 0 3.3 2.7 1.3 6.6l3.9 3c.9-2.9 3.6-4.9 6.8-4.9z"/></svg></span> Google로 계속하기</button>
     <button class="btn btn-ghost"><span class="mark a"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M16.7 12.9c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.16-2.9.88-3.7.88-.8 0-1.9-.86-3.2-.83-1.6.02-3.1.96-4 2.4-1.7 3-.4 7.4 1.2 9.8.8 1.2 1.8 2.5 3 2.4 1.2-.05 1.7-.78 3.1-.78s1.9.78 3.2.75c1.3-.02 2.2-1.18 3-2.38.9-1.4 1.3-2.7 1.3-2.77-.03-.01-2.5-.96-2.5-3.83zM14.4 5.6c.66-.8 1.1-1.9 .98-3-.95.04-2.1.63-2.78 1.43-.61.7-1.15 1.85-1 2.94 1.06.08 2.14-.54 2.8-1.37z"/></svg></span> Apple로 계속하기</button>
-    <button class="btn btn-ghost"><span class="mark k">K</span> 카카오로 계속하기</button>
+    <button class="btn btn-ghost"><span class="mark k"><svg viewBox="0 0 24 24" width="14" height="14" fill="#191919" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.9 5.3 4.7 6.7l-1 3.7c-.1.4.3.7.6.5l4.4-2.9c.4 0 .8.1 1.3.1 5.5 0 10-3.6 10-8S17.5 3 12 3z"/></svg></span> 카카오로 계속하기</button>
   </div>
 
   <p class="foot">로그인하면 기기 간 동기화됩니다</p>
