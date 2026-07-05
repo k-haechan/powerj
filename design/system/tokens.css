@@ -15,7 +15,7 @@
 /* 폰트 CDN (DESIGN.md §4가 참조하는 로딩 링크 — 각 화면 head와 동일)
    IBM Plex Mono: https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap
    Wanted Sans Variable: https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/complete/WantedSansVariable.min.css
-   MaruBuri(일기 전용, S-08만): https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css 아님 — S-08 head 참조 */
+   MaruBuri(일기 전용): S-08 head의 CDN 링크 참조 */
 
 :root {
   /* ---------- 1. 중립 (라이트 기본) ---------- */
