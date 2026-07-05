@@ -43,6 +43,7 @@ h1.title { font-size: var(--text-h1); font-weight: 800; letter-spacing: -.02em; 
 
 /* ---------- 타임라인 태스크 카드 (Structured 문법) ---------- */
 .tl { position: relative; margin-top: var(--sp-sm); }
+ol.tl { list-style: none; padding-left: 0; margin-bottom: 0; }
 .tl::before { /* 세로 레일 */
   content: ""; position: absolute; left: 43px; top: 8px; bottom: 8px;
   width: 2px; background: var(--edge); border-radius: 1px;
