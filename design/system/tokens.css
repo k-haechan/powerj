@@ -30,7 +30,6 @@
   /* ---------- 2. 브랜드 · 시맨틱 ---------- */
   --ember:       #F07A2B;  /* 주 액센트 — 진행·성취·주요 액션 */
   --ember-hot:   #FF9D4D;
-  --ember-dim:   #FBD9BE;  /* 라이트에서의 heat 하단(연한 살구) */
   --ember-soft:  #FEF1E6;  /* 틴트 배경 */
   --ember-ink:   #B9530E;  /* 13px 엠버 텍스트 전용 — 흰 카드 위 대비 4.9:1 */
   --gold:        #E9B93B;  /* 100% 전용 */
@@ -53,7 +52,7 @@
   --font-sans: "Wanted Sans Variable", "Wanted Sans", Pretendard, -apple-system, sans-serif;
   --font-diary:"MaruBuri", serif;
 
-  --text-timer:   clamp(52px, 19vw, 72px);
+  --text-timer:   clamp(48px, 13.8vw, 54px);
   --text-stat-xl: 56px;
   --text-stat:    36px;
   --text-h1:      24px;
