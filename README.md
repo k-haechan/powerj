@@ -13,13 +13,15 @@ docs/
   journey.md / journey.html     고객 여정지도 (페르소나 4)
   wireframe.html                와이어플로우 보드 (F0–F4, 실제 화면 축소 삽입)
 design/
-  DESIGN.md / DESIGN.html       디자인시스템 스펙 — 엠버 크로노그래프 (단일 진실 원천)
-  PROPOSAL.md                   방향 결정 과정 아카이브
+  DESIGN.md / DESIGN.html       디자인시스템 스펙 — 마켓 스탠다드 라이트 v2 (단일 진실 원천)
+  mascot-simji-prompt.md        심지 마스코트 이미지 생성 프롬프트
+  PROPOSAL.md                   방향 결정 과정 아카이브 (v1 → v2 개정 경위)
   sample.html                   방향 검토 시안 5종 (목업 — 레이아웃 복사 금지)
   system/
     tokens.css                  디자인 토큰 SoT
     components.css              공유 컴포넌트
-    screens/S-01 ~ S-13         단독 실행 화면 13종 (로그인·회원가입 포함)
+    assets/mascot/              심지 마스코트 3-상태 PNG (rest·idle·gold)
+    screens/S-01 ~ S-15         단독 실행 화면 15종 (온보딩~설정 · 완벽한 하루 · 빈 기록)
 ```
 
 ## 디자인시스템 핵심 규칙
@@ -27,3 +29,4 @@ design/
 - 달성 = **ember heat** (채워지는 게 아니라 뜨거워진다) · **100% = gold 전용**
 - **실패는 데이터** — 빨강 금지, slate로 렌더 · `--danger`는 파괴적 액션 전용
 - 숫자는 전부 IBM Plex Mono(tabular) · 한글 UI는 Wanted Sans · 일기만 MaruBuri
+- 마스코트 **심지(Simji)** — 배 속 하트가 §5 밴딩(휴지 slate · 진행 ember · 100% gold)을 나른다
