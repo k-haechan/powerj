@@ -13,18 +13,13 @@
   /* S-02 전용 — 홈: 링 요약 + Structured식 타임라인 카드 */
   .sum { display: flex; align-items: center; gap: 18px; }
   .sum .ring { width: 72px; height: 72px; flex-shrink: 0; --p: 82; --ring-w: 8px; }
-  .sum .ring .pv { font-family: var(--font-num); font-weight: 600; font-size: 17px; letter-spacing: -.02em; color: var(--ember); }
+  .sum .ring .pv { font-size: 17px; letter-spacing: -.02em; }
   .sum .body { flex: 1; min-width: 0; }
   .sum .line { font-size: 13.5px; color: var(--text-muted); line-height: 1.55; }
   .sum .line b { color: var(--text); font-weight: 700; }
   .sum .heat-bar { height: 8px; margin-top: 10px; }
-  .tl-label {
-    font-family: var(--font-num); font-size: var(--text-micro); font-weight: 600;
-    letter-spacing: .1em; color: var(--text-muted); text-transform: uppercase;
-    margin-top: var(--sp-lg);
-  }
+  .tl-label { margin-top: var(--sp-lg); }
   .tl-item.now .dot.ember { animation: pulse 2.4s ease-in-out infinite; }
-  @keyframes pulse { 50% { opacity: .35; } }
 </style>
 </head>
 <body>
