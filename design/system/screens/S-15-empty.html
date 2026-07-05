@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../../../assets/favicon.svg">
+<title>powerj S-15 — 빈 기록 (첫 시작)</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/complete/WantedSansVariable.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../components.css">
+<style>
+  /* S-15 전용 — 빈 아카이브(미기록). 심지 rest: 슬레이트 하트로 조용히 첫 기록을 기다린다. 실패색 아님, 차분한 데이터. */
+  .screen { padding-bottom: 96px; }  /* 탭바 공간 */
+  .empty { display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: 15vh; }
+
+  .mascot { position: relative; }
+  .mascot::before {  /* 잔잔한 slate 후광 — 휴지 상태 */
+    content: ''; position: absolute; z-index: 0; pointer-events: none;
+    left: 50%; top: 60%; transform: translate(-50%, -50%);
+    width: clamp(158px, 52vw, 208px); aspect-ratio: 1.35 / 1;
+    background: radial-gradient(ellipse at center,
+      color-mix(in srgb, var(--slate) 15%, transparent) 0%,
+      color-mix(in srgb, var(--slate) 6%, transparent) 46%,
+      transparent 72%);
+  }
+  .mascot img {
+    position: relative; z-index: 1;
+    width: clamp(140px, 46vw, 176px); height: auto;
+    animation: simji-float 4.8s ease-in-out infinite;
+  }
+  @keyframes simji-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+  @media (prefers-reduced-motion: reduce) { .mascot img { animation: none; } }
+
+  .empty h1 { font-size: 22px; font-weight: 800; letter-spacing: -.02em; margin-top: var(--sp-lg); }
+  .empty .lede { margin-top: var(--sp-sm); font-size: var(--text-body); color: var(--text-muted); line-height: 1.7; max-width: 26ch; }
+  .empty .hint { margin-top: var(--sp-md); font-size: var(--text-caption); color: var(--text-faint); max-width: 28ch; line-height: 1.6; }
+  .empty .btn { margin-top: var(--sp-xl); min-width: 220px; }
+</style>
+</head>
+<body>
+<div class="screen">
+  <div class="statusbar"><span>21:00</span><span>기록</span></div>
+
+  <div class="screen-head">
+    <div class="overline">기록</div>
+  </div>
+
+  <div class="empty">
+    <div class="mascot">
+      <img src="../assets/mascot/simji-rest.png" alt="심지 — 휴지 상태(첫 기록 대기)" width="176" height="176">
+    </div>
+    <h1>아직 쌓인 링이 없어요</h1>
+    <p class="lede">첫 하루를 계획하고 마감하면, 여기에 성취의 링이 하나씩 쌓이기 시작해요.</p>
+    <p class="hint">심지의 심장은 아직 조용한 슬레이트빛 — 당신의 첫 기록을 기다리는 중이에요.</p>
+    <button class="btn btn-primary">첫 하루 계획하기 →</button>
+  </div>
+
+  <nav class="tabbar" aria-label="주 탐색">
+    <a href="S-02-today.html"><span class="ti"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span>오늘</a>
+    <a class="on" href="S-09-archive.html" aria-current="page"><span class="ti"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7l8-4 8 4-8 4-8-4z"/><path d="M4 12l8 4 8-4"/><path d="M4 17l8 4 8-4"/></svg></span>기록</a>
+    <a href="S-10-weekly.html"><span class="ti"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 20h16"/><path d="M7 16v-5M12 16V7M17 16v-8"/></svg></span>리포트</a>
+    <a href="S-11-settings.html"><span class="ti"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.4M12 18.6V21M3 12h2.4M18.6 12H21M5.6 5.6l1.7 1.7M16.7 16.7l1.7 1.7M18.4 5.6l-1.7 1.7M7.3 16.7l-1.7 1.7"/></svg></span>설정</a>
+  </nav>
+</div>
+</body>
+</html>

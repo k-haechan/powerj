@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../../../assets/favicon.svg">
+<title>powerj S-14 — 완벽한 하루 (100%)</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/complete/WantedSansVariable.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../components.css">
+<style>
+  /* S-14 전용 — 100% 달성의 보상 순간. gold는 오직 이 화면에서만 온전히 켜진다(§5). */
+  .screen { padding-bottom: 120px; }
+  .celebrate { display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: var(--sp-2xl); }
+
+  /* 심지 gold — 100% 순간엔 온몸이 금빛 등불 */
+  .mascot { position: relative; }
+  .mascot::before {
+    content: ''; position: absolute; z-index: 0; pointer-events: none;
+    left: 50%; top: 57%; transform: translate(-50%, -50%);
+    width: clamp(200px, 66vw, 288px); aspect-ratio: 1.2 / 1;
+    background: radial-gradient(ellipse at center,
+      color-mix(in srgb, var(--gold) 30%, transparent) 0%,
+      color-mix(in srgb, var(--gold) 11%, transparent) 46%,
+      transparent 72%);
+  }
+  .mascot img {
+    position: relative; z-index: 1;
+    width: clamp(168px, 54vw, 212px); height: auto;
+    animation: simji-float 4.5s ease-in-out infinite;
+  }
+  @keyframes simji-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+  @media (prefers-reduced-motion: reduce) { .mascot img { animation: none; } }
+
+  .big-pct { font-family: var(--font-num); font-weight: 600; font-size: 64px; color: var(--gold); letter-spacing: -.03em; line-height: 1; margin-top: var(--sp-md); }
+  .big-pct small { font-size: .5em; }
+  .celebrate h1 { font-size: 24px; font-weight: 800; letter-spacing: -.02em; line-height: 1.35; margin-top: var(--sp-md); }
+  .celebrate h1 em { font-style: normal; color: var(--gold-ink); }  /* 24px gold 텍스트는 ink(AA) */
+  .celebrate .lede { margin-top: var(--sp-sm); font-size: var(--text-body); color: var(--text-muted); line-height: 1.7; max-width: 28ch; }
+
+  /* 성취 요약 3칸 */
+  .win-row { display: flex; gap: var(--sp-sm); width: 100%; margin-top: var(--sp-xl); }
+  .win { flex: 1; background: var(--surface); border-radius: var(--radius-md); box-shadow: var(--shadow-card); padding: 14px 8px; }
+  .win .k { font-family: var(--font-num); font-size: var(--text-micro); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--text-muted); }
+  .win .v { font-family: var(--font-num); font-weight: 600; font-size: 22px; color: var(--gold-ink); margin-top: 5px; }
+</style>
+</head>
+<body>
+<div class="screen">
+  <div class="statusbar"><span>23:04</span><span>완벽한 하루</span></div>
+
+  <div class="celebrate">
+    <div class="mascot">
+      <img src="../assets/mascot/simji-gold.png" alt="심지 — 100% 달성 골드 상태" width="212" height="212">
+    </div>
+    <div class="big-pct">100<small>%</small></div>
+    <h1>오늘, <em>모든 목표</em>를 해냈어요</h1>
+    <p class="lede">프로세스 <b class="num">8</b>개 · 정량 목표 <b class="num">13</b>개 전부 달성. 이 골드는 완벽한 날에만 켜집니다.</p>
+
+    <div class="win-row">
+      <div class="win"><div class="k">프로세스</div><div class="v">8/8</div></div>
+      <div class="win"><div class="k">정량 목표</div><div class="v">13/13</div></div>
+      <div class="win"><div class="k">연속 골드</div><div class="v">2일</div></div>
+    </div>
+  </div>
+
+  <div class="bottom-act no-tab">
+    <button class="btn btn-primary">오늘의 일기 쓰기 →</button>
+  </div>
+</div>
+</body>
+</html>

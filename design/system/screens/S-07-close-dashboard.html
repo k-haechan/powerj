@@ -16,6 +16,18 @@
   .hero .stat-xl { font-size: 46px; color: var(--ember); }        /* 87% → 70–99 heat 밴드 */
   .hero .cap { font-size: var(--text-caption); color: var(--text-muted); margin-top: var(--sp-md); }
 
+  /* 하루 마감 동반자 — 심지(ember): 이 날은 87%라 §5 밴딩상 ember (gold는 100% 전용 → S-14) */
+  .hero .mascot { position: relative; margin-bottom: 2px; }
+  .hero .mascot::before {
+    content: ''; position: absolute; z-index: 0; pointer-events: none;
+    left: 50%; top: 62%; transform: translate(-50%, -50%);
+    width: 98px; aspect-ratio: 1.35 / 1;
+    background: radial-gradient(ellipse at center, color-mix(in srgb, var(--ember) 15%, transparent) 0%, transparent 70%);
+  }
+  .hero .mascot img { position: relative; z-index: 1; width: 66px; height: auto; animation: simji-float 4.5s ease-in-out infinite; }
+  @keyframes simji-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+  @media (prefers-reduced-motion: reduce) { .hero .mascot img { animation: none; } }
+
   /* 프로세스 결과 — 아이콘 뱃지 + 좌측 정렬 lrow */
   .plist .lrow { justify-content: flex-start; }
   .plist .ico {
@@ -57,6 +69,7 @@
 
   <!-- 히어로 — 하루 총 달성 링 -->
   <div class="panel big hero">
+    <div class="mascot"><img src="../assets/mascot/simji-idle.png" alt="심지 — 오늘의 동반자" width="66" height="66"></div>
     <div class="ring" role="img" aria-label="하루 총 달성률 87퍼센트">
       <div class="inner">
         <div class="stat-xl">87<small>%</small></div>
