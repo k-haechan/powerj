@@ -212,3 +212,9 @@ h1.title { font-size: var(--text-h1); font-weight: 800; letter-spacing: -.02em; 
 
 /* ---------- 일기 ---------- */
 .diary-body { font-family: var(--font-diary); font-size: 15px; line-height: 1.95; color: var(--text); }
+
+/* ---- 포커스 상태 (키보드 탐색) ---- */
+.btn:focus-visible, .chip:focus-visible, .step:focus-visible,
+.tabbar a:focus-visible, .tl-card[role="button"]:focus-visible {
+  outline: 2px solid var(--ember); outline-offset: 2px;
+}
