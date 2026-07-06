@@ -35,6 +35,19 @@
   }
   .dnd-pill .dot { animation: pulse 2.4s ease-in-out infinite; }
   .acts { display: flex; gap: var(--sp-sm); }
+
+  /* 심지 — 집중 동반자 (focus): 측정되는 프로세스 옆 조용한 딥워크 */
+  .simji-focus { position: relative; margin-top: var(--sp-md); }
+  .simji-focus::before {
+    content: ''; position: absolute; z-index: 0; pointer-events: none;
+    left: 50%; top: 58%; transform: translate(-50%, -50%);
+    width: 60px; height: 46px;
+    background: radial-gradient(ellipse at center,
+      color-mix(in srgb, var(--ember) 14%, transparent) 0%, transparent 70%);
+  }
+  .simji-focus img { position: relative; z-index: 1; display: block; width: 52px; height: auto; animation: simji-float 5s ease-in-out infinite; }
+  @keyframes simji-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+  @media (prefers-reduced-motion: reduce) { .simji-focus img { animation: none; } }
 </style>
 </head>
 <body>
@@ -53,6 +66,10 @@
         <div class="timer-num">27:43</div>
         <div class="lbl">남음 · 경과 <b class="num">54%</b></div>
       </div>
+    </div>
+
+    <div class="simji-focus">
+      <img src="../assets/mascot/simji-focus.png" alt="심지 — 조용히 함께 집중하는 동반자" width="52" height="52">
     </div>
 
     <div class="dnd-pill"><span class="dot ember"></span>방해금지 가동 중 — 알림 <span class="num">6</span>건 보류</div>

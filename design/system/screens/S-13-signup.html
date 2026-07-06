@@ -19,16 +19,36 @@
   .agree .panel-label { margin-bottom: 0; }
   .login-line { margin-top: 12px; text-align: center; font-size: 12px; color: var(--text-muted); }
   .login-line a { color: var(--ember); font-weight: 700; text-decoration: none; }
+
+  /* 심지 — 시작 인사 (wave) */
+  .welcome-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+  .welcome-head .htext { min-width: 0; }
+  .simji-hi { position: relative; flex-shrink: 0; width: 64px; margin-top: 2px; }
+  .simji-hi::before {
+    content: ''; position: absolute; z-index: 0; pointer-events: none;
+    left: 50%; top: 58%; transform: translate(-50%, -50%);
+    width: 72px; height: 54px;
+    background: radial-gradient(ellipse at center,
+      color-mix(in srgb, var(--ember) 15%, transparent) 0%, transparent 70%);
+  }
+  .simji-hi img { position: relative; z-index: 1; width: 64px; height: auto; animation: simji-float 4.6s ease-in-out infinite; }
+  @keyframes simji-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+  @media (prefers-reduced-motion: reduce) { .simji-hi img { animation: none; } }
 </style>
 </head>
 <body>
 <div class="screen">
   <div class="statusbar"><span>21:15</span><span>POWERJ</span></div>
 
-  <div class="screen-head">
-    <div class="overline">시작하기</div>
-    <h1 class="title"><span class="num">30</span>초면 충분해요</h1>
-    <p class="sub">가입하면 곧장 내일 계획을 만들어요</p>
+  <div class="screen-head welcome-head">
+    <div class="htext">
+      <div class="overline">시작하기</div>
+      <h1 class="title"><span class="num">30</span>초면 충분해요</h1>
+      <p class="sub">가입하면 곧장 내일 계획을 만들어요</p>
+    </div>
+    <div class="simji-hi">
+      <img src="../assets/mascot/simji-wave.png" alt="심지 — 반갑게 손 흔드는 인사" width="64" height="64">
+    </div>
   </div>
 
   <div class="chips steps">

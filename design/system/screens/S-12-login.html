@@ -32,15 +32,35 @@
   .mark.a { background: var(--text); color: #fff; }
   .mark.k { background: #FEE500; color: #191919; } /* 카카오 브랜드 컬러 — gold(100% 전용) 시맨틱과 무관 */
   .foot { margin-top: var(--sp-xl); text-align: center; font-size: 11.5px; color: var(--text-faint); }
+
+  /* 심지 — 복귀 인사 (wave): 데이터로 따뜻하게 맞이한다 */
+  .welcome-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+  .welcome-head .htext { min-width: 0; }
+  .simji-hi { position: relative; flex-shrink: 0; width: 66px; margin-top: 2px; }
+  .simji-hi::before {
+    content: ''; position: absolute; z-index: 0; pointer-events: none;
+    left: 50%; top: 58%; transform: translate(-50%, -50%);
+    width: 74px; height: 56px;
+    background: radial-gradient(ellipse at center,
+      color-mix(in srgb, var(--ember) 15%, transparent) 0%, transparent 70%);
+  }
+  .simji-hi img { position: relative; z-index: 1; width: 66px; height: auto; animation: simji-float 4.6s ease-in-out infinite; }
+  @keyframes simji-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+  @media (prefers-reduced-motion: reduce) { .simji-hi img { animation: none; } }
 </style>
 </head>
 <body>
 <div class="screen auth">
   <div class="statusbar"><span>21:14</span><span>POWERJ</span></div>
 
-  <div class="screen-head">
-    <div class="overline">돌아온 걸 환영해요</div>
-    <h1 class="title">다시 이어서 쌓아볼까요?</h1>
+  <div class="screen-head welcome-head">
+    <div class="htext">
+      <div class="overline">돌아온 걸 환영해요</div>
+      <h1 class="title">다시 이어서 쌓아볼까요?</h1>
+    </div>
+    <div class="simji-hi">
+      <img src="../assets/mascot/simji-wave.png" alt="심지 — 반갑게 손 흔드는 인사" width="66" height="66">
+    </div>
   </div>
 
   <div class="panel tint-ember big greet">
