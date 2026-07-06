@@ -52,7 +52,7 @@
 | `--surface-2` | `#FBFAF7` | 서브 영역·인풋 |
 | `--edge` | `#ECE8DF` | 헤어라인·링/바 트랙 |
 | `--text` | `#211B12` | 잉크 |
-| `--text-muted` / `--text-faint` | `#8A8171` / `#B8B0A0` | 보조 |
+| `--text-muted` / `--text-faint` | `#726A5A` / `#B8B0A0` | 보조 (muted는 AA≥4.5:1) |
 | `--ember` | `#F07A2B` | 달성 heat · 주요 액션 (+hot `#FF9D4D`, soft `#FEF1E6`) |
 | `--gold` | `#E9B93B` | **100% 전용** (+soft `#FBF3DC`) |
 | `--slate` | `#7189A8` | 실패 데이터 · 계획 · 정보 (+soft `#EEF2F7`) |
@@ -61,7 +61,7 @@
 **카테고리 컬러** (프로세스 아이콘 뱃지 전용 — 진행/성취 의미 금지):
 sky `#5B9BD5` · mint `#3FB58F` · coral `#EF7C66` · violet `#9B7EDE` · rose `#E77FB3` (+각 soft 틴트).
 
-**잉크 토큰 (소형 텍스트 전용)**: `--gold-ink #8A6A14` · `--ember-ink #B9530E` — 13px 수치 텍스트(.pct/.val류)는 ink 계열 필수(AA 4.5:1). 필·링·배지·대형 스탯은 기존 gold/ember 유지.
+**잉크 토큰 (소형 텍스트 전용)**: `--gold-ink #8A6A14` · `--ember-ink #B9530E` · `--slate-ink #4E6480` — 13px 소형 텍스트(.pct/.val/.overline/.err-msg류)는 ink 계열 필수(AA 4.5:1). 필·링·배지·대형 스탯은 기존 gold/ember/slate 유지.
 
 **달성률 색 밴딩 (전 화면 공통)**: `100% = gold` · `≥70% = ember(hot)` · `<70% = slate(cool)` · `미기록 = muted`.
 
@@ -100,7 +100,13 @@ sky `#5B9BD5` · mint `#3FB58F` · coral `#EF7C66` · violet `#9B7EDE` · rose `
 
 **아이콘 체계**: 프로세스 배지 = 커스텀 3D 클레이 PNG 18종(`design/system/assets/icons/ico-*.png`, `.ico > img` 74%) · 탭바 = 라인 SVG · 시스템 이모지 사용 금지.
 
-**마스코트**: **심지(Simji)** — 소프트 매트 클레이 등불 요정(크림 몸 + 반투명 "클레이 등불" 배 속의 하트-젬). 하트-젬이 하루의 계기판: **휴지=slate · 진행=ember · 100%=gold** (§5 밴딩·gold 희소 규칙 그대로 준수, 실패에 빨강·슬픈 표정 금지). 아이콘 세트와 동일한 재질·광원·팔레트. 사용처 = 온보딩(S-01)·빈 화면/무기록(S-15)·100% 보상(S-14)·<100% 마감(S-07)·로딩·앱 아이콘 후보 / 탭바 있는 데이터 화면엔 미사용. 상태 3종 에셋(모두 RGBA 투명, `design/system/assets/mascot/`): `simji-rest.png`(휴지 slate) · `simji-idle.png`(진행 ember) · `simji-gold.png`(100% gold) — 확정 에셋에서 하트 발광 영역만 리컬러링해 동일 캐릭터·자세·클레이 유지. **배선 완료**: S-01 온보딩 히어로=idle(접지 대신 ember 웜 글로우) · **S-07 <100% 마감=ember** · **S-14 완벽한 하루(100%)=gold** · **S-15 빈 기록=rest**. 와이어플로우(`docs/wireframe.html`)에 심지 through-line(상태 맵·F0/F3 반영) 적용.
+**마스코트**: **심지(Simji)** — 소프트 매트 클레이 등불 요정(크림 몸 + 반투명 "클레이 등불" 배 속의 하트-젬). 하트-젬이 하루의 계기판: **휴지/빈자리/다독임=slate · 진행 등 기본=ember · 100%=gold** (§5 밴딩·gold 희소 규칙 그대로 준수, 실패에 빨강·눈물·화난 표정 금지). 아이콘 세트와 동일한 재질·광원·팔레트. 탭바 있는 데이터 화면(S-02/09/10/11)엔 미사용.
+
+**에셋** (모두 RGBA 투명 누끼, `design/system/assets/mascot/`, 1254²):
+- **상태 3종** — `simji-rest.png`(휴지 slate) · `simji-idle.png`(진행 ember) · `simji-gold.png`(100% gold). 확정 에셋에서 하트 발광 영역만 리컬러링.
+- **표현 14종** (생성 스펙 `design/mascot-simji-expressions.md`, `simji-idle` 레퍼런스로 캐릭터 락 → u2net 누끼): `wave`·`success`·`focus`·`question`·`empty`(slate)·`loading`·`reassure`(slate)·`goodnight`·`perfect`(gold)·`oops`·`peek`·`sleepy`·`wow`·`thinking`. 하트 밴딩 준수 — `empty`/`reassure`=slate, `perfect`=gold(오직 100%), 나머지=ember.
+
+**배선 완료**: S-01 온보딩 히어로=`wave` · S-05 타이머 실행=`focus` · S-06 전환검증 게이트=`question` · **S-07 <100% 마감=`idle`(ember)** · S-08 일기=`goodnight` · S-12 로그인·S-13 회원가입=`wave` · **S-14 완벽한 하루(100%)=`perfect`(gold)** · **S-15 빈 기록=`rest`(slate)**. 와이어플로우(`docs/wireframe.html`)에 심지 through-line(상태 맵·F0/F3 반영) 적용. 미배선 표현(`success`·`loading`·`reassure`·`oops`·`peek`·`sleepy`·`wow`·`empty`·`thinking`)은 토스트·오버레이·로딩·에러·알림·빈상태 등 동적 UI 전용 — 실제 앱 구현 시 상태별 배선.
 
 ## 9. Accessibility
 
@@ -127,3 +133,5 @@ sky `#5B9BD5` · mint `#3FB58F` · coral `#EF7C66` · violet `#9B7EDE` · rose `
 | 2026-07-05 | --gold-ink/--ember-ink 신설, 13px 수치 ink 필수 | 재감사 F-103/106 — 소형 텍스트 대비 AA 미달 해소 |
 | 2026-07-05 | 마스코트 '심지(Simji)' 정식 채택 — 마스코트 금지 조항 해제 | 사용자 지시("좀 더 귀여운 캐릭터"). 두 차례 시안(계기형 6종→기각, 크리처형 6종) 판정 후 선택. 클레이 재질·팔레트·§5 밴딩 준수(하트-젬 slate→ember→gold), 보상·온보딩·빈 화면 전용 |
 | 2026-07-05 | 심지 3-상태 배선 + S-14·S-15 신규 화면 | 87% 마감(S-07)에 gold 금지(§5) → 100% 보상은 S-14(완벽한 하루)로 분리, 빈 화면은 S-15(rest), S-07은 ember. 와이어플로우에 심지 through-line 반영 (사용자 선택) |
+| 2026-07-06 | 심지 표현 14종 추가 + 배선 확장 (S-01 idle→wave, S-05 focus·S-06 question·S-08 goodnight·S-12/13 wave·S-14 gold→perfect) | 사용자 지시로 표현 세트 생성·u2net 누끼. §5 밴딩 유지(perfect=gold·empty/reassure=slate). §8 인벤토리/사용처 갱신 |
+| 2026-07-07 | 대비 재감사 — `--text-muted` #8A8171→#726A5A, `--slate-ink #4E6480` 신설, S-07 시간대 막대 밴딩 수정 | 소형 muted/slate 텍스트 AA<4.5:1(§9 자기위반) 해소, S-07 막대 70%·60%를 edge(미기록)로 칠하던 §5 밴딩 오류 정정(70=ember·60=slate) |

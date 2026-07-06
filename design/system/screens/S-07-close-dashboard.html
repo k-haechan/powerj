@@ -46,14 +46,14 @@
   .fail-row .heat-bar { height: 8px; }
   .fail-row .f-cnt { font-family: var(--font-num); font-size: 12px; color: var(--slate); text-align: right; }
 
-  /* 시간대별 — 둥근 세로 막대: ember, 100%만 gold, 저달성은 edge */
+  /* 시간대별 — 둥근 세로 막대: §5 밴딩 준수 — 100%=gold · ≥70%=ember · <70%=slate */
   .bars { display: flex; align-items: flex-end; gap: 8px; height: 78px; margin-top: var(--sp-sm); }
   .bars i {
     flex: 1; min-height: 10px; border-radius: var(--radius-full);
     background: linear-gradient(180deg, var(--ember-hot), var(--ember));
   }
   .bars i.is-gold { background: var(--gold); }
-  .bars i.low { background: var(--edge); }
+  .bars i.cool { background: var(--slate); }
   .bars-x { display: flex; gap: 8px; margin-top: 6px; }
   .bars-x span { flex: 1; font-family: var(--font-num); font-size: 9px; color: var(--text-faint); text-align: center; }
 </style>
@@ -150,11 +150,11 @@
     <div class="bars" role="img" aria-label="시간대별 달성률: 5시 100%, 7시 90%, 8시 70%, 9시 95%, 12시 96%, 14시 90%, 19시 60%, 21시 91%">
       <i class="is-gold" style="height: 100%"></i>
       <i style="height: 90%"></i>
-      <i class="low" style="height: 70%"></i>
+      <i style="height: 70%"></i>
       <i style="height: 95%"></i>
       <i style="height: 96%"></i>
       <i style="height: 90%"></i>
-      <i class="low" style="height: 60%"></i>
+      <i class="cool" style="height: 60%"></i>
       <i style="height: 91%"></i>
     </div>
     <div class="bars-x" aria-hidden="true">

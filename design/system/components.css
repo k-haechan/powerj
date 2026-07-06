@@ -19,9 +19,9 @@
 .screen-head { padding-top: var(--sp-lg); }
 .overline {
   font-family: var(--font-num); font-size: var(--text-micro);
-  letter-spacing: .1em; color: var(--ember); text-transform: uppercase; font-weight: 600;
+  letter-spacing: .1em; color: var(--ember-ink); text-transform: uppercase; font-weight: 600;
 }
-.overline.info { color: var(--slate); }
+.overline.info { color: var(--slate-ink); }
 h1.title { font-size: var(--text-h1); font-weight: 800; letter-spacing: -.02em; margin-top: var(--sp-xs); }
 .sub { font-size: var(--text-caption); color: var(--text-muted); margin-top: var(--sp-xs); }
 
@@ -82,7 +82,7 @@ ol.tl { list-style: none; padding-left: 0; margin-bottom: 0; }
 .tl-card .end .pct { font-family: var(--font-num); font-size: 13px; font-weight: 600; }
 .pct.hot  { color: var(--ember-ink); }
 .pct.gold { color: var(--gold-ink); }
-.pct.cool { color: var(--slate); }
+.pct.cool { color: var(--slate-ink); }
 .tl-item.now .tl-card { box-shadow: 0 0 0 2px var(--ember), var(--shadow-card); }
 .tl-item.dim .tl-card { background: var(--surface-2); box-shadow: none; }
 .tl-item.dim .name { color: var(--text-muted); font-weight: 600; }
@@ -154,7 +154,7 @@ ol.tl { list-style: none; padding-left: 0; margin-bottom: 0; }
 }
 .lrow:last-child { border-bottom: none; }
 .lrow .val { font-family: var(--font-num); font-weight: 600; font-size: 13px; }
-.val.hot { color: var(--ember-ink); } .val.cool { color: var(--slate); }
+.val.hot { color: var(--ember-ink); } .val.cool { color: var(--slate-ink); }
 .val.gold { color: var(--gold-ink); } .val.muted { color: var(--text-muted); }
 
 /* ---------- 폼 ---------- */
@@ -171,7 +171,7 @@ ol.tl { list-style: none; padding-left: 0; margin-bottom: 0; }
 .field .hint { font-size: 11.5px; color: var(--text-muted); margin-top: 6px; }
 /* 검증 실패도 데이터 — 빨강 금지, slate */
 .field.err input { border-color: var(--slate); }
-.field .err-msg { display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--slate); margin-top: 6px; font-weight: 600; }
+.field .err-msg { display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--slate-ink); margin-top: 6px; font-weight: 600; }
 
 .divider { display: flex; align-items: center; gap: 12px; margin: var(--sp-lg) 0 var(--sp-sm); font-size: 11px; color: var(--text-faint); }
 .divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: var(--edge); }
