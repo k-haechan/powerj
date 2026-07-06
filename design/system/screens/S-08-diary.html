@@ -39,16 +39,38 @@
     font-size: var(--text-micro); letter-spacing: .06em; color: var(--text-faint);
     display: flex; justify-content: flex-end;
   }
+
+  /* 심지 — 마감 굿나잇: 하루를 차분히 닫는 등불의 온기 (ember 나이트라이트) */
+  .diary-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+  .diary-head .htext { min-width: 0; }
+  .simji-night { position: relative; flex-shrink: 0; width: 66px; margin-top: 2px; }
+  .simji-night::before {
+    content: ''; position: absolute; z-index: 0; pointer-events: none;
+    left: 50%; top: 58%; transform: translate(-50%, -50%);
+    width: 74px; height: 56px;
+    background: radial-gradient(ellipse at center,
+      color-mix(in srgb, var(--ember) 15%, transparent) 0%,
+      color-mix(in srgb, var(--ember) 5%, transparent) 46%,
+      transparent 72%);
+  }
+  .simji-night img { position: relative; z-index: 1; width: 66px; height: auto; animation: simji-float 5s ease-in-out infinite; }
+  @keyframes simji-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+  @media (prefers-reduced-motion: reduce) { .simji-night img { animation: none; } }
 </style>
 </head>
 <body>
 <div class="screen">
   <div class="statusbar"><span>22:47</span><span>하루 마감 2/3</span></div>
 
-  <div class="screen-head">
-    <div class="overline">하루 마감</div>
-    <h1 class="title">오늘의 일기</h1>
-    <p class="sub">검증은 기계가 했다. 문장은 당신의 몫이다.</p>
+  <div class="screen-head diary-head">
+    <div class="htext">
+      <div class="overline">하루 마감</div>
+      <h1 class="title">오늘의 일기</h1>
+      <p class="sub">검증은 기계가 했다. 문장은 당신의 몫이다.</p>
+    </div>
+    <div class="simji-night">
+      <img src="../assets/mascot/simji-goodnight.png" alt="심지 — 하루를 차분히 닫는 굿나잇" width="66" height="66">
+    </div>
   </div>
 
   <div class="chips mode-chips" role="radiogroup" aria-label="일기 작성 방식">

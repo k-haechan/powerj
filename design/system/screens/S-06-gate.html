@@ -45,6 +45,19 @@
   .time-note { display: flex; justify-content: space-between; align-items: center; gap: var(--sp-sm); }
   .time-note .tlabel { font-size: 12.5px; font-weight: 600; color: var(--slate); }
   .time-note .tval { font-family: var(--font-num); font-size: 12.5px; font-weight: 600; color: var(--slate); }
+
+  /* 심지 — 검증 게이트 질문: '달성했나요?'를 건네는 동반자 (판단 아님, 확인) */
+  .gate-head .simji-ask { margin-left: auto; flex-shrink: 0; position: relative; width: 58px; align-self: center; }
+  .gate-head .simji-ask::before {
+    content: ''; position: absolute; z-index: 0; pointer-events: none;
+    left: 50%; top: 56%; transform: translate(-50%, -50%);
+    width: 64px; height: 50px;
+    background: radial-gradient(ellipse at center,
+      color-mix(in srgb, var(--ember) 15%, transparent) 0%, transparent 70%);
+  }
+  .gate-head .simji-ask img { position: relative; z-index: 1; width: 58px; height: auto; animation: simji-float 4.6s ease-in-out infinite; }
+  @keyframes simji-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+  @media (prefers-reduced-motion: reduce) { .gate-head .simji-ask img { animation: none; } }
 </style>
 </head>
 <body>
@@ -57,6 +70,9 @@
       <div class="overline">전환 검증</div>
       <h1 class="title">이동·출근, 얼마나 해냈나요?</h1>
       <p class="sub"><span class="num">08:00–09:02</span> · <span class="num">62</span>분 <span class="num">(+2분)</span></p>
+    </div>
+    <div class="simji-ask">
+      <img src="../assets/mascot/simji-question.png" alt="심지 — 목표를 달성했는지 묻는 표정" width="58" height="58">
     </div>
   </div>
 
